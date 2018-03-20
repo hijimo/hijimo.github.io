@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>记一张页面的加载 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="web前端优化–其一web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？ 一张最简单的网页 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt; &amp;lt;head&amp;gt;   &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt">
+<meta property="og:type" content="website">
+<meta property="og:title" content="记一张页面的加载">
+<meta property="og:url" content="http://yoursite.com/记一张页面的加载/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="web前端优化–其一web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？ 一张最简单的网页 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt; &amp;lt;head&amp;gt;   &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt">
+<meta property="og:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom.png?Expires=1521172316&OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&Signature=Gbr8zUuleDmoDYphZYE48vAvZ%2FY%3D">
+<meta property="og:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css.png">
+<meta property="og:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js.png?Expires=1521106836&OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&Signature=FtEwmS%2FF5sLV3StOpu%2BaYY2mG7k%3D">
+<meta property="og:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-jss.png?Expires=1521108570&OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&Signature=tXG9SB6I0M9fmReV6qyCMBkivT4%3D">
+<meta property="og:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js-preload.png?Expires=1521109743&OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&Signature=KCXs7taM0ZYdza9LYAQCmSK9vqU%3D">
+<meta property="og:updated_time" content="2018-03-17T08:01:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一张页面的加载">
+<meta name="twitter:description" content="web前端优化–其一web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？ 一张最简单的网页 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt; &amp;lt;head&amp;gt;   &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt">
+<meta name="twitter:image" content="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom.png?Expires=1521172316&OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&Signature=Gbr8zUuleDmoDYphZYE48vAvZ%2FY%3D">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/记一张页面的加载/index.html" class="article-date">
+  <time datetime="2018-03-15T07:31:57.000Z" itemprop="datePublished">2018-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      记一张页面的加载
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="web前端优化–其一"><a href="#web前端优化–其一" class="headerlink" title="web前端优化–其一"></a>web前端优化–其一</h2><p>web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。<br>但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？</p>
+<h3 id="一张最简单的网页"><a href="#一张最简单的网页" class="headerlink" title="一张最简单的网页"></a>一张最简单的网页</h3><pre><code class="html"> <span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">title</span>&gt;</span>hello word<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+  hello word
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+</code></pre>
+<p>当我们在浏览器里输入网址敲回车，浏览器就会去获取我们的html文件，在接收到服务器返回的内容之后就开始构建 dom（document object model），然后渲染页面到浏览器上。似乎很简单，事实上也很简单。（如下图示）</p>
+<p><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom.png?Expires=1521172316&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=Gbr8zUuleDmoDYphZYE48vAvZ%2FY%3D" alt="一张最简单的网页"></p>
+<h3 id="如果加上一个css"><a href="#如果加上一个css" class="headerlink" title="如果加上一个css"></a>如果加上一个css</h3><pre><code class="html"> <span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">title</span>&gt;</span>hello word<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"a.css"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+  hello word
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+</code></pre>
+<p>事实上，我们的网站可能还有一些css。当我们加上这些css之后，渲染过程又会发生变化呢？<br>浏览器获取html文件后开始一步步构建dom,解析过程中发现了link标记并发起了下载请求，然后继续构建dom。我们的html标识很少，所以很快就会构建完成。  此时，我们的css文件可能并没有下载完成，那么浏览器就不得不等待css的下载完成。在我们的css下载完成后，浏览器用css生成 cssom。最后再将dom 和 cssom 合成 渲染到浏览器。<br><br>好像变得稍微复杂了一点？浏览器渲染需要dom 和 cssom, css又需要下载和解析。在此这前浏览器都会是一片空白。需要强调的一点是虽然渲染dom、cssom是必须的，但是dom的构建是可以逐步的，而cssom却必须要全部构建完成才可以参与渲染。（过程如下图）<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css.png" alt="加一个css"></p>
+<h3 id="再加上js呢"><a href="#再加上js呢" class="headerlink" title="再加上js呢?"></a>再加上js呢?</h3><p>那么，我们再给这个网页加一个js文件吧，我们的网页越来越完整了。我们的浏览器又一次获取到了html,又一次勤勤勉勉的构建dom,又一次发现了link标记并发起了下载，又一次勤勤勉勉的继续构建，他发现了script标签。<br>浏览器暂停了构建dom,并发起了 <strong>同步</strong> 下载请求并准备执行。但是在执行js之前，我们的css还没有下载完成，我们必须先等css下载解析完成才能继续执行js。因为浏览器不知道js是否会操作css,必须等到cssom构建完成。等到js下载完成并执行完毕，浏览器继续构建dom，直到完成。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js.png?Expires=1521106836&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=FtEwmS%2FF5sLV3StOpu%2BaYY2mG7k%3D" alt="再加上js"></p>
+<h3 id="还会不会更复杂？"><a href="#还会不会更复杂？" class="headerlink" title="还会不会更复杂？"></a>还会不会更复杂？</h3><p>可是我们的页面上往往会有多个js（如下图）.当我们解析到第一个script的时候，浏览器阻止构建dom,并发起同步请求并下载a.js。等到a.js下载完成并执行完毕，浏览器发起b.js的下载请求，并执行b.js，再继续构建dom。<br>这种处理方式很明显的效率并不好。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-jss.png?Expires=1521108570&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=tXG9SB6I0M9fmReV6qyCMBkivT4%3D" alt="多个js"></p>
+<h3 id="预加载扫描器"><a href="#预加载扫描器" class="headerlink" title="预加载扫描器"></a>预加载扫描器</h3><p>还好，现代浏览器有一个特殊浏览，叫预加载扫描器（<a href="https://andydavies.me/blog/2013/10/22/how-the-browser-pre-loader-makes-pages-load-faster/" target="_blank" rel="noopener">详见</a>）。当浏览器被脚本阻塞时，第二个轻量级分析器会扫描剩余的标记以查找其他资源并发起下载，例如样式表，脚本，图像等。目的是当主HTML解析器到达它们时，它们可能已经被下载并且因此在页面中稍后减少阻塞。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js-preload.png?Expires=1521109743&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=KCXs7taM0ZYdza9LYAQCmSK9vqU%3D" alt="预加载"></p>
+<h3 id="http协议怎么说？"><a href="#http协议怎么说？" class="headerlink" title="http协议怎么说？"></a>http协议怎么说？</h3><p>在不同的http协议版本中，我们下载文件的方式可能还会有点不一样。</p>
+<ul>
+<li>在http1.0及之前，每一个http请求会打开一个tcp/ip连接，并且只有等上一个http请求处理完成之后才会处理下一步http请求。</li>
+<li>在http1.1时代引入了通道概念，tcp/ip连接可以被复用，一个tcp/ip可以处理多个http请求。但是，服务器依然只会在处理完成上一个Http请求之后才处理下一个http请求。</li>
+<li>http2时代一个域名只有一个tcp/ip连接，使用数据库传输，大大掉升了性能(<a href="http://localhost" target="_blank" rel="noopener">详见</a>)</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>最后我们来总结一下。</p>
+<ul>
+<li>浏览器渲染需要dom 和cssom</li>
+<li>dom可以逐步构建，但是cssom只能一次性完全构建完成才可以，所以尽快构建cssom是快速显示网页的关键。</li>
+<li>cssom的构建会阻止js的执行(js的执行需要cssom先构建完成)，js又会阻止dom的构建。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/记一张页面的加载/index.html" data-id="cjev50adz0000v43gham5hcf1" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/17/渲染速度的优化/">渲染速度的优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/17/记一张页面的加载/">记一张页面的加载</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

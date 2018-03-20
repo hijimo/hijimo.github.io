@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,123 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-图片优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/20/图片优化/" class="article-date">
+  <time datetime="2018-03-20T02:03:35.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/20/图片优化/">图片优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化其四-图片"><a href="#前端优化其四-图片" class="headerlink" title="前端优化其四 图片"></a>前端优化其四 图片</h2><p>图片是网页重要的一部分，设计师在设计网页的时候也经常通过图片来使网页更加的炫丽。随着计算机相关技术的发展，用户对图片的质量要求也在不断的上升，这意味着我们要给用户提供更棒的图片、更大的内存占用、更多的绘制cpu消耗。如果是移动设备，这些往往还意味着电池寿命。在许多网站中，图片都占去了它们大部分的加载带宽，图片也是网页性能中很大的一部分负担。好像，有必要给图片做一下优化了。</p>
+<h4 id="压缩图像内容的大小"><a href="#压缩图像内容的大小" class="headerlink" title="压缩图像内容的大小"></a>压缩图像内容的大小</h4><p>和大部分资源一样，首先应该使用压缩工具减小资源文件的大小，往往这是性价比最高的方式。但是和文本资源不同，图像资源的压缩也意味着图像质量可能有所损失。那么，合理的压缩策略就很重要了，不过度压缩、不重复压缩，还需要根据不同的图像文件格式设置不同的压缩方式。</p>
+<h4 id="只加载需要的图像"><a href="#只加载需要的图像" class="headerlink" title="只加载需要的图像"></a>只加载需要的图像</h4><p>不是每张图像资源都是必须被加载的，这会造成很大的带宽浪费和cpu、内存资源的浪费。一些没必要的图像资源应该被删掉，这可能是设计阶段就产生的，一些图片的存在可能对设计并没有什么意义。大部分现代浏览器对css3的支持都很不错，之前 使用图片实现的类似于渐变、图角、阴影之类的效果，可以使用css3去实现以减少图像资源的使用</p>
+<h4 id="删除图像元信息"><a href="#删除图像元信息" class="headerlink" title="删除图像元信息"></a>删除图像元信息</h4><p>大部分图像资源在生成时都会附加一些元信息，比如photoshop生成或者片理过的图片会附带Photoshop相关信息。使用手机或者相机拍摄的照片会携带设备信息、lng、lat等信息。这些信息可能对用户没有什么意思，却可能需要占用十几kb的文件大小。你可以选择删除这些信息，大部分的压缩工具都会默认选择删掉这些信息。</p>
+<h4 id="选择合适的尺寸"><a href="#选择合适的尺寸" class="headerlink" title="选择合适的尺寸"></a>选择合适的尺寸</h4><p>除去矢量图形，尺寸大小通常决定文件大小，选择合适的文件尺寸很重要。在大屏幕设备使用小图像会产生模糊失真，影响用户体验；在小屏幕使用大图像会生产像素压缩并且会消耗更高的cpu和内存资源。可以通过@media、srcset等方式给不同的设备配置不同的图像资源。</p>
+<h4 id="选择合适的颜色位深、色域"><a href="#选择合适的颜色位深、色域" class="headerlink" title="选择合适的颜色位深、色域"></a>选择合适的颜色位深、色域</h4><p>颜色位深和色域也是影响图像文件大小的一个重要参数。adobe Rgb 比sRgb包含了更多的颜色信息，在专业的屏幕上会有更好的表现效，普通用户的显示屏显然是无法展示这些信息的，使用sRgb比较合理。在photo shop 中保存 png的时候，可以勾选 小格式（8位），更低的颜色位深代表着更少的颜色，更小的文件大小，合理使用可以大符度减小文件大小。</p>
+<h4 id="合理使用缩略图"><a href="#合理使用缩略图" class="headerlink" title="合理使用缩略图"></a>合理使用缩略图</h4><p>缩略图往往只有很小的文件大小，可以很快的被获取、解析和绘制。合理的使用缩略图，只有用户需要的时候才显示尺寸合适的图片，可以给网页性能带来很大的提升。</p>
+<h4 id="选择合适的文件格式"><a href="#选择合适的文件格式" class="headerlink" title="选择合适的文件格式"></a>选择合适的文件格式</h4><p>图像资源是一种复杂的文件格式，也有很多流行的图像文件格式，每种格式都有他们自身的特点，应该合理的使用他们。<br>常见的格式：</p>
+<ul>
+<li>gif 支持动画、仅支持256色、文件较大、支持透明、浏览器兼容良好，几乎是目前唯一的动画选择（在pc端，你可以选择使用视频代替）</li>
+<li>jpeg 不支持动画、色域广、不支持透明、高压缩比、浏览器兼容良好、文件大小视压缩比而定，一般可以在保证良好的图片质量上保持不错的文件大小。</li>
+<li>png 不支持动画、色域广、支持透明、浏览器兼容良好、文件大小视颜色信息而定，一般情况下比jpeg稍大。</li>
+<li>webp 支持动画、色域广、支持透明、浏览兼容一般、文件大小同质量小于jpeg。先进的文件格式，上前仅有chrome等浏览器支持，详见caniuse</li>
+<li>svg 矢量图像、xml描述、不支持透明、文件较小、浏览器兼容良好，xml描述代表着他可以被gzip。使用广泛，目前流行使用svg图标代替传统图标。</li>
+</ul>
+<h4 id="延时加载"><a href="#延时加载" class="headerlink" title="延时加载"></a>延时加载</h4><p>虽然优先级比较低，但是在dom树生成的时候就会发出图像的下载请求。这些图片可能并不需要立即被显示，或者他们可能等不到用户注意到他们就要被销毁。立即加载这些图片并不是一个明智的选择，可以使用类似于lazysizes之类的lib实现图片即将进入用户视野时再加载图像资源。</p>
+<h4 id="预加载图像"><a href="#预加载图像" class="headerlink" title="预加载图像"></a>预加载图像</h4><p>有一些图像资源可能非常重要需要第一时间被加载，如：logo。可以使用preload 来加载这些图片。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">as</span>=<span class="string">"image"</span> <span class="attr">href</span>=<span class="string">"logo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="图像-sprite"><a href="#图像-sprite" class="headerlink" title="图像 sprite"></a>图像 sprite</h4><p>在http1.1和以下协议版本中，过多的http请求是被认为是消耗性能的。在我们的网页中可能有很多细小的图像资源文件需要加载，他们小而多却又不得不加载。好在我们可以使用css sprite技术来解决这个问题：将这些细小的图片合成一些图片，通过 css的 background-position、background-size 来定位使用的图片区域。</p>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>图像资源的缓存十分重要，由于图像被修改的可能性比较小。我们甚至可以使用非常久的max-age,配合文件指纹来实现高效的图像缓存，详见 http缓存。</p>
+<h4 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h4><p>和文本资源一样，这些优化都是可以自动化执行的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/20/图片优化/" data-id="cjez0lshq0001qz3gmn0l5s42" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-http缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/20/http缓存/" class="article-date">
+  <time datetime="2018-03-20T01:36:26.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/20/http缓存/">http缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化-其三-http-缓存"><a href="#前端优化-其三-http-缓存" class="headerlink" title="前端优化 其三 http 缓存"></a>前端优化 其三 http 缓存</h2><p>我们每一次打开网页，都需要获取比如js、css、图像、字体等各种资源。如果每一次都从网络上下载，显示并不是一个理智的选择。http 缓存提供了一种机制，浏览器首次加载<br>网页时，会将页面资源存储在 HTTP缓存中。当浏览器下次访问该页面时，它可以在缓存中查找以前获取的资源并从磁盘检索它们，这通常比从网络上下载资源要快。合理的利用http 缓存，可以使你的网站再次被访问时的渲染速度大大提高。</p>
+<h3 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a>cache-control</h3><p>cache-control  是http1.1 协议中定义在header头里用来告诉浏览器和服务器对缓存机制的支持情况，通过给他设置不同的值来定义缓存策略。</p>
+<p>常用的值如下：（详见：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control" target="_blank" rel="noopener">mdn cache-control</a>）</p>
+<ul>
+<li>no-store 禁止缓存，每一次请求都向服务器重新获取资源</li>
+<li>no-cache 每次请求，服务器会验证缓存是否过期;若过期重新发送资源，否则使用本地<br>缓存</li>
+<li>public 表示该响应可以被任何中间（比如中间代理、CDN等）缓存。</li>
+<li>private 表示该响应专只能应用于游览器私有缓存</li>
+<li>max-age 设置缓存存储的最大周期，超过这个时间缓存被认为过期(单位秒)。与Expires相反，时间是相对于请求的时间。</li>
+<li>s-maxage 覆盖max-age 或者 Expires 头，但是仅适用于共享缓存(比如各个代理、cdn)，并且私有缓存中它被忽略。</li>
+</ul>
+<p>使用缓存策略不应该是盲目的。</p>
+<ul>
+<li>或者我们应该先想想该资源是不是应该被缓存,不缓存就 no-store。</li>
+<li>如果这是一个应该缓存的信息，那么他是该private 还是public？</li>
+<li>接下来我们还要给它设置 max-age, 告诉浏览器资源多久才会过期。</li>
+<li>最后我们可能还需要给资源加一个版本标识ETAG</li>
+</ul>
+<h3 id="ETAG"><a href="#ETAG" class="headerlink" title="ETAG"></a>ETAG</h3><p>ETag HTTP响应头是资源的特定版本的标识符。这可以让缓存更高效，并节省带宽，因为如果内容没有改变，Web服务器不需要发送完整的响应。而如果内容发生了变化，使用ETag有助于防止资源的同时更新相互覆盖（“空中碰撞”）。</p>
+<p>对于无法从文件名或者链接上加指纹的资源。这往往很有用，例如 .html。</p>
+<h3 id="vary"><a href="#vary" class="headerlink" title="vary"></a>vary</h3><p>Vary 是一个HTTP响应头部信息，它决定了对于未来的一个请求头，应该用一个缓存的回复(response)还是向源服务器请求一个新的回复。它被服务器用来表明在 content negotiation algorithm（内容协商算法，<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation" target="_blank" rel="noopener">详见</a>）中选择一个资源代表的时候应该使用哪些头部信息（headers）.</p>
+<p>有点饶，举个经典的例子：比较老的浏览器是不支持gzip压缩的，如果我们向旧的浏览器发送gzip后的资源，旧浏览器没有办法解压缩并显示，那么就会出问题。这样子的话我们就可能需要使用同一个url向不同的浏览器发送不同版本的资源。如果我们使用了cdn,很可能资源请求都不会到达资源服务器，直接从cdn缓存服务器上获取资源。那么，cdn缓存服务器就必须同时缓存gzip版本、未gzip版本，同时有一个机制告诉他，应该使用哪一个缓存版本。通过指定 vary:Accpet-Encoding header头，缓存浏览器根据http request header 头Accpet-Encoding来判断返回浏览器合适的版本。<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary" target="_blank" rel="noopener">vary具体详见</a>。</p>
+<h3 id="文件指纹"><a href="#文件指纹" class="headerlink" title="文件指纹"></a>文件指纹</h3><p>浏览器发出的所有 HTTP 请求会首先路由到浏览器缓存，以确认是否缓存了可用于满足请求的有效响应。如果有匹配的响应，则从缓存中读取响应，这样就避免了网络延迟和传送产生的流量费用。</p>
+<p>现实中往往可能发生错误的资源被用户缓存，例如：粗心的设计师弄错了图片上的文字。但是该资源还有30天才能过期，那么我们有办法替换掉用户的资源吗？答案是否定的，没有办法。</p>
+<p>好在我们可以通过更改资源的链接地址，来让浏览器认为是一个新的资源。例如：将资源a.css改成a.xadf2.css。可以通过webpack等前端构建工具方便的实现这些功能，并且都是全自动化的，不需要开发人员付出额外的工作。这样子的话，我们甚至可以将缓存时间设置为长久(max-age最大缓存时间是1年)，大大提高缓存利用率。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/20/http缓存/" data-id="cjeyzmkpi0000qz3gt6u839td" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-渲染速度的优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -133,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,7 +295,7 @@
 <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
 </code></pre>
 <p>当我们在浏览器里输入网址敲回车，浏览器就会去获取我们的html文件，在接收到服务器返回的内容之后就开始构建 dom（document object model），然后渲染页面到浏览器上。似乎很简单，事实上也很简单。（如下图示）</p>
-<p><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom.png?Expires=1521172316&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=Gbr8zUuleDmoDYphZYE48vAvZ%2FY%3D" alt="一张最简单的网页"></p>
+<p><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom.png" alt="一张最简单的网页"></p>
 <h3 id="如果加上一个css"><a href="#如果加上一个css" class="headerlink" title="如果加上一个css"></a>如果加上一个css</h3><pre><code class="html"> <span class="meta">&lt;!DOCTYPE html&gt;</span>
 <span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
 <span class="tag">&lt;<span class="name">head</span>&gt;</span>
@@ -192,9 +309,9 @@
 <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
 </code></pre>
 <p>事实上，我们的网站可能还有一些css。当我们加上这些css之后，渲染过程又会发生变化呢？<br>浏览器获取html文件后开始一步步构建dom,解析过程中发现了link标记并发起了下载请求，然后继续构建dom。我们的html标识很少，所以很快就会构建完成。  此时，我们的css文件可能并没有下载完成，那么浏览器就不得不等待css的下载完成。在我们的css下载完成后，浏览器用css生成 cssom。最后再将dom 和 cssom 合成 渲染到浏览器。<br><br>好像变得稍微复杂了一点？浏览器渲染需要dom 和 cssom, css又需要下载和解析。在此这前浏览器都会是一片空白。需要强调的一点是虽然渲染dom、cssom是必须的，但是dom的构建是可以逐步的，而cssom却必须要全部构建完成才可以参与渲染。（过程如下图）<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css.png" alt="加一个css"></p>
-<h3 id="再加上js呢"><a href="#再加上js呢" class="headerlink" title="再加上js呢?"></a>再加上js呢?</h3><p>那么，我们再给这个网页加一个js文件吧，我们的网页越来越完整了。我们的浏览器又一次获取到了html,又一次勤勤勉勉的构建dom,又一次发现了link标记并发起了下载，又一次勤勤勉勉的继续构建，他发现了script标签。<br>浏览器暂停了构建dom,并发起了 <strong>同步</strong> 下载请求并准备执行。但是在执行js之前，我们的css还没有下载完成，我们必须先等css下载解析完成才能继续执行js。因为浏览器不知道js是否会操作css,必须等到cssom构建完成。等到js下载完成并执行完毕，浏览器继续构建dom，直到完成。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js.png?Expires=1521106836&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=FtEwmS%2FF5sLV3StOpu%2BaYY2mG7k%3D" alt="再加上js"></p>
-<h3 id="还会不会更复杂？"><a href="#还会不会更复杂？" class="headerlink" title="还会不会更复杂？"></a>还会不会更复杂？</h3><p>可是我们的页面上往往会有多个js（如下图）.当我们解析到第一个script的时候，浏览器阻止构建dom,并发起同步请求并下载a.js。等到a.js下载完成并执行完毕，浏览器发起b.js的下载请求，并执行b.js，再继续构建dom。<br>这种处理方式很明显的效率并不好。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-jss.png?Expires=1521108570&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=tXG9SB6I0M9fmReV6qyCMBkivT4%3D" alt="多个js"></p>
-<h3 id="预加载扫描器"><a href="#预加载扫描器" class="headerlink" title="预加载扫描器"></a>预加载扫描器</h3><p>还好，现代浏览器有一个特殊浏览，叫预加载扫描器（<a href="https://andydavies.me/blog/2013/10/22/how-the-browser-pre-loader-makes-pages-load-faster/" target="_blank" rel="noopener">详见</a>）。当浏览器被脚本阻塞时，第二个轻量级分析器会扫描剩余的标记以查找其他资源并发起下载，例如样式表，脚本，图像等。目的是当主HTML解析器到达它们时，它们可能已经被下载并且因此在页面中稍后减少阻塞。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js-preload.png?Expires=1521109743&amp;OSSAccessKeyId=TMP.AQEKyC_ZvG7MmySITryMyv4jmqsZY5TXpQDcesKU__CSCb67H0PlX95sfC_YAAAwLAIUb7bisgBLfQCTYTntMja6LkSL4nICFCr3_7YkaGCNSxgeyPguT6lSJohE&amp;Signature=KCXs7taM0ZYdza9LYAQCmSK9vqU%3D" alt="预加载"></p>
+<h3 id="再加上js呢"><a href="#再加上js呢" class="headerlink" title="再加上js呢?"></a>再加上js呢?</h3><p>那么，我们再给这个网页加一个js文件吧，我们的网页越来越完整了。我们的浏览器又一次获取到了html,又一次勤勤勉勉的构建dom,又一次发现了link标记并发起了下载，又一次勤勤勉勉的继续构建，他发现了script标签。<br>浏览器暂停了构建dom,并发起了 <strong>同步</strong> 下载请求并准备执行。但是在执行js之前，我们的css还没有下载完成，我们必须先等css下载解析完成才能继续执行js。因为浏览器不知道js是否会操作css,必须等到cssom构建完成。等到js下载完成并执行完毕，浏览器继续构建dom，直到完成。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js.png" alt="再加上js"></p>
+<h3 id="还会不会更复杂？"><a href="#还会不会更复杂？" class="headerlink" title="还会不会更复杂？"></a>还会不会更复杂？</h3><p>可是我们的页面上往往会有多个js（如下图）.当我们解析到第一个script的时候，浏览器阻止构建dom,并发起同步请求并下载a.js。等到a.js下载完成并执行完毕，浏览器发起b.js的下载请求，并执行b.js，再继续构建dom。<br>这种处理方式很明显的效率并不好。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-jss.png" alt="多个js"></p>
+<h3 id="预加载扫描器"><a href="#预加载扫描器" class="headerlink" title="预加载扫描器"></a>预加载扫描器</h3><p>还好，现代浏览器有一个特殊浏览，叫预加载扫描器（<a href="https://andydavies.me/blog/2013/10/22/how-the-browser-pre-loader-makes-pages-load-faster/" target="_blank" rel="noopener">详见</a>）。当浏览器被脚本阻塞时，第二个轻量级分析器会扫描剩余的标记以查找其他资源并发起下载，例如样式表，脚本，图像等。目的是当主HTML解析器到达它们时，它们可能已经被下载并且因此在页面中稍后减少阻塞。<br><img src="http://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/analysis-dom-css-js-preload.png" alt="预加载"></p>
 <h3 id="http协议怎么说？"><a href="#http协议怎么说？" class="headerlink" title="http协议怎么说？"></a>http协议怎么说？</h3><p>在不同的http协议版本中，我们下载文件的方式可能还会有点不一样。</p>
 <ul>
 <li>在http1.0及之前，每一个http请求会打开一个tcp/ip连接，并且只有等上一个http请求处理完成之后才会处理下一步http请求。</li>
@@ -211,52 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/记一张页面的加载/" data-id="cjev5am300000vn3gu4yhr2qk" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/17/hello-world/" class="article-date">
-  <time datetime="2018-03-17T08:01:24.000Z" itemprop="datePublished">2018-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/hello-world/" data-id="cjev50aec0001v43gf99pmmmf" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/03/17/记一张页面的加载/" data-id="cjev5am300000vn3gu4yhr2qk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -282,7 +354,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
     </div>
@@ -292,9 +364,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/20/图片优化/">图片优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/http缓存/">http缓存</a>
+          </li>
         
           <li>
             <a href="/2018/03/17/渲染速度的优化/">渲染速度的优化</a>
@@ -302,10 +382,6 @@
         
           <li>
             <a href="/2018/03/17/记一张页面的加载/">记一张页面的加载</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/17/hello-world/">Hello World</a>
           </li>
         
       </ul>

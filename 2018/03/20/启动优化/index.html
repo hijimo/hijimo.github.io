@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>启动优化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="启动优化">
+<meta property="og:url" content="http://yoursite.com/2018/03/20/启动优化/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png">
+<meta property="og:updated_time" content="2018-03-20T10:27:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="启动优化">
+<meta name="twitter:description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+<meta name="twitter:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/20/启动优化/" class="article-date">
+  <time datetime="2018-03-20T09:19:18.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      启动优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="javascript优化"><a href="#javascript优化" class="headerlink" title="javascript优化"></a>javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
+<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。</p>
+<p>反过来想，如果我们传输了150k的js文件，这很常见。代表着unGzip之后这些代码将有750kb~1M左右。</p>
+<p>在篇二中，我们努力的优化了页面的首屏渲染，尽快的让浏览器看起来不是一片空白，而是有内容画在上面。但是在js解析完成之前，我们努力优化得到的只是一个不可交互的 ‘网页’ 而已。这看起来并不完美。</p>
+<p>随着这几年组件化开发的流行，在相关js库解析完成之前，我们的组件系统可能并没有办法成功的渲染出来。这看起来十分不完美。（可以通过预渲染和服务器渲染来解决）</p>
+<h4 id="javascript好可怕"><a href="#javascript好可怕" class="headerlink" title="javascript好可怕"></a>javascript好可怕</h4><p>从dom解析到script标签时，便会暂停dom树的构建并执行，这期间可能会发生：</p>
+<ul>
+<li>发起请求（包括dns,tcp,http的），解压缩(unGzip)</li>
+<li>解析和编译JS的顶级函数</li>
+<li>执行脚本</li>
+</ul>
+<p>在最后一步 执行脚本 完成之前，我们的网页几乎是不可交互的。script的执行是发生在主线程上，这意味着他会阻止ui。uhm，就是说我们连下拉一下滚动条都做不到了，真过分。如果你的script复杂无比，花费了1分钟还没有执行完成，浏览器可能就会漰溃了。</p>
+<h4 id="有一个小例子"><a href="#有一个小例子" class="headerlink" title="有一个小例子"></a>有一个小例子</h4><p><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png" alt="性能加载图"></p>
+<p>我截取了一个不大知名的网站的加载性能图，执行机器是一台普通的办公用pc。黄色的是script执行时间，占据了1200ms之多，这个网站的的脚本文件大小是170k左右（文件大小不代表执行时间）。数据看起来非常的夸张，如果不需要执行这些脚本，我们可能只需要220ms左右就完成了网页的加载。</p>
+<h4 id="需要这么多脚本吗"><a href="#需要这么多脚本吗" class="headerlink" title="需要这么多脚本吗"></a>需要这么多脚本吗</h4><p>好像并不是很需要阿？？？是哦，是的吧。</p>
+<h4 id="怎么去优化它"><a href="#怎么去优化它" class="headerlink" title="怎么去优化它"></a>怎么去优化它</h4><p>解析/执行js脚本这花费时间，或许我们可以减少要执行的js脚本、减少被执行脚本的复杂度、分批次去执行脚本？好像都可以的样子。</p>
+<ul>
+<li>通过代码分割工具，只使用尽量少的代码。你可以通过webpack来实现它</li>
+<li>懒加载非关键的代码，这可以通过异步，也可以是把脚本直接扔到模板里。</li>
+<li>删除不使用的代码，使用chrome devtools代码覆盖率来删除不使用的代码<a href="https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage" target="_blank" rel="noopener">详见</a></li>
+<li>使用 closure Complier。幸运的是，很多js压缩工具里已经集成了它。<a href="!https://developers.google.com/closure/compiler/">详见</a></li>
+<li>推迟复杂代码块的执行，使用setTimeout requestAnimationFrame等。</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>以上测试都来自pc，移动设备往往代表着更差的cpu计算和更差的网络。应该重视javascript执行所带来的性能成本。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/20/启动优化/" data-id="cjezb9e3r00003r3gisl2bkdu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/20/图片优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">图片优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/20/启动优化/">启动优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/图片优化/">图片优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/http缓存/">http缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/17/渲染速度的优化/">渲染速度的优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/17/记一张页面的加载/">记一张页面的加载</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

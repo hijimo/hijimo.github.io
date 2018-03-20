@@ -7,16 +7,16 @@
   
   <title>渲染速度的优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树  假如我们有一个demo 12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;htm">
+  <meta name="description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="渲染速度的优化">
 <meta property="og:url" content="http://yoursite.com/2018/03/17/渲染速度的优化/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树  假如我们有一个demo 12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;htm">
-<meta property="og:updated_time" content="2018-03-17T22:51:58.000Z">
+<meta property="og:description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树">
+<meta property="og:updated_time" content="2018-03-20T06:22:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渲染速度的优化">
-<meta name="twitter:description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树  假如我们有一个demo 12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;htm">
+<meta name="twitter:description" content="web前端优化–其二继接篇一，在页面上渲染内容有几个必要条件  完成html页面的下载 部分完成或者完整完成dom树的构建 完整的构建cssom树  如果我们想更快的让页面上显示内容，那么我们可能需要  加快html页面的下载 尽快的完成部分的dom树 尽快的构建完成的cssom树">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -95,7 +95,8 @@
 <ul>
 <li>加快html页面的下载</li>
 <li>尽快的完成部分的dom树</li>
-<li>尽快的构建完成的cssom树</li>
+<li>尽快的构建完成的cssom树<a id="more"></a>
+</li>
 </ul>
 <p>假如我们有一个demo</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span>  <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"a.css"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"b.css"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"home.js"</span> <span class="attr">type</span>=<span class="string">"javascript/text"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -135,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,7 +146,7 @@
 <nav id="article-nav">
   
     <a href="/2018/03/20/http缓存/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           http缓存
@@ -155,7 +156,7 @@
   
   
     <a href="/2018/03/17/记一张页面的加载/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">记一张页面的加载</div>
     </a>
   
@@ -178,7 +179,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
     </div>
@@ -188,9 +189,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/20/启动优化/">启动优化</a>
+          </li>
         
           <li>
             <a href="/2018/03/20/图片优化/">图片优化</a>

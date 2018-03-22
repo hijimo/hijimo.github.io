@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动设备的性能分析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在移动设备上调试网页浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。 准备工作我们可能需要做一些准备  一台安卓设备 一根usb连接线 在你的pc上安装chrome浏览器 在你的安卓设备上安卓chrome浏览器  开发者模式拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动设备的性能分析">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/移动设备的性能分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在移动设备上调试网页浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。 准备工作我们可能需要做一些准备  一台安卓设备 一根usb连接线 在你的pc上安装chrome浏览器 在你的安卓设备上安卓chrome浏览器  开发者模式拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322143159.png">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/anroid_debug.jpg">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect1.jpg">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect2.jpg">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect_ios.jpg">
+<meta property="og:updated_time" content="2018-03-22T10:30:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动设备的性能分析">
+<meta name="twitter:description" content="在移动设备上调试网页浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。 准备工作我们可能需要做一些准备  一台安卓设备 一根usb连接线 在你的pc上安装chrome浏览器 在你的安卓设备上安卓chrome浏览器  开发者模式拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本">
+<meta name="twitter:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322143159.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-移动设备的性能分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/移动设备的性能分析/" class="article-date">
+  <time datetime="2018-03-22T10:30:26.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动设备的性能分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在移动设备上调试网页"><a href="#在移动设备上调试网页" class="headerlink" title="在移动设备上调试网页"></a>在移动设备上调试网页</h2><p>浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。</p>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>我们可能需要做一些准备</p>
+<ul>
+<li>一台安卓设备</li>
+<li>一根usb连接线</li>
+<li>在你的pc上安装chrome浏览器</li>
+<li>在你的安卓设备上安卓chrome浏览器</li>
+</ul>
+<h4 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h4><p>拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本号7次开启开发者模式。不同的手机可能进入路径不同，请看设备说明书或者网络搜索。</p>
+<h4 id="允许使用usb调试"><a href="#允许使用usb调试" class="headerlink" title="允许使用usb调试"></a>允许使用usb调试</h4><p>开启开发者模式的设备。让我们使用usb连接线把安卓设备连接到pc,你会看到 是否允许usb调试的 询问，请点击是。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322143159.png" alt="allow debug"></p>
+<h4 id="连接调试设备"><a href="#连接调试设备" class="headerlink" title="连接调试设备"></a>连接调试设备</h4><p>在pc上打开Chrome 浏览器，并在地址栏输入 chrome://inspect回车。稍等几秒，我们就可以在Remote target 下看到我们的设备，如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/anroid_debug.jpg" alt="android debug"></p>
+<p>如果你在Remote target里看不到你的设备，你可能需要检查一下开发者模式是启开发、是否允许usb调试。有一些设备，你可能还需要自己安装设备的驱动程序。</p>
+<h4 id="开始调试"><a href="#开始调试" class="headerlink" title="开始调试"></a>开始调试</h4><p>一切准备就绪，让我们开始真机调试吧。拿出我们的安卓设备，打开chrome并输入v2ex.com。我们的Remote target 列表好像有一些变化。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect1.jpg" alt="inspect1"></p>
+<p>刚刚我们在手机端输入的v2ex.com出现在了remote target 下。点击一下inspect试试<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect2.jpg" alt="inspect2"></p>
+<p>跳出了chrome devTools工具，并且还有实时的屏幕同步-预览。现在我们可以像在pc上调试一样去调试我们网页在设备上的表现了。请保持你的设备屏幕激活，锁屏状态下无法实时同步屏幕。</p>
+<p>遗憾的是，目前只支持在手机chrome上使用这个功能。很多手机自带的浏览器、微信浏览器并不支持。</p>
+<h4 id="ios上调试"><a href="#ios上调试" class="headerlink" title="ios上调试"></a>ios上调试</h4><p>调试ios设备比起安卓设备会复杂许多。</p>
+<ol>
+<li>在你的ios设备上开启 web inspect。 设置–&gt; safari –&gt; 高级 – &gt; web 检查器(Settings &gt; Safari &gt; Advanced &gt; Web Inspector)<br><a href="https://github.com/google/ios-webkit-debug-proxy" target="_blank" rel="noopener">https://github.com/google/ios-webkit-debug-proxy</a></li>
+<li><p>安装 ios_webkit_debug_proxy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew unlink libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew uninstall --force libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew install --HEAD libimobiledevice</span><br><span class="line">brew install --HEAD ios-webkit-debug-proxy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装最新版 adapter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install remotedebug-ios-webkit-adapter -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接你的Ios设备和mac,并在ios设备上选择信任。</p>
+</li>
+<li>运行 adapter 命令 <code>remotedebug_ios_webkit_adapter --port=9000</code></li>
+<li>在ios里打开safari,输入地址v2ex.com</li>
+<li>打开chrome,输入 chrome://inspect.</li>
+<li>使用时记得关闭代理软件并且保证手机和电脑处一并一局域网。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect_ios.jpg" alt="inspct_ios"><br>一切看起来都和安卓一样~。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/移动设备的性能分析/" data-id="cjf2dlb9s0002j23gqg7u4j6t" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/22/开始性能优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">开始性能优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/开始性能优化/">开始性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/渲染优化/">渲染优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/启动优化/">启动优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/图片优化/">图片优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

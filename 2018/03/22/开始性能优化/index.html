@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>开始性能优化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开始性能优化吧现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。 chrome devToolschrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样 performance重点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开始性能优化">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/开始性能优化/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="开始性能优化吧现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。 chrome devToolschrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样 performance重点">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo.jpg">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo2.jpg">
+<meta property="og:updated_time" content="2018-03-22T10:30:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开始性能优化">
+<meta name="twitter:description" content="开始性能优化吧现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。 chrome devToolschrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样 performance重点">
+<meta name="twitter:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/开始性能优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:56.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      开始性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="开始性能优化吧"><a href="#开始性能优化吧" class="headerlink" title="开始性能优化吧"></a>开始性能优化吧</h2><p>现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。</p>
+<h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"></p>
+<h4 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h4><p>重点来看看 performance 面板，performance面板非常详细的记录了浏览器渲染过程中的每一个步骤，包含大量有用的信息。简单图示一下，同时这也是一个demo。得到这样的一个性能分析十分简单，只需要在你的网页上打开chrome devtools切换到performance点击刷新按钮(自动录制)等待几秒钟即可。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo.jpg" alt="performance demo"></p>
+<p>uhm….信息量是真的好大阿，这么多信息究竟该注意哪里。首先看一下概览图，概览图简要的显示浏览器渲染网页在各个过程中的性能消耗比例。有必要关注一下这些颜色</p>
+<ul>
+<li>蓝色表示html正在被解析，一般不大存在性能问题</li>
+<li>黄色表示javascript编译/执行。</li>
+<li>紫色表示 Recalculate Style 和layout。</li>
+<li>绿色表示 paint、Composite。<br>看看我们的demo:loading(48.3)、scripting(890)、rendering(1492)、painting(45.7)、other(270)、idle(355.6)。看来浏览器在scripting、rendering花费了大量的时间。</li>
+</ul>
+<p>让我们回到fps/cpu 区块上看，分析给我们划了很多警告，红色的方条。这些都表示性能有着严重的问题。拖动滑块选中这块红色区域，分析器会将分析范围缩到这个区间。</p>
+<p>继续往下看，网络区间里有两个黄色的项，鼠标移上去你会发现他们花费了1s多的时间去下载，可能需要我们注意一下。<br>再往下看，我们来看看 main。这是浏览器渲染过程的一部分，又看到了很多红色的三角形。浏览器又给我们发出了警告。鼠标点击其中的某一项。下方的Event log详细的列出了这段时间内发生了什么。看我们的demo，这段脚本触发了浏览器的layout，看来这是一个比较复杂的layout,足足消耗了507.3ms，怪不得游览器要向我们发出警告了。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo2.jpg" alt="performance_demo2"></p>
+<h4 id="移动设备的性能分析"><a href="#移动设备的性能分析" class="headerlink" title="移动设备的性能分析"></a>移动设备的性能分析</h4><p>详见移动设备性能分析</p>
+<h4 id="在线性能评分工具"><a href="#在线性能评分工具" class="headerlink" title="在线性能评分工具"></a>在线性能评分工具</h4><p>除此之外，还有很多流行的在线网页性能评分工具。他们会对你的网站进行评分并给出相关的建议和意见。你需要做的可能只是输入一个网址，如<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">pagespeed</a>;或者安装一个chrome插件，如Lighthouse,可以在chrome 插件市场上免费获取它。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/开始性能优化/" data-id="cjf2dkv600001j23g7f4lshjr" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/22/移动设备的性能分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          移动设备的性能分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/22/渲染优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">渲染优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/开始性能优化/">开始性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/渲染优化/">渲染优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/启动优化/">启动优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/20/图片优化/">图片优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

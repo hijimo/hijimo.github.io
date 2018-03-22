@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,197 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-移动设备的性能分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/移动设备的性能分析/" class="article-date">
+  <time datetime="2018-03-22T10:30:26.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在移动设备上调试网页"><a href="#在移动设备上调试网页" class="headerlink" title="在移动设备上调试网页"></a>在移动设备上调试网页</h2><p>浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。</p>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>我们可能需要做一些准备</p>
+<ul>
+<li>一台安卓设备</li>
+<li>一根usb连接线</li>
+<li>在你的pc上安装chrome浏览器</li>
+<li>在你的安卓设备上安卓chrome浏览器</li>
+</ul>
+<h4 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h4><p>拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本号7次开启开发者模式。不同的手机可能进入路径不同，请看设备说明书或者网络搜索。</p>
+<h4 id="允许使用usb调试"><a href="#允许使用usb调试" class="headerlink" title="允许使用usb调试"></a>允许使用usb调试</h4><p>开启开发者模式的设备。让我们使用usb连接线把安卓设备连接到pc,你会看到 是否允许usb调试的 询问，请点击是。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322143159.png" alt="allow debug"></p>
+<h4 id="连接调试设备"><a href="#连接调试设备" class="headerlink" title="连接调试设备"></a>连接调试设备</h4><p>在pc上打开Chrome 浏览器，并在地址栏输入 chrome://inspect回车。稍等几秒，我们就可以在Remote target 下看到我们的设备，如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/anroid_debug.jpg" alt="android debug"></p>
+<p>如果你在Remote target里看不到你的设备，你可能需要检查一下开发者模式是启开发、是否允许usb调试。有一些设备，你可能还需要自己安装设备的驱动程序。</p>
+<h4 id="开始调试"><a href="#开始调试" class="headerlink" title="开始调试"></a>开始调试</h4><p>一切准备就绪，让我们开始真机调试吧。拿出我们的安卓设备，打开chrome并输入v2ex.com。我们的Remote target 列表好像有一些变化。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect1.jpg" alt="inspect1"></p>
+<p>刚刚我们在手机端输入的v2ex.com出现在了remote target 下。点击一下inspect试试<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect2.jpg" alt="inspect2"></p>
+<p>跳出了chrome devTools工具，并且还有实时的屏幕同步-预览。现在我们可以像在pc上调试一样去调试我们网页在设备上的表现了。请保持你的设备屏幕激活，锁屏状态下无法实时同步屏幕。</p>
+<p>遗憾的是，目前只支持在手机chrome上使用这个功能。很多手机自带的浏览器、微信浏览器并不支持。</p>
+<h4 id="ios上调试"><a href="#ios上调试" class="headerlink" title="ios上调试"></a>ios上调试</h4><p>调试ios设备比起安卓设备会复杂许多。</p>
+<ol>
+<li>在你的ios设备上开启 web inspect。 设置–&gt; safari –&gt; 高级 – &gt; web 检查器(Settings &gt; Safari &gt; Advanced &gt; Web Inspector)<br><a href="https://github.com/google/ios-webkit-debug-proxy" target="_blank" rel="noopener">https://github.com/google/ios-webkit-debug-proxy</a></li>
+<li><p>安装 ios_webkit_debug_proxy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew unlink libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew uninstall --force libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew install --HEAD libimobiledevice</span><br><span class="line">brew install --HEAD ios-webkit-debug-proxy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装最新版 adapter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install remotedebug-ios-webkit-adapter -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接你的Ios设备和mac,并在ios设备上选择信任。</p>
+</li>
+<li>运行 adapter 命令 <code>remotedebug_ios_webkit_adapter --port=9000</code></li>
+<li>在ios里打开safari,输入地址v2ex.com</li>
+<li>打开chrome,输入 chrome://inspect.</li>
+<li>使用时记得关闭代理软件并且保证手机和电脑处一并一局域网。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect_ios.jpg" alt="inspct_ios"><br>一切看起来都和安卓一样~。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/移动设备的性能分析/" data-id="cjf2dlb9s0002j23gqg7u4j6t" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/开始性能优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:56.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/开始性能优化/">开始性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="开始性能优化吧"><a href="#开始性能优化吧" class="headerlink" title="开始性能优化吧"></a>开始性能优化吧</h2><p>现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。</p>
+<h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"></p>
+<h4 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h4><p>重点来看看 performance 面板，performance面板非常详细的记录了浏览器渲染过程中的每一个步骤，包含大量有用的信息。简单图示一下，同时这也是一个demo。得到这样的一个性能分析十分简单，只需要在你的网页上打开chrome devtools切换到performance点击刷新按钮(自动录制)等待几秒钟即可。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo.jpg" alt="performance demo"></p>
+<p>uhm….信息量是真的好大阿，这么多信息究竟该注意哪里。首先看一下概览图，概览图简要的显示浏览器渲染网页在各个过程中的性能消耗比例。有必要关注一下这些颜色</p>
+<ul>
+<li>蓝色表示html正在被解析，一般不大存在性能问题</li>
+<li>黄色表示javascript编译/执行。</li>
+<li>紫色表示 Recalculate Style 和layout。</li>
+<li>绿色表示 paint、Composite。<br>看看我们的demo:loading(48.3)、scripting(890)、rendering(1492)、painting(45.7)、other(270)、idle(355.6)。看来浏览器在scripting、rendering花费了大量的时间。</li>
+</ul>
+<p>让我们回到fps/cpu 区块上看，分析给我们划了很多警告，红色的方条。这些都表示性能有着严重的问题。拖动滑块选中这块红色区域，分析器会将分析范围缩到这个区间。</p>
+<p>继续往下看，网络区间里有两个黄色的项，鼠标移上去你会发现他们花费了1s多的时间去下载，可能需要我们注意一下。<br>再往下看，我们来看看 main。这是浏览器渲染过程的一部分，又看到了很多红色的三角形。浏览器又给我们发出了警告。鼠标点击其中的某一项。下方的Event log详细的列出了这段时间内发生了什么。看我们的demo，这段脚本触发了浏览器的layout，看来这是一个比较复杂的layout,足足消耗了507.3ms，怪不得游览器要向我们发出警告了。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo2.jpg" alt="performance_demo2"></p>
+<h4 id="移动设备的性能分析"><a href="#移动设备的性能分析" class="headerlink" title="移动设备的性能分析"></a>移动设备的性能分析</h4><p>详见移动设备性能分析</p>
+<h4 id="在线性能评分工具"><a href="#在线性能评分工具" class="headerlink" title="在线性能评分工具"></a>在线性能评分工具</h4><p>除此之外，还有很多流行的在线网页性能评分工具。他们会对你的网站进行评分并给出相关的建议和意见。你需要做的可能只是输入一个网址，如<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">pagespeed</a>;或者安装一个chrome插件，如Lighthouse,可以在chrome 插件市场上免费获取它。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/开始性能优化/" data-id="cjf2dkv600001j23g7f4lshjr" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/渲染优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:20.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/渲染优化/">渲染优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="开发60帧每秒的app"><a href="#开发60帧每秒的app" class="headerlink" title="开发60帧每秒的app"></a>开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
+<h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
+<li>浏览器向服务器发起get请求   get/http/1.1</li>
+<li>服务器做出响应并发送html</li>
+<li>浏览器提前解析dom（parse html）</li>
+<li>浏览器解析cssom (parse stylesheet)</li>
+<li>结合 dom + cssom生成render tree (Recalculate styles)</li>
+<li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
+<li>从矢量到光栅,把像素绘制到图层(paint)</li>
+<li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
+<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。</li>
+</ol>
+<p>举个例子：<br><a href="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/makeframe.jpg" target="_blank" rel="noopener">making frame</a></p>
+<h4 id="javascript-css引起的渲染"><a href="#javascript-css引起的渲染" class="headerlink" title="javascript/css引起的渲染"></a>javascript/css引起的渲染</h4><p>经常，我们使用javascript操作dom、style，引起网页外观变化；或许我们也有一个css动画、过渡造成网页外观变化，可能会触发浏览器做一些工作。</p>
+<p>javascript/css ==&gt; style ==&gt; layout ==&gt; paint ==&gt; composite</p>
+<p>通过css/javascript 造成外观变化，浏览器需要重新计算受影响元素的样式。这些样式可能会导致浏览器重新计算布局。在布局完成后重新绘制。最后合成图层</p>
+<p>javascript/css ==&gt; style  ==&gt; paint ==&gt; composite</p>
+<p>这一回我们又改观了我们的界面。很幸运在浏览器重新计算受影响元素的样式后，并不需要重新布局，浏览器将直接绘制新的内容，最后合成图层</p>
+<p>javascript/css ==&gt; style ==&gt; composite</p>
+<p>我们的开发人员花废了一些心思，这次改变外观没有引起重绘，更没有引起重新布局。浏览器重新合成图层就合适。遗憾的是，目前只有opacity、transform两个css属性才不会引起重绘与重布局。这也是为何transform动画性能会远远高于left、top、bottom、right等旧动画属性的原因。</p>
+<h4 id="LIAR和四个时间点"><a href="#LIAR和四个时间点" class="headerlink" title="LIAR和四个时间点"></a>LIAR和四个时间点</h4><p>webapp的生命周期的四大领域称为 RAIL(Response、animation、idle、load)。</p>
+<ul>
+<li>load 任何时候我们都应该加快加载速度,最好不要超过1s.</li>
+<li>idle 当 load 完成，等待用户操作的这断时间称为闲置时间(idle)，可以在这段时间里处理我们为了加快加载速度而延后的操作。通常，这些闲置时段时长大约为50ms,也可能是一段连续的idle。比如：我们有一个app应用，有一个查看联系人列表功能。如果我们在idle里直接加载渲染好了，用户秒开是不是很酷。</li>
+<li>response load完成之后，我们也好好的利用了idle。现在用户将与网页互动，网页需要做出回应。有研究表明，如果<strong>用户在进行某项操作（如点击按钮），网页能在100ms之内做出响应，那么用户就不会发现任何延迟</strong>。需要在这段时间内对所有用户操作做出回应。</li>
+<li>animation 如果用户的操作需要实现动画效果，需要达到60fps。例如手指滑过时响应的动画。60fps意味着每帧我们仅有16ms的处理时间，事实上因为浏览器还有其他自己要做的事情，比如gc，我们往往只有10ms左右。达到60fps并不容易，一不小心就触发了性能问题，想想上边渲染一帧浏览器所需要的工作，10ms好像显得十分不够用。</li>
+</ul>
+<p>合理的利用LIAR的各个时间点对渲染性能十分重要 L(1000ms)、I(50ms)、R(100ms)、A(16ms)。</p>
+<h4 id="backwards"><a href="#backwards" class="headerlink" title="backwards"></a>backwards</h4><p>利用浏览器在完成了初始的工作并运行动画后，可以较低的成本向后运行动画。相当于提前计算任务繁重的工作。</p>
+<ol>
+<li>first 收获所有元素初始信息 </li>
+<li>last 展开元素，收集所有元素动画结束信息</li>
+<li>invest 计算差异，保存差异。</li>
+<li>play 动画开始</li>
+</ol>
+<p>搜集所有信息可能听着需要花费许多时间。还记得上面说的100ms的延时响应吗？只要在这断时间内完成，那么用户将不会感知，我们的动画顺便爬到了60fps。最后，在动画回退时，还可以按原路径返回，好像又节省了一些时间。</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>我们能够浏览器绘制或布局甚至运行javascript，这并不表明我们拥有无限的时间预算。例如布局和绘制时间都会取决于受影响的元素数量，或者我们可以通过减少受影的元素数量来提升性能。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/渲染优化/" data-id="cjf2djxem0000j23gg69nfod7" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -111,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/启动优化/" data-id="cjezb9e3r00003r3gisl2bkdu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/20/启动优化/" data-id="cjezb9e3r00003r3gisl2bkdu" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -167,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/图片优化/" data-id="cjez0lshq0001qz3gmn0l5s42" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/20/图片优化/" data-id="cjez0lshq0001qz3gmn0l5s42" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -209,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/http缓存/" data-id="cjeyzmkpi0000qz3gt6u839td" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/20/http缓存/" data-id="cjeyzmkpi0000qz3gt6u839td" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -260,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -312,7 +503,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/记一张页面的加载/" data-id="cjev5am300000vn3gu4yhr2qk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/17/记一张页面的加载/" data-id="cjev5am300000vn3gu4yhr2qk" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -338,7 +529,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
     </div>
@@ -348,9 +539,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/开始性能优化/">开始性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/渲染优化/">渲染优化</a>
+          </li>
         
           <li>
             <a href="/2018/03/20/启动优化/">启动优化</a>
@@ -358,18 +561,6 @@
         
           <li>
             <a href="/2018/03/20/图片优化/">图片优化</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/20/http缓存/">http缓存</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/17/渲染速度的优化/">渲染速度的优化</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/17/记一张页面的加载/">记一张页面的加载</a>
           </li>
         
       </ul>

@@ -7,16 +7,16 @@
   
   <title>渲染优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (Recalcul">
+  <meta name="description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
 <meta property="og:type" content="article">
 <meta property="og:title" content="渲染优化">
 <meta property="og:url" content="http://yoursite.com/2018/03/22/渲染优化/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (Recalcul">
-<meta property="og:updated_time" content="2018-03-22T10:29:27.000Z">
+<meta property="og:description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
+<meta property="og:updated_time" content="2018-03-23T01:55:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渲染优化">
-<meta name="twitter:description" content="开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (Recalcul">
+<meta name="twitter:description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -85,7 +85,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="开发60帧每秒的app"><a href="#开发60帧每秒的app" class="headerlink" title="开发60帧每秒的app"></a>开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
+        <h2 id="前端优化其六-开发60帧每秒的app"><a href="#前端优化其六-开发60帧每秒的app" class="headerlink" title="前端优化其六-开发60帧每秒的app"></a>前端优化其六-开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
 <h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
 <li>浏览器向服务器发起get请求   get/http/1.1</li>
 <li>服务器做出响应并发送html</li>
@@ -95,9 +95,9 @@
 <li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
 <li>从矢量到光栅,把像素绘制到图层(paint)</li>
 <li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
-<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。</li>
+<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。<a id="more"></a>
+举个例子：<br><a href="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/makeframe.jpg" target="_blank" rel="noopener">making frame</a></li>
 </ol>
-<p>举个例子：<br><a href="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/makeframe.jpg" target="_blank" rel="noopener">making frame</a></p>
 <h4 id="javascript-css引起的渲染"><a href="#javascript-css引起的渲染" class="headerlink" title="javascript/css引起的渲染"></a>javascript/css引起的渲染</h4><p>经常，我们使用javascript操作dom、style，引起网页外观变化；或许我们也有一个css动画、过渡造成网页外观变化，可能会触发浏览器做一些工作。</p>
 <p>javascript/css ==&gt; style ==&gt; layout ==&gt; paint ==&gt; composite</p>
 <p>通过css/javascript 造成外观变化，浏览器需要重新计算受影响元素的样式。这些样式可能会导致浏览器重新计算布局。在布局完成后重新绘制。最后合成图层</p>

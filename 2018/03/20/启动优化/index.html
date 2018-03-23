@@ -7,17 +7,17 @@
   
   <title>启动优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+  <meta name="description" content="前端优化-其五  javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往">
 <meta property="og:type" content="article">
 <meta property="og:title" content="启动优化">
 <meta property="og:url" content="http://yoursite.com/2018/03/20/启动优化/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+<meta property="og:description" content="前端优化-其五  javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往">
 <meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png">
-<meta property="og:updated_time" content="2018-03-20T10:27:29.000Z">
+<meta property="og:updated_time" content="2018-03-23T01:54:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启动优化">
-<meta name="twitter:description" content="javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩">
+<meta name="twitter:description" content="前端优化-其五  javascript优化随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。 javascript 是最昂贵的资源由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往">
 <meta name="twitter:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -87,9 +87,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="javascript优化"><a href="#javascript优化" class="headerlink" title="javascript优化"></a>javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
-<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。</p>
-<p>反过来想，如果我们传输了150k的js文件，这很常见。代表着unGzip之后这些代码将有750kb~1M左右。</p>
+        <h2 id="前端优化-其五-javascript优化"><a href="#前端优化-其五-javascript优化" class="headerlink" title="前端优化-其五  javascript优化"></a>前端优化-其五  javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
+<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。<br><a id="more"></a><br>反过来想，如果我们传输了150k的js文件，这很常见。代表着unGzip之后这些代码将有750kb~1M左右。</p>
 <p>在篇二中，我们努力的优化了页面的首屏渲染，尽快的让浏览器看起来不是一片空白，而是有内容画在上面。但是在js解析完成之前，我们努力优化得到的只是一个不可交互的 ‘网页’ 而已。这看起来并不完美。</p>
 <p>随着这几年组件化开发的流行，在相关js库解析完成之前，我们的组件系统可能并没有办法成功的渲染出来。这看起来十分不完美。（可以通过预渲染和服务器渲染来解决）</p>
 <h4 id="javascript好可怕"><a href="#javascript好可怕" class="headerlink" title="javascript好可怕"></a>javascript好可怕</h4><p>从dom解析到script标签时，便会暂停dom树的构建并执行，这期间可能会发生：</p>

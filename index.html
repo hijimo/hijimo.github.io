@@ -152,20 +152,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="开始性能优化吧"><a href="#开始性能优化吧" class="headerlink" title="开始性能优化吧"></a>开始性能优化吧</h2><p>现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。</p>
-<h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"></p>
-<h4 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h4><p>重点来看看 performance 面板，performance面板非常详细的记录了浏览器渲染过程中的每一个步骤，包含大量有用的信息。简单图示一下，同时这也是一个demo。得到这样的一个性能分析十分简单，只需要在你的网页上打开chrome devtools切换到performance点击刷新按钮(自动录制)等待几秒钟即可。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo.jpg" alt="performance demo"></p>
-<p>uhm….信息量是真的好大阿，这么多信息究竟该注意哪里。首先看一下概览图，概览图简要的显示浏览器渲染网页在各个过程中的性能消耗比例。有必要关注一下这些颜色</p>
-<ul>
-<li>蓝色表示html正在被解析，一般不大存在性能问题</li>
-<li>黄色表示javascript编译/执行。</li>
-<li>紫色表示 Recalculate Style 和layout。</li>
-<li>绿色表示 paint、Composite。<br>看看我们的demo:loading(48.3)、scripting(890)、rendering(1492)、painting(45.7)、other(270)、idle(355.6)。看来浏览器在scripting、rendering花费了大量的时间。</li>
-</ul>
-<p>让我们回到fps/cpu 区块上看，分析给我们划了很多警告，红色的方条。这些都表示性能有着严重的问题。拖动滑块选中这块红色区域，分析器会将分析范围缩到这个区间。</p>
-<p>继续往下看，网络区间里有两个黄色的项，鼠标移上去你会发现他们花费了1s多的时间去下载，可能需要我们注意一下。<br>再往下看，我们来看看 main。这是浏览器渲染过程的一部分，又看到了很多红色的三角形。浏览器又给我们发出了警告。鼠标点击其中的某一项。下方的Event log详细的列出了这段时间内发生了什么。看我们的demo，这段脚本触发了浏览器的layout，看来这是一个比较复杂的layout,足足消耗了507.3ms，怪不得游览器要向我们发出警告了。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/performance_demo2.jpg" alt="performance_demo2"></p>
-<h4 id="移动设备的性能分析"><a href="#移动设备的性能分析" class="headerlink" title="移动设备的性能分析"></a>移动设备的性能分析</h4><p>详见移动设备性能分析</p>
-<h4 id="在线性能评分工具"><a href="#在线性能评分工具" class="headerlink" title="在线性能评分工具"></a>在线性能评分工具</h4><p>除此之外，还有很多流行的在线网页性能评分工具。他们会对你的网站进行评分并给出相关的建议和意见。你需要做的可能只是输入一个网址，如<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">pagespeed</a>;或者安装一个chrome插件，如Lighthouse,可以在chrome 插件市场上免费获取它。</p>
-
+<h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"><br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/开始性能优化/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -201,7 +193,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="开发60帧每秒的app"><a href="#开发60帧每秒的app" class="headerlink" title="开发60帧每秒的app"></a>开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
+        <h2 id="前端优化其六-开发60帧每秒的app"><a href="#前端优化其六-开发60帧每秒的app" class="headerlink" title="前端优化其六-开发60帧每秒的app"></a>前端优化其六-开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
 <h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
 <li>浏览器向服务器发起get请求   get/http/1.1</li>
 <li>服务器做出响应并发送html</li>
@@ -211,34 +203,12 @@
 <li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
 <li>从矢量到光栅,把像素绘制到图层(paint)</li>
 <li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
-<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。</li>
-</ol>
-<p>举个例子：<br><a href="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/makeframe.jpg" target="_blank" rel="noopener">making frame</a></p>
-<h4 id="javascript-css引起的渲染"><a href="#javascript-css引起的渲染" class="headerlink" title="javascript/css引起的渲染"></a>javascript/css引起的渲染</h4><p>经常，我们使用javascript操作dom、style，引起网页外观变化；或许我们也有一个css动画、过渡造成网页外观变化，可能会触发浏览器做一些工作。</p>
-<p>javascript/css ==&gt; style ==&gt; layout ==&gt; paint ==&gt; composite</p>
-<p>通过css/javascript 造成外观变化，浏览器需要重新计算受影响元素的样式。这些样式可能会导致浏览器重新计算布局。在布局完成后重新绘制。最后合成图层</p>
-<p>javascript/css ==&gt; style  ==&gt; paint ==&gt; composite</p>
-<p>这一回我们又改观了我们的界面。很幸运在浏览器重新计算受影响元素的样式后，并不需要重新布局，浏览器将直接绘制新的内容，最后合成图层</p>
-<p>javascript/css ==&gt; style ==&gt; composite</p>
-<p>我们的开发人员花废了一些心思，这次改变外观没有引起重绘，更没有引起重新布局。浏览器重新合成图层就合适。遗憾的是，目前只有opacity、transform两个css属性才不会引起重绘与重布局。这也是为何transform动画性能会远远高于left、top、bottom、right等旧动画属性的原因。</p>
-<h4 id="LIAR和四个时间点"><a href="#LIAR和四个时间点" class="headerlink" title="LIAR和四个时间点"></a>LIAR和四个时间点</h4><p>webapp的生命周期的四大领域称为 RAIL(Response、animation、idle、load)。</p>
-<ul>
-<li>load 任何时候我们都应该加快加载速度,最好不要超过1s.</li>
-<li>idle 当 load 完成，等待用户操作的这断时间称为闲置时间(idle)，可以在这段时间里处理我们为了加快加载速度而延后的操作。通常，这些闲置时段时长大约为50ms,也可能是一段连续的idle。比如：我们有一个app应用，有一个查看联系人列表功能。如果我们在idle里直接加载渲染好了，用户秒开是不是很酷。</li>
-<li>response load完成之后，我们也好好的利用了idle。现在用户将与网页互动，网页需要做出回应。有研究表明，如果<strong>用户在进行某项操作（如点击按钮），网页能在100ms之内做出响应，那么用户就不会发现任何延迟</strong>。需要在这段时间内对所有用户操作做出回应。</li>
-<li>animation 如果用户的操作需要实现动画效果，需要达到60fps。例如手指滑过时响应的动画。60fps意味着每帧我们仅有16ms的处理时间，事实上因为浏览器还有其他自己要做的事情，比如gc，我们往往只有10ms左右。达到60fps并不容易，一不小心就触发了性能问题，想想上边渲染一帧浏览器所需要的工作，10ms好像显得十分不够用。</li>
-</ul>
-<p>合理的利用LIAR的各个时间点对渲染性能十分重要 L(1000ms)、I(50ms)、R(100ms)、A(16ms)。</p>
-<h4 id="backwards"><a href="#backwards" class="headerlink" title="backwards"></a>backwards</h4><p>利用浏览器在完成了初始的工作并运行动画后，可以较低的成本向后运行动画。相当于提前计算任务繁重的工作。</p>
-<ol>
-<li>first 收获所有元素初始信息 </li>
-<li>last 展开元素，收集所有元素动画结束信息</li>
-<li>invest 计算差异，保存差异。</li>
-<li>play 动画开始</li>
-</ol>
-<p>搜集所有信息可能听着需要花费许多时间。还记得上面说的100ms的延时响应吗？只要在这断时间内完成，那么用户将不会感知，我们的动画顺便爬到了60fps。最后，在动画回退时，还可以按原路径返回，好像又节省了一些时间。</p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>我们能够浏览器绘制或布局甚至运行javascript，这并不表明我们拥有无限的时间预算。例如布局和绘制时间都会取决于受影响的元素数量，或者我们可以通过减少受影的元素数量来提升性能。</p>
-
+<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/渲染优化/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -274,31 +244,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="javascript优化"><a href="#javascript优化" class="headerlink" title="javascript优化"></a>javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
-<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。</p>
-<p>反过来想，如果我们传输了150k的js文件，这很常见。代表着unGzip之后这些代码将有750kb~1M左右。</p>
-<p>在篇二中，我们努力的优化了页面的首屏渲染，尽快的让浏览器看起来不是一片空白，而是有内容画在上面。但是在js解析完成之前，我们努力优化得到的只是一个不可交互的 ‘网页’ 而已。这看起来并不完美。</p>
-<p>随着这几年组件化开发的流行，在相关js库解析完成之前，我们的组件系统可能并没有办法成功的渲染出来。这看起来十分不完美。（可以通过预渲染和服务器渲染来解决）</p>
-<h4 id="javascript好可怕"><a href="#javascript好可怕" class="headerlink" title="javascript好可怕"></a>javascript好可怕</h4><p>从dom解析到script标签时，便会暂停dom树的构建并执行，这期间可能会发生：</p>
-<ul>
-<li>发起请求（包括dns,tcp,http的），解压缩(unGzip)</li>
-<li>解析和编译JS的顶级函数</li>
-<li>执行脚本</li>
-</ul>
-<p>在最后一步 执行脚本 完成之前，我们的网页几乎是不可交互的。script的执行是发生在主线程上，这意味着他会阻止ui。uhm，就是说我们连下拉一下滚动条都做不到了，真过分。如果你的script复杂无比，花费了1分钟还没有执行完成，浏览器可能就会漰溃了。</p>
-<h4 id="有一个小例子"><a href="#有一个小例子" class="headerlink" title="有一个小例子"></a>有一个小例子</h4><p><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180320175311.png" alt="性能加载图"></p>
-<p>我截取了一个不大知名的网站的加载性能图，执行机器是一台普通的办公用pc。黄色的是script执行时间，占据了1200ms之多，这个网站的的脚本文件大小是170k左右（文件大小不代表执行时间）。数据看起来非常的夸张，如果不需要执行这些脚本，我们可能只需要220ms左右就完成了网页的加载。</p>
-<h4 id="需要这么多脚本吗"><a href="#需要这么多脚本吗" class="headerlink" title="需要这么多脚本吗"></a>需要这么多脚本吗</h4><p>好像并不是很需要阿？？？是哦，是的吧。</p>
-<h4 id="怎么去优化它"><a href="#怎么去优化它" class="headerlink" title="怎么去优化它"></a>怎么去优化它</h4><p>解析/执行js脚本这花费时间，或许我们可以减少要执行的js脚本、减少被执行脚本的复杂度、分批次去执行脚本？好像都可以的样子。</p>
-<ul>
-<li>通过代码分割工具，只使用尽量少的代码。你可以通过webpack来实现它</li>
-<li>懒加载非关键的代码，这可以通过异步，也可以是把脚本直接扔到模板里。</li>
-<li>删除不使用的代码，使用chrome devtools代码覆盖率来删除不使用的代码<a href="https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage" target="_blank" rel="noopener">详见</a></li>
-<li>使用 closure Complier。幸运的是，很多js压缩工具里已经集成了它。<a href="!https://developers.google.com/closure/compiler/">详见</a></li>
-<li>推迟复杂代码块的执行，使用setTimeout requestAnimationFrame等。</li>
-</ul>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>以上测试都来自pc，移动设备往往代表着更差的cpu计算和更差的网络。应该重视javascript执行所带来的性能成本。</p>
-
+        <h2 id="前端优化-其五-javascript优化"><a href="#前端优化-其五-javascript优化" class="headerlink" title="前端优化-其五  javascript优化"></a>前端优化-其五  javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
+<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/20/启动优化/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -335,26 +287,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前端优化其四-图片"><a href="#前端优化其四-图片" class="headerlink" title="前端优化其四 图片"></a>前端优化其四 图片</h2><p>图片是网页重要的一部分，设计师在设计网页的时候也经常通过图片来使网页更加的炫丽。随着计算机相关技术的发展，用户对图片的质量要求也在不断的上升，这意味着我们要给用户提供更棒的图片、更大的内存占用、更多的绘制cpu消耗。如果是移动设备，这些往往还意味着电池寿命。在许多网站中，图片都占去了它们大部分的加载带宽，图片也是网页性能中很大的一部分负担。好像，有必要给图片做一下优化了。</p>
-<h4 id="压缩图像内容的大小"><a href="#压缩图像内容的大小" class="headerlink" title="压缩图像内容的大小"></a>压缩图像内容的大小</h4><p>和大部分资源一样，首先应该使用压缩工具减小资源文件的大小，往往这是性价比最高的方式。但是和文本资源不同，图像资源的压缩也意味着图像质量可能有所损失。那么，合理的压缩策略就很重要了，不过度压缩、不重复压缩，还需要根据不同的图像文件格式设置不同的压缩方式。</p>
-<h4 id="只加载需要的图像"><a href="#只加载需要的图像" class="headerlink" title="只加载需要的图像"></a>只加载需要的图像</h4><p>不是每张图像资源都是必须被加载的，这会造成很大的带宽浪费和cpu、内存资源的浪费。一些没必要的图像资源应该被删掉，这可能是设计阶段就产生的，一些图片的存在可能对设计并没有什么意义。大部分现代浏览器对css3的支持都很不错，之前 使用图片实现的类似于渐变、图角、阴影之类的效果，可以使用css3去实现以减少图像资源的使用</p>
-<h4 id="删除图像元信息"><a href="#删除图像元信息" class="headerlink" title="删除图像元信息"></a>删除图像元信息</h4><p>大部分图像资源在生成时都会附加一些元信息，比如photoshop生成或者片理过的图片会附带Photoshop相关信息。使用手机或者相机拍摄的照片会携带设备信息、lng、lat等信息。这些信息可能对用户没有什么意思，却可能需要占用十几kb的文件大小。你可以选择删除这些信息，大部分的压缩工具都会默认选择删掉这些信息。</p>
-<h4 id="选择合适的尺寸"><a href="#选择合适的尺寸" class="headerlink" title="选择合适的尺寸"></a>选择合适的尺寸</h4><p>除去矢量图形，尺寸大小通常决定文件大小，选择合适的文件尺寸很重要。在大屏幕设备使用小图像会产生模糊失真，影响用户体验；在小屏幕使用大图像会生产像素压缩并且会消耗更高的cpu和内存资源。可以通过@media、srcset等方式给不同的设备配置不同的图像资源。</p>
-<h4 id="选择合适的颜色位深、色域"><a href="#选择合适的颜色位深、色域" class="headerlink" title="选择合适的颜色位深、色域"></a>选择合适的颜色位深、色域</h4><p>颜色位深和色域也是影响图像文件大小的一个重要参数。adobe Rgb 比sRgb包含了更多的颜色信息，在专业的屏幕上会有更好的表现效，普通用户的显示屏显然是无法展示这些信息的，使用sRgb比较合理。在photo shop 中保存 png的时候，可以勾选 小格式（8位），更低的颜色位深代表着更少的颜色，更小的文件大小，合理使用可以大符度减小文件大小。</p>
-<h4 id="合理使用缩略图"><a href="#合理使用缩略图" class="headerlink" title="合理使用缩略图"></a>合理使用缩略图</h4><p>缩略图往往只有很小的文件大小，可以很快的被获取、解析和绘制。合理的使用缩略图，只有用户需要的时候才显示尺寸合适的图片，可以给网页性能带来很大的提升。</p>
-<h4 id="选择合适的文件格式"><a href="#选择合适的文件格式" class="headerlink" title="选择合适的文件格式"></a>选择合适的文件格式</h4><p>图像资源是一种复杂的文件格式，也有很多流行的图像文件格式，每种格式都有他们自身的特点，应该合理的使用他们。<br>常见的格式：</p>
-<ul>
-<li>gif 支持动画、仅支持256色、文件较大、支持透明、浏览器兼容良好，几乎是目前唯一的动画选择（在pc端，你可以选择使用视频代替）</li>
-<li>jpeg 不支持动画、色域广、不支持透明、高压缩比、浏览器兼容良好、文件大小视压缩比而定，一般可以在保证良好的图片质量上保持不错的文件大小。</li>
-<li>png 不支持动画、色域广、支持透明、浏览器兼容良好、文件大小视颜色信息而定，一般情况下比jpeg稍大。</li>
-<li>webp 支持动画、色域广、支持透明、浏览兼容一般、文件大小同质量小于jpeg。先进的文件格式，上前仅有chrome等浏览器支持，详见caniuse</li>
-<li>svg 矢量图像、xml描述、不支持透明、文件较小、浏览器兼容良好，xml描述代表着他可以被gzip。使用广泛，目前流行使用svg图标代替传统图标。</li>
-</ul>
-<h4 id="延时加载"><a href="#延时加载" class="headerlink" title="延时加载"></a>延时加载</h4><p>虽然优先级比较低，但是在dom树生成的时候就会发出图像的下载请求。这些图片可能并不需要立即被显示，或者他们可能等不到用户注意到他们就要被销毁。立即加载这些图片并不是一个明智的选择，可以使用类似于lazysizes之类的lib实现图片即将进入用户视野时再加载图像资源。</p>
-<h4 id="预加载图像"><a href="#预加载图像" class="headerlink" title="预加载图像"></a>预加载图像</h4><p>有一些图像资源可能非常重要需要第一时间被加载，如：logo。可以使用preload 来加载这些图片。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">as</span>=<span class="string">"image"</span> <span class="attr">href</span>=<span class="string">"logo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="图像-sprite"><a href="#图像-sprite" class="headerlink" title="图像 sprite"></a>图像 sprite</h4><p>在http1.1和以下协议版本中，过多的http请求是被认为是消耗性能的。在我们的网页中可能有很多细小的图像资源文件需要加载，他们小而多却又不得不加载。好在我们可以使用css sprite技术来解决这个问题：将这些细小的图片合成一些图片，通过 css的 background-position、background-size 来定位使用的图片区域。</p>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>图像资源的缓存十分重要，由于图像被修改的可能性比较小。我们甚至可以使用非常久的max-age,配合文件指纹来实现高效的图像缓存，详见 http缓存。</p>
-<h4 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h4><p>和文本资源一样，这些优化都是可以自动化执行的。</p>
-
+<h4 id="压缩图像内容的大小"><a href="#压缩图像内容的大小" class="headerlink" title="压缩图像内容的大小"></a>压缩图像内容的大小</h4><p>和大部分资源一样，首先应该使用压缩工具减小资源文件的大小，往往这是性价比最高的方式。但是和文本资源不同，图像资源的压缩也意味着图像质量可能有所损失。那么，合理的压缩策略就很重要了，不过度压缩、不重复压缩，还需要根据不同的图像文件格式设置不同的压缩方式。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/20/图片优化/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">

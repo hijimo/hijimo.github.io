@@ -5,16 +5,16 @@
   
 
   
-  <title>Hexo</title>
+  <title>hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="hijimo">
+<meta property="og:url" content="http://hijimo.github.io/index.html">
+<meta property="og:site_name" content="hijimo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="hijimo">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -33,7 +33,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">hijimo</a>
       </h1>
       
     </div>
@@ -53,7 +53,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
       </div>
     </div>
   </div>
@@ -61,12 +61,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动设备的性能分析" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-渲染优化四-管道-合成" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/22/移动设备的性能分析/" class="article-date">
-  <time datetime="2018-03-22T10:30:26.000Z" itemprop="datePublished">2018-03-22</time>
+    <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/" class="article-date">
+  <time datetime="2018-03-31T06:00:00.000Z" itemprop="datePublished">2018-03-31</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +79,163 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化-管道-合成"><a href="#前端优化-管道-合成" class="headerlink" title="前端优化-管道-合成"></a>前端优化-管道-合成</h2><p>并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响其他部分或者全部内容。如果你是设计师也不希望每一次修改都要重新绘制一次对吧。<br>举个例子：左侧滑出菜单是我们平时非常常见也非常实用的一个功能。如果只有一个层，那么菜单滑出的时候，影响了内容区域的布局，导致整个区域的layout、paint。往往我们会给菜单加上动画。现在，我们得到了一个1秒60帧的卡顿，只有高端设备才能流畅的完成这个行为。</p>
+<p>如果我们把菜单和内容分成两个层。左侧菜单滑出的时候，仅绘制菜单层，那么内容层便不受影响。仅仅这样我们便得到了很大的性能提升，内容层无需被layout、point了。</p>
+<p>分层真是太棒了。</p>
+<h4 id="分层管理"><a href="#分层管理" class="headerlink" title="分层管理"></a>分层管理</h4><p>图层越多，管理图层和合成图层花费的时间就越多。我们每帧只有可怜的10ms左右的渲染时间。我们需要在降低渲染时间和图层管理时间之间做出权衡。</p>
+<p>大部分情况下，都应该让浏览器自动管理图层。有时候你可能会碰到一些复制的绘制，需要将某个（些）元素单独的放到一个图层里。或许我们应该先看看元素是否已经有了自己单独的图层。<br>打开 chrome devTools 工具，按下 Esc 键调出Rendering选项卡并勾选 rendering layers。如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg" alt="rendering"></p>
+<p>勾选 rendering layers 之后屏幕上会出现很多线条（如下图）。这些浅蓝色的线条表示每个图层抓分成的图块，做为开发者我们并没有办法控制这些。我们或者更关心一下橘黄色框框。这些橘黄色框框表示这些元素位于自己的图层上，它们拥有自己的图层。</p>
+<p><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180330112138.png" alt="我盗图了..."> </p>
+<h4 id="创建分层"><a href="#创建分层" class="headerlink" title="创建分层"></a>创建分层</h4><ul>
+<li><p>will-change 在chrome和firefox中，可以使用 will-change 属性告诉浏览器将出现外观更改，然后浏览器可以选择将元素放到新的合成图层上。比如will-change:transform,意为告诉浏览器我们打算在某个时间点更改元素的transform，为此浏览器会为我们创建一个新的图层。will-change 接受所有css外观属性，比如transform、left、top、right、bottom、width、height等。除了transform,即使浏览器预料到会有这些更改，依然会为这些属性运行布局和绘制流程，所以更改他们也不会有多大改善。will-change:transform的好处是 transform 不会造成</p>
+</li>
+<li><p>transform:translateZ(0)  对于旧浏览器和safari,它们并不支持will-change。你需要使用某种3d transform ，最常见的就是translateZ(0),在z轴不发生改变又足以使浏览器创建图层。</p>
+</li>
+</ul>
+<p>在生意环境下，我们可能需要这样子写保 证兼容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transform:translateZ(0)</span><br><span class="line">will-change: transform</span><br></pre></td></tr></table></figure>
+<h4 id="合成预算"><a href="#合成预算" class="headerlink" title="合成预算"></a>合成预算</h4><p>图层管理和渲染层合成并不是独立分开的，它也是管道的一部分，10ms的一部分。我们需要在二者之间找到一个平衡点。没有一个规定要求一定是多少数量的图层，一般对于动画这样的关键性工作，要达到60帧/60，图层管理花费的时间不能超过2ms，渲染层合成也不能超过2ms。10ms真的太少了，如果你在管道的其他工作做得比较少，既然图层管理\合成超过了也没有什么关系。我们需要的是在10ms里完成全部这些工作。</p>
+<p>管道篇，完。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjfezcs930006vv3gaf94ujj7" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-渲染优化三-管道-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化三-管道-css/" class="article-date">
+  <time datetime="2018-03-31T05:58:19.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="web前端优化–管道–css"><a href="#web前端优化–管道–css" class="headerlink" title="web前端优化–管道–css"></a>web前端优化–管道–css</h2><p>平时我们碰到的问题常常是由javascript触发的，但是并不一定是javascript的问题。</p>
+<p>这是管道优化系列的css篇。管道的概念见 <a href="https://hijimo.github.io/2018/03/22/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a> ,这里详细的介绍了浏览器如何渲染一个帧。管道是帧渲染中的一部分。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjfezcs910005vv3gwyyekj5j" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-渲染优化二-管道-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/" class="article-date">
+  <time datetime="2018-03-31T05:55:55.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="渲染优化二–管道–javascript"><a href="#渲染优化二–管道–javascript" class="headerlink" title="渲染优化二–管道–javascript"></a>渲染优化二–管道–javascript</h2><p>你写的javascript代码并非就是浏览器执行的代码，现在浏览器引擎会重新编译你写的代码从而使代码运行速度更快。这个过程是通过即时编译器(Just In Time)完成的,简称JIT。JIT会在javascript运行过程中一点一点的优化代码，这是一个复杂又庞大的系统。对于 开发者我们不可能知道jit实际会运行什么代码。</p>
+<h4 id="mrale-ph"><a href="#mrale-ph" class="headerlink" title="mrale.ph"></a>mrale.ph</h4><p>mrale.ph 是一个在线网站，你可以查看JIT编译前后的代码。mrale.ph自己提供了一些demo,当然你也可以上传自己的代码。(截图里样式出现了一些问题，可能是我ss的问题)。你可以点击IR、Srouce来切换javascript代码和jit编译后的代码。甚至还提供了graph图解。你不需要理解jit代码，这只是chrome和其他v8引擎理解你写的js代码。<strong>我们在写代码的时候应该避免微优化，即不该写出自认为会让浏览器稍微更快速的运行的代码。因为我们不可能知道浏览器会如何处理这些代码，所以没有必要猜测。我们应该通过其他方式提高性能，不是把精力浪费在微优化之上。</strong><br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjfezcs940007vv3gnte8n7rq" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-移动设备的性能分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/前端优化-移动设备的性能分析/" class="article-date">
+  <time datetime="2018-03-22T10:30:26.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
     </h1>
   
 
@@ -91,37 +251,20 @@
 <li>在你的pc上安装chrome浏览器</li>
 <li>在你的安卓设备上安卓chrome浏览器</li>
 </ul>
-<h4 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h4><p>拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本号7次开启开发者模式。不同的手机可能进入路径不同，请看设备说明书或者网络搜索。</p>
-<h4 id="允许使用usb调试"><a href="#允许使用usb调试" class="headerlink" title="允许使用usb调试"></a>允许使用usb调试</h4><p>开启开发者模式的设备。让我们使用usb连接线把安卓设备连接到pc,你会看到 是否允许usb调试的 询问，请点击是。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322143159.png" alt="allow debug"></p>
-<h4 id="连接调试设备"><a href="#连接调试设备" class="headerlink" title="连接调试设备"></a>连接调试设备</h4><p>在pc上打开Chrome 浏览器，并在地址栏输入 chrome://inspect回车。稍等几秒，我们就可以在Remote target 下看到我们的设备，如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/anroid_debug.jpg" alt="android debug"></p>
-<p>如果你在Remote target里看不到你的设备，你可能需要检查一下开发者模式是启开发、是否允许usb调试。有一些设备，你可能还需要自己安装设备的驱动程序。</p>
-<h4 id="开始调试"><a href="#开始调试" class="headerlink" title="开始调试"></a>开始调试</h4><p>一切准备就绪，让我们开始真机调试吧。拿出我们的安卓设备，打开chrome并输入v2ex.com。我们的Remote target 列表好像有一些变化。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect1.jpg" alt="inspect1"></p>
-<p>刚刚我们在手机端输入的v2ex.com出现在了remote target 下。点击一下inspect试试<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect2.jpg" alt="inspect2"></p>
-<p>跳出了chrome devTools工具，并且还有实时的屏幕同步-预览。现在我们可以像在pc上调试一样去调试我们网页在设备上的表现了。请保持你的设备屏幕激活，锁屏状态下无法实时同步屏幕。</p>
-<p>遗憾的是，目前只支持在手机chrome上使用这个功能。很多手机自带的浏览器、微信浏览器并不支持。</p>
-<h4 id="ios上调试"><a href="#ios上调试" class="headerlink" title="ios上调试"></a>ios上调试</h4><p>调试ios设备比起安卓设备会复杂许多。</p>
-<ol>
-<li>在你的ios设备上开启 web inspect。 设置–&gt; safari –&gt; 高级 – &gt; web 检查器(Settings &gt; Safari &gt; Advanced &gt; Web Inspector)<br><a href="https://github.com/google/ios-webkit-debug-proxy" target="_blank" rel="noopener">https://github.com/google/ios-webkit-debug-proxy</a></li>
-<li><p>安装 ios_webkit_debug_proxy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew unlink libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew uninstall --force libimobiledevice ios-webkit-debug-proxy</span><br><span class="line">brew install --HEAD libimobiledevice</span><br><span class="line">brew install --HEAD ios-webkit-debug-proxy</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装最新版 adapter</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install remotedebug-ios-webkit-adapter -g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>连接你的Ios设备和mac,并在ios设备上选择信任。</p>
-</li>
-<li>运行 adapter 命令 <code>remotedebug_ios_webkit_adapter --port=9000</code></li>
-<li>在ios里打开safari,输入地址v2ex.com</li>
-<li>打开chrome,输入 chrome://inspect.</li>
-<li>使用时记得关闭代理软件并且保证手机和电脑处一并一局域网。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/inspect_ios.jpg" alt="inspct_ios"><br>一切看起来都和安卓一样~。</li>
-</ol>
-
+<h4 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h4><p>拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本号7次开启开发者模式。不同的手机可能进入路径不同，请看设备说明书或者网络搜索。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/移动设备的性能分析/" data-id="cjf2dlb9s0002j23gqg7u4j6t" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjfezcs970009vv3gvmf2daeu" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>
+
     </footer>
   </div>
   
@@ -129,12 +272,16 @@
 
 
   
-    <article id="post-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/22/开始性能优化/" class="article-date">
+    <a href="/2018/03/22/前端优化-开始性能优化/" class="article-date">
   <time datetime="2018-03-22T10:29:56.000Z" itemprop="datePublished">2018-03-22</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -143,7 +290,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/开始性能优化/">开始性能优化</a>
+      <a class="article-title" href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
     </h1>
   
 
@@ -155,15 +302,17 @@
 <h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"><br>
         
           <p class="article-more-link">
-            <a href="/2018/03/22/开始性能优化/#more">Read More</a>
+            <a href="/2018/03/22/前端优化-开始性能优化/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/开始性能优化/" data-id="cjf2dkv600001j23g7f4lshjr" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjfezcs8z0003vv3gm5n23052" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+
     </footer>
   </div>
   
@@ -171,12 +320,16 @@
 
 
   
-    <article id="post-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/22/渲染优化/" class="article-date">
+    <a href="/2018/03/22/前端优化-渲染优化/" class="article-date">
   <time datetime="2018-03-22T10:29:20.000Z" itemprop="datePublished">2018-03-22</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -185,7 +338,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/渲染优化/">渲染优化</a>
+      <a class="article-title" href="/2018/03/22/前端优化-渲染优化/">前端优化-渲染优化</a>
     </h1>
   
 
@@ -206,15 +359,17 @@
 <li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。
         
           <p class="article-more-link">
-            <a href="/2018/03/22/渲染优化/#more">Read More</a>
+            <a href="/2018/03/22/前端优化-渲染优化/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/渲染优化/" data-id="cjf2djxem0000j23gg69nfod7" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjfezcs900004vv3giobdvpxx" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/帧/">帧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
     </footer>
   </div>
   
@@ -222,12 +377,16 @@
 
 
   
-    <article id="post-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/20/启动优化/" class="article-date">
+    <a href="/2018/03/20/前端优化-启动优化/" class="article-date">
   <time datetime="2018-03-20T09:19:18.000Z" itemprop="datePublished">2018-03-20</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -236,7 +395,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/启动优化/">启动优化</a>
+      <a class="article-title" href="/2018/03/20/前端优化-启动优化/">前端优化-启动优化</a>
     </h1>
   
 
@@ -248,15 +407,17 @@
 <h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。<br>
         
           <p class="article-more-link">
-            <a href="/2018/03/20/启动优化/#more">Read More</a>
+            <a href="/2018/03/20/前端优化-启动优化/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/启动优化/" data-id="cjezb9e3r00003r3gisl2bkdu" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-启动优化/" data-id="cjfezcs8t0001vv3gkilwvqqv" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li></ul>
+
     </footer>
   </div>
   
@@ -264,12 +425,16 @@
 
 
   
-    <article id="post-图片优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-图片优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/20/图片优化/" class="article-date">
+    <a href="/2018/03/20/前端优化-图片优化/" class="article-date">
   <time datetime="2018-03-20T02:03:35.000Z" itemprop="datePublished">2018-03-20</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -278,7 +443,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/图片优化/">图片优化</a>
+      <a class="article-title" href="/2018/03/20/前端优化-图片优化/">前端优化-图片优化</a>
     </h1>
   
 
@@ -290,15 +455,17 @@
 <h4 id="压缩图像内容的大小"><a href="#压缩图像内容的大小" class="headerlink" title="压缩图像内容的大小"></a>压缩图像内容的大小</h4><p>和大部分资源一样，首先应该使用压缩工具减小资源文件的大小，往往这是性价比最高的方式。但是和文本资源不同，图像资源的压缩也意味着图像质量可能有所损失。那么，合理的压缩策略就很重要了，不过度压缩、不重复压缩，还需要根据不同的图像文件格式设置不同的压缩方式。<br>
         
           <p class="article-more-link">
-            <a href="/2018/03/20/图片优化/#more">Read More</a>
+            <a href="/2018/03/20/前端优化-图片优化/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/图片优化/" data-id="cjez0lshq0001qz3gmn0l5s42" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-图片优化/" data-id="cjfezcs8x0002vv3g6ycha03l" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压缩/">压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li></ul>
+
     </footer>
   </div>
   
@@ -306,12 +473,16 @@
 
 
   
-    <article id="post-http缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-http缓存" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/20/http缓存/" class="article-date">
+    <a href="/2018/03/20/前端优化-http缓存/" class="article-date">
   <time datetime="2018-03-20T01:36:26.000Z" itemprop="datePublished">2018-03-20</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -320,7 +491,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/http缓存/">http缓存</a>
+      <a class="article-title" href="/2018/03/20/前端优化-http缓存/">前端优化-http缓存</a>
     </h1>
   
 
@@ -332,15 +503,17 @@
 <h3 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a>cache-control</h3><p>cache-control  是http1.1 协议中定义在header头里用来告诉浏览器和服务器对缓存机制的支持情况，通过给他设置不同的值来定义缓存策略。<br>
         
           <p class="article-more-link">
-            <a href="/2018/03/20/http缓存/#more">Read More</a>
+            <a href="/2018/03/20/前端优化-http缓存/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/20/http缓存/" data-id="cjeyzmkpi0000qz3gt6u839td" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-http缓存/" data-id="cjfezcs8k0000vv3gc9xnloht" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+
     </footer>
   </div>
   
@@ -348,12 +521,16 @@
 
 
   
-    <article id="post-渲染速度的优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-前端优化-渲染速度的优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/17/渲染速度的优化/" class="article-date">
+    <a href="/2018/03/17/前端优化-渲染速度的优化/" class="article-date">
   <time datetime="2018-03-17T09:31:32.000Z" itemprop="datePublished">2018-03-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -362,7 +539,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/渲染速度的优化/">渲染速度的优化</a>
+      <a class="article-title" href="/2018/03/17/前端优化-渲染速度的优化/">前端优化-渲染速度的优化</a>
     </h1>
   
 
@@ -383,67 +560,17 @@
 <li>尽快的构建完成的cssom树
         
           <p class="article-more-link">
-            <a href="/2018/03/17/渲染速度的优化/#more">Read More</a>
+            <a href="/2018/03/17/前端优化-渲染速度的优化/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/渲染速度的优化/" data-id="cjev6acyn0001vn3g1cncetly" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-渲染速度的优化/" data-id="cjfezcs960008vv3g7r80tbe1" class="article-share-link">Teilen</a>
       
       
-    </footer>
-  </div>
-  
-</article>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cssom/">cssom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom/">dom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
 
-
-  
-    <article id="post-记一张页面的加载" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/17/记一张页面的加载/" class="article-date">
-  <time datetime="2018-03-17T09:03:57.000Z" itemprop="datePublished">2018-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/记一张页面的加载/">记一张页面的加载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="title-记一张页面的加载"><a href="#title-记一张页面的加载" class="headerlink" title="title: 记一张页面的加载"></a>title: 记一张页面的加载</h2><h2 id="web前端优化–其一"><a href="#web前端优化–其一" class="headerlink" title="web前端优化–其一"></a>web前端优化–其一</h2><p>web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。<br>但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？</p>
-<h3 id="一张最简单的网页"><a href="#一张最简单的网页" class="headerlink" title="一张最简单的网页"></a>一张最简单的网页</h3><pre><code class="html"> <span class="meta">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">title</span>&gt;</span>hello word<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">body</span>&gt;</span>
-  hello word
-<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/17/记一张页面的加载/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/17/记一张页面的加载/" data-id="cjev5am300000vn3gu4yhr2qk" class="article-share-link">Teilen</a>
-      
-      
     </footer>
   </div>
   
@@ -452,18 +579,44 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
+  </nav>
 
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端优化/" style="font-size: 20px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 13.33px;">性能</a> <a href="/tags/渲染/" style="font-size: 16.67px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -482,23 +635,23 @@
       <ul>
         
           <li>
-            <a href="/2018/03/22/移动设备的性能分析/">移动设备的性能分析</a>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
           </li>
         
           <li>
-            <a href="/2018/03/22/开始性能优化/">开始性能优化</a>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
           </li>
         
           <li>
-            <a href="/2018/03/22/渲染优化/">渲染优化</a>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
           </li>
         
           <li>
-            <a href="/2018/03/20/启动优化/">启动优化</a>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
           </li>
         
           <li>
-            <a href="/2018/03/20/图片优化/">图片优化</a>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
           </li>
         
       </ul>
@@ -513,7 +666,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
+      &copy; 2018 山民<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>前端优化-渲染优化四-管道-合成 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端优化-管道-合成并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。 分层浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响">
+<meta name="keywords" content="前端优化,composite,渲染">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端优化-渲染优化四-管道-合成">
+<meta property="og:url" content="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="前端优化-管道-合成并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。 分层浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg">
+<meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180330112138.png">
+<meta property="og:updated_time" content="2018-03-31T06:25:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端优化-渲染优化四-管道-合成">
+<meta name="twitter:description" content="前端优化-管道-合成并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。 分层浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响">
+<meta name="twitter:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-前端优化-渲染优化四-管道-合成" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/" class="article-date">
+  <time datetime="2018-03-31T06:00:00.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端优化-渲染优化四-管道-合成
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化-管道-合成"><a href="#前端优化-管道-合成" class="headerlink" title="前端优化-管道-合成"></a>前端优化-管道-合成</h2><p>并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响其他部分或者全部内容。如果你是设计师也不希望每一次修改都要重新绘制一次对吧。<br>举个例子：左侧滑出菜单是我们平时非常常见也非常实用的一个功能。如果只有一个层，那么菜单滑出的时候，影响了内容区域的布局，导致整个区域的layout、paint。往往我们会给菜单加上动画。现在，我们得到了一个1秒60帧的卡顿，只有高端设备才能流畅的完成这个行为。</p>
+<p>如果我们把菜单和内容分成两个层。左侧菜单滑出的时候，仅绘制菜单层，那么内容层便不受影响。仅仅这样我们便得到了很大的性能提升，内容层无需被layout、point了。</p>
+<p>分层真是太棒了。</p>
+<h4 id="分层管理"><a href="#分层管理" class="headerlink" title="分层管理"></a>分层管理</h4><p>图层越多，管理图层和合成图层花费的时间就越多。我们每帧只有可怜的10ms左右的渲染时间。我们需要在降低渲染时间和图层管理时间之间做出权衡。</p>
+<p>大部分情况下，都应该让浏览器自动管理图层。有时候你可能会碰到一些复制的绘制，需要将某个（些）元素单独的放到一个图层里。或许我们应该先看看元素是否已经有了自己单独的图层。<br>打开 chrome devTools 工具，按下 Esc 键调出Rendering选项卡并勾选 rendering layers。如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg" alt="rendering"></p>
+<p>勾选 rendering layers 之后屏幕上会出现很多线条（如下图）。这些浅蓝色的线条表示每个图层抓分成的图块，做为开发者我们并没有办法控制这些。我们或者更关心一下橘黄色框框。这些橘黄色框框表示这些元素位于自己的图层上，它们拥有自己的图层。</p>
+<p><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180330112138.png" alt="我盗图了..."> </p>
+<h4 id="创建分层"><a href="#创建分层" class="headerlink" title="创建分层"></a>创建分层</h4><ul>
+<li><p>will-change 在chrome和firefox中，可以使用 will-change 属性告诉浏览器将出现外观更改，然后浏览器可以选择将元素放到新的合成图层上。比如will-change:transform,意为告诉浏览器我们打算在某个时间点更改元素的transform，为此浏览器会为我们创建一个新的图层。will-change 接受所有css外观属性，比如transform、left、top、right、bottom、width、height等。除了transform,即使浏览器预料到会有这些更改，依然会为这些属性运行布局和绘制流程，所以更改他们也不会有多大改善。will-change:transform的好处是 transform 不会造成</p>
+</li>
+<li><p>transform:translateZ(0)  对于旧浏览器和safari,它们并不支持will-change。你需要使用某种3d transform ，最常见的就是translateZ(0),在z轴不发生改变又足以使浏览器创建图层。</p>
+</li>
+</ul>
+<p>在生意环境下，我们可能需要这样子写保 证兼容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transform:translateZ(0)</span><br><span class="line">will-change: transform</span><br></pre></td></tr></table></figure>
+<h4 id="合成预算"><a href="#合成预算" class="headerlink" title="合成预算"></a>合成预算</h4><p>图层管理和渲染层合成并不是独立分开的，它也是管道的一部分，10ms的一部分。我们需要在二者之间找到一个平衡点。没有一个规定要求一定是多少数量的图层，一般对于动画这样的关键性工作，要达到60帧/60，图层管理花费的时间不能超过2ms，渲染层合成也不能超过2ms。10ms真的太少了，如果你在管道的其他工作做得比较少，既然图层管理\合成超过了也没有什么关系。我们需要的是在10ms里完成全部这些工作。</p>
+<p>管道篇，完。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjfezcs930006vv3gaf94ujj7" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/31/前端优化-渲染优化三-管道-css/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">前端优化-渲染优化三-管道-css</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端优化/" style="font-size: 20px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 13.33px;">性能</a> <a href="/tags/渲染/" style="font-size: 16.67px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

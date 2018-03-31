@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>前端优化-渲染优化 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
+<meta name="keywords" content="前端优化,渲染,帧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端优化-渲染优化">
+<meta property="og:url" content="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
+<meta property="og:updated_time" content="2018-03-31T06:29:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端优化-渲染优化">
+<meta name="twitter:description" content="前端优化其六-开发60帧每秒的app浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。 浏览器如何渲染帧 浏览器向服务器发起get请求   get/http/1.1 服务器做出响应并发送html 浏览器提前解析dom（parse html） 浏览器解析cssom (parse stylesheet) 结合 dom + cssom生成render tree (R">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-前端优化-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/前端优化-渲染优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:20.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端优化-渲染优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化其六-开发60帧每秒的app"><a href="#前端优化其六-开发60帧每秒的app" class="headerlink" title="前端优化其六-开发60帧每秒的app"></a>前端优化其六-开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
+<h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
+<li>浏览器向服务器发起get请求   get/http/1.1</li>
+<li>服务器做出响应并发送html</li>
+<li>浏览器提前解析dom（parse html）</li>
+<li>浏览器解析cssom (parse stylesheet)</li>
+<li>结合 dom + cssom生成render tree (Recalculate styles)</li>
+<li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
+<li>从矢量到光栅,把像素绘制到图层(paint)</li>
+<li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
+<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。<a id="more"></a>
+举个例子：<br><a href="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/makeframe.jpg" target="_blank" rel="noopener">making frame</a></li>
+</ol>
+<h4 id="javascript-css引起的渲染"><a href="#javascript-css引起的渲染" class="headerlink" title="javascript/css引起的渲染"></a>javascript/css引起的渲染</h4><p>经常，我们使用javascript操作dom、style，引起网页外观变化；或许我们也有一个css动画、过渡造成网页外观变化，可能会触发浏览器做一些工作。</p>
+<p>javascript/css ==&gt; style ==&gt; layout ==&gt; paint ==&gt; composite</p>
+<p>通过css/javascript 造成外观变化，浏览器需要重新计算受影响元素的样式。这些样式可能会导致浏览器重新计算布局。在布局完成后重新绘制。最后合成图层</p>
+<p>javascript/css ==&gt; style  ==&gt; paint ==&gt; composite</p>
+<p>这一回我们又改观了我们的界面。很幸运在浏览器重新计算受影响元素的样式后，并不需要重新布局，浏览器将直接绘制新的内容，最后合成图层</p>
+<p>javascript/css ==&gt; style ==&gt; composite</p>
+<p>我们的开发人员花废了一些心思，这次改变外观没有引起重绘，更没有引起重新布局。浏览器重新合成图层就合适。遗憾的是，目前只有opacity、transform两个css属性才不会引起重绘与重布局。这也是为何transform动画性能会远远高于left、top、bottom、right等旧动画属性的原因。</p>
+<h4 id="LIAR和四个时间点"><a href="#LIAR和四个时间点" class="headerlink" title="LIAR和四个时间点"></a>LIAR和四个时间点</h4><p>webapp的生命周期的四大领域称为 RAIL(Response、animation、idle、load)。</p>
+<ul>
+<li>load 任何时候我们都应该加快加载速度,最好不要超过1s.</li>
+<li>idle 当 load 完成，等待用户操作的这断时间称为闲置时间(idle)，可以在这段时间里处理我们为了加快加载速度而延后的操作。通常，这些闲置时段时长大约为50ms,也可能是一段连续的idle。比如：我们有一个app应用，有一个查看联系人列表功能。如果我们在idle里直接加载渲染好了，用户秒开是不是很酷。</li>
+<li>response load完成之后，我们也好好的利用了idle。现在用户将与网页互动，网页需要做出回应。有研究表明，如果<strong>用户在进行某项操作（如点击按钮），网页能在100ms之内做出响应，那么用户就不会发现任何延迟</strong>。需要在这段时间内对所有用户操作做出回应。</li>
+<li>animation 如果用户的操作需要实现动画效果，需要达到60fps。例如手指滑过时响应的动画。60fps意味着每帧我们仅有16ms的处理时间，事实上因为浏览器还有其他自己要做的事情，比如gc，我们往往只有10ms左右。达到60fps并不容易，一不小心就触发了性能问题，想想上边渲染一帧浏览器所需要的工作，10ms好像显得十分不够用。</li>
+</ul>
+<p>合理的利用LIAR的各个时间点对渲染性能十分重要 L(1000ms)、I(50ms)、R(100ms)、A(16ms)。</p>
+<h4 id="backwards"><a href="#backwards" class="headerlink" title="backwards"></a>backwards</h4><p>利用浏览器在完成了初始的工作并运行动画后，可以较低的成本向后运行动画。相当于提前计算任务繁重的工作。</p>
+<ol>
+<li>first 收获所有元素初始信息 </li>
+<li>last 展开元素，收集所有元素动画结束信息</li>
+<li>invest 计算差异，保存差异。</li>
+<li>play 动画开始</li>
+</ol>
+<p>搜集所有信息可能听着需要花费许多时间。还记得上面说的100ms的延时响应吗？只要在这断时间内完成，那么用户将不会感知，我们的动画顺便爬到了60fps。最后，在动画回退时，还可以按原路径返回，好像又节省了一些时间。</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>我们能够浏览器绘制或布局甚至运行javascript，这并不表明我们拥有无限的时间预算。例如布局和绘制时间都会取决于受影响的元素数量，或者我们可以通过减少受影的元素数量来提升性能。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjfezcs900004vv3giobdvpxx" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/帧/">帧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/22/前端优化-开始性能优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          前端优化-开始性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/20/前端优化-启动优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">前端优化-启动优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端优化/" style="font-size: 20px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 13.33px;">性能</a> <a href="/tags/渲染/" style="font-size: 16.67px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

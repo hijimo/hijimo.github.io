@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="hijimo">
+<meta property="og:url" content="http://hijimo.github.io/page/3/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hijimo">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-关于ie下iframe内存泄露" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/12/关于ie下iframe内存泄露/" class="article-date">
+  <time datetime="2015-02-12T06:15:00.000Z" itemprop="datePublished">2015-02-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/12/关于ie下iframe内存泄露/">关于ie下iframe内存泄露</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="lt-–markdown–-gt-契机"><a href="#lt-–markdown–-gt-契机" class="headerlink" title="&lt;!–markdown–&gt;契机"></a>&lt;!–markdown–&gt;契机</h2><p>近日，手头上负责的一个项目被报告在IE下会产生严重的内存泄露，在对某一复杂表单进行若干次操作后(大约十次左右)IE进程的内存占用就达到了600M之多，恐怖之极。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>由于泄露页面表单中使用了extjs，第一时间怀疑是否是extjs代码内存没有及时释放。但是这个设想很快就被我否定了，因为我发现在发生泄露后不管我怎么跳转页面、重登，甚至关闭ie，进程还是占用着内存。</p>
+<p>基于IE的CollectGarbage机制，我们知道，当对象不在他当前上下文的时候，即会失效。<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>本着70%的问题别人都是已经碰到过的原则，我找到了神奇海螺。最后我发现，&lt;font color=&#39;red&#39;&gt;IE并没有办法正确的释放iframe所占用的内存&lt;/font&gt;，一旦碰到这种iframe里藏着个怪兽的情况下。内存泄露将会非常严重。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>手工释放iframe的内存。</p>
+<pre><code>iframe_child=obj.getElementsByTagName(&amp;#39;iframe&amp;#39;)[0];
+    //清空iframe 减轻ie下内存泄露
+    if(iframe_child){
+        iframe_child.src=&amp;#39;about:blank&amp;#39;;
+        iframe_child.contentWindow.document.write(&amp;#39;&amp;#39;);
+        iframe_child.contentWindow.document.clear();
+        iframe_child.contentWindow.document.close();
+        iframe_child.removeNode(true);
+    }
+    setTimeout(function(){
+
+        obj.wintitle.removeNode(true) ;
+        obj.removeNode(true) ;
+        obj = null;
+
+
+    },200);
+    if(CollectGarbage){//IE强制回收内存
+    CollectGarbage();
+    }
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/12/关于ie下iframe内存泄露/" data-id="cjllnkodq00152n3g8n2xo6ie" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript模块化编程（ 上）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/07/javascript模块化编程（ 上）/" class="article-date">
+  <time datetime="2015-02-07T13:39:00.000Z" itemprop="datePublished">2015-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/07/javascript模块化编程（ 上）/">javascript模块化编程（ 上）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;ps:写这篇文章的时候，我的大脑已经是处于加班了一个多月的情况下。文章写得很乱，会不定时修改，也有直接删除的可能</p>
+<p>#什么是javascript模块化</p>
+<p>   引用一下阮一峰前辈的一句话：理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。<br>    广义上而言。.css的重复利用，.js文件的组件封装都可以算是前段的模块化实现。<br>早在2012初的时候（我用的时候），extjs的前端mvc框架就是很先进的javascript模块化加载了。<br>同样的还有YUI的add  和namespace等。所以，javascript其实离我们并不远，更不陌生。</p>
+<p>#为什么需要模块化编程</p>
+<p> &lt;del&gt;十年前，网页还只是简单的承载着一些多媒体信息，甚至于我们观看视频还要安装各种各样的视频播放插件(如 windows player、realplayer等等)。当时的网页页面并不复杂，甚至很多页面都没有出现javascript语句。现在绝对会被杀千刀的一些代码写法在当时确非常流行，举个栗子</p>
+<pre><code>&amp;lt;input type=&amp;#39;button&amp;#39; onclick=&amp;#34;handler()&amp;#34; /&amp;gt;
+</code></pre><p>更有甚至</p>
+<pre><code>&amp;lt;input type=&amp;#39;button&amp;#39; onclick=&amp;#39;function(){log(&amp;#39;hahahahah&amp;#39;);}&amp;#39; /&amp;gt;
+</code></pre><p>&lt;del&gt;随着我们的硬件发展越来越好，加上各种现代浏览器助力，我们的网页已经早已不满足只是简单的呈现信息。b/s应用早已侵吞了c/s应用的半壁江山。随之而来的便是团队协作，代码越来越发杂，逻辑越来越发杂，代码维护越来麻烦。那么和其他语言一样，模块化是必然。</p>
+<pre><code>看这里就好。网页越来越复杂，越来越像桌面程序，需要一个团队分工协作、进度管理、单元测试等等......开发者不得不使用软件工程的方法，管理网页的业务逻辑。
+</code></pre><p>#AMD规范和CMD规范</p>
+<p>要想要随意的使用别的代码，有一个前提便是，大家都用一样的规范或标准去写代码。<a href="https://github.com/seajs/seajs/issues/242" target="_blank" rel="noopener">CMD规范</a>和<a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank" rel="noopener">AMD规范</a> 。两者最大的区别就是AMD是异步加载的，而CMD是同步加载的。CMD比起AMD规范要早不少，主要用于服务端。<br>    CMD是一个很好的规范。但是，它并不适用于客户端。原因如下：<br>    1.javascript是单线程语言<br>    2.由于一，在加载时浏览器会假死<br>    3.网络无法控制，若需要10s加载，参照2</p>
+<p>#模块化的弊端</p>
+<pre><code>1.模块化的前提是规范，为了符合规范，程序员需要更改编程习惯
+2.老项目想要模块化需要成本
+3.最重要的，模块化难以避免的会造成文件碎片化，造成请求数剧增。
+</code></pre><p>在AMD规范里，在请求模块的时候会同步加载模块所需的类库，这进一步加剧了碎片，增加请求数量。如果不解决这个问题，一个页面3位数的请求数是一件很恐怖的事情。<br>百度fis对此提出的解决方案是将所有依赖打包以减少请求数。同时，依赖和模块分开打包，可以很好的利用文件缓存。但是，每次发布都要打包实在太麻烦，于是，他们就正大光明的给自己的fis打广告了 -0 -</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/07/javascript模块化编程（ 上）/" data-id="cjllnkodi000q2n3gded0o3k0" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript前端模版实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/04/javascript前端模版实现/" class="article-date">
+  <time datetime="2015-02-04T12:37:00.000Z" itemprop="datePublished">2015-02-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/04/javascript前端模版实现/">javascript前端模版实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;刚刚修复的小站，界面还未完工，现在发现markdown也跪了。真是悲剧,请大家将就着看吧</p>
+<h2 id="远程服务器方式"><a href="#远程服务器方式" class="headerlink" title="远程服务器方式"></a>远程服务器方式</h2><p>即从服务端获取模版文本填充到客户端的做法，因为这种做法很容易造成xss漏洞，所以我们还需要花费大力气在前后端做处理，所以不是很推荐。但是，将大量无用的标签存在dom或内存中也是很糟糕的做法，如果你有大量的html标签要处理，不妨试试这种方式。</p>
+<h2 id="简单客户端模版"><a href="#简单客户端模版" class="headerlink" title="简单客户端模版"></a>简单客户端模版</h2><p>1.注释流<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>  注释文本和其他html标记或文本一样是会被记录到dom树里，可以被javascript获取，以下是简单示例。</p>
+<pre><code>    &amp;lt;input type=&amp;#39;button&amp;#39; id=&amp;#39;btn_ent&amp;#39; value=&amp;#39;我按&amp;#39; /&amp;gt;
+
+    &amp;lt;div id=&amp;#39;container&amp;#39;&amp;gt;
+        &amp;lt;!--&amp;lt;ul&amp;gt;
+                &amp;lt;li&amp;gt;吃饭么今天&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;今天只有面唉&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;那怎么办&amp;lt;li&amp;gt;
+                &amp;lt;li&amp;gt;我们之间有一个人是食物，我不是&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;我也不是&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;你不是个鬼啊.快点给我变成食物&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;我不要，你去死吧&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;啊~~啊~~ 啊~~ 啊~~~ 啊~~~~&amp;lt;/li&amp;gt;
+        &amp;lt;ul&amp;gt;--&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+
+    document.getElementById(&amp;#39;btn_ent&amp;#39;).onclick=function(){
+
+        var container=document.getElementById(&amp;#39;container&amp;#39;),
+            script=document.getElementById(&amp;#39;template&amp;#39;);
+
+        /*
+         * 注释大法 
+         * 有些浏览器可以通过 container.firstNode.nodeValue直接取出注释= - = 
+         * 有些浏览器却不能 = - =
+         */    
+                container.insertAdjacentHTML(&amp;#39;beforeend&amp;#39;,getTemplate(container));
+
+    }
+&amp;lt;/script&amp;gt;
+</code></pre><p>2.自定义script标签流<br>       一般情况下我们的script标签默认是text/javascript类型的，但是同时我们是可以自定义type=&#39;jm-tempalte&#39;,来返回一段文本，通过这个特性我们可以更简单的获取到我们的模版。以下是简单示例。</p>
+<pre><code>    &amp;lt;div id=&amp;#39;container&amp;#39;&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+
+&amp;lt;script type=&amp;#39;text/jm-template&amp;#39; id=&amp;#39;template&amp;#39;&amp;gt;
+    &amp;lt;ul&amp;gt;
+        &amp;lt;li&amp;gt;吃饭么今天&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;今天只有面唉&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;那怎么办&amp;lt;li&amp;gt;
+        &amp;lt;li&amp;gt;我们之间有一个人是食物，我不是&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;我也不是&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;你不是个鬼啊.快点给我变成食物&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;我不要，你去死吧&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;啊~~啊~~ 啊~~ 啊~~~ 啊~~~~&amp;lt;/li&amp;gt;
+    &amp;lt;ul&amp;gt;
+&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+
+    document.getElementById(&amp;#39;btn_ent&amp;#39;).onclick=function(){
+
+        var container=document.getElementById(&amp;#39;container&amp;#39;),
+            script=document.getElementById(&amp;#39;template&amp;#39;);
+
+        /*
+         * script 模版大法
+         * script里取出来的文本前面总是会多一个空格，所以要记得去掉
+         */
+                                    container.insertAdjacentHTML(&amp;#39;beforeend&amp;#39;,script.text.replace(/^s*/,&amp;#39;&amp;#39;));
+
+    }
+
+&amp;lt;/script&amp;gt;
+</code></pre><h2 id="复杂客户端模版"><a href="#复杂客户端模版" class="headerlink" title="复杂客户端模版"></a>复杂客户端模版</h2><p>复杂客户端模版一般使用Js类库实现，比如handlebars,比如backbone，又比如underscore。</p>
+<p>最后，根据传统，放上完整demo<a href="http://pan.baidu.com/s/10I7MI" target="_blank" rel="noopener">[点我吧]</a>。<br>在线demo稍后上线.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/04/javascript前端模版实现/" data-id="cjllnkod7000c2n3gexj4r059" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript中的asi机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/03/javascript中的asi机制/" class="article-date">
+  <time datetime="2015-02-03T06:51:00.000Z" itemprop="datePublished">2015-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/03/javascript中的asi机制/">javascript中的asi机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;庆祝自己小站复活，先写个文章压压惊。<br>在此感谢木工(<a href="http://loftor.com/" target="_blank" rel="noopener">木木工程师</a>)的技术支持。</p>
+<p>什么是Automatic semicolon insertion机制呢。中文一般翻译成自动插入分号，简称asi机制。功能呢，也很简单，就是智能的判断语句是否插入分号，示例如下</p>
+<pre><code>function(){
+    reutrn  &amp;#39;hehe&amp;#39;
+}
+</code></pre><p>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>由于有asi机制的存在，以上代码是合法而合理的。大概javascript的设计师是为了帮助一些粗心的小猴子温馨的加个分号。但是呢，也会发生一些神奇的事情。比如如下示例</p>
+<pre><code>function(){
+        return
+        {
+            today:&amp;#39;才周二&amp;#39;
+        }
+    }
+</code></pre><p> 或许，我们希望返回一个对象,但是由于asi机制的存在，这段代码并不能返回我们想要的结果。正确示例应如下</p>
+<pre><code>function(){
+      return{
+          today:&amp;#39;不是周五&amp;#39;
+      }
+  }
+</code></pre><p>像方括号、逗号、大括号、小括号等这些常用符号并不会被自动加上分号而被断句。<br>asi机制的规则花样繁多，去记住他们的所有规则有点不大现实，所以大部分情况下我们还是老老实实的在句末加上分号吧。同时，留个小心情，避免发生如上bug。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/03/javascript中的asi机制/" data-id="cjllnkod200062n3gnzp1ujqk" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-转：web前端真的需要mvvm吗" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/04/转：web前端真的需要mvvm吗/" class="article-date">
+  <time datetime="2014-07-04T01:35:00.000Z" itemprop="datePublished">2014-07-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/04/转：web前端真的需要mvvm吗/">转：web前端真的需要mvvm吗</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;转自知乎的评论，对目前流行的mvc,mvp,mvvm等开发模型作了很好的阐述。个人觉得很精彩</p>
+<p>原文出处：<a href="http://www.cnblogs.com/indream/p/3602348.html" target="_blank" rel="noopener">http://www.cnblogs.com/indream/p/3602348.html</a>   –完整有图哦</p>
+<p>我个人认为摩尔定律是不足以让一个敲命令行的时代在几十年间转变成这种各类框架技术架构实践模式的时代，真正推动计算机形成自有的工程学体系的是还有两样东西就是：</p>
+<ul>
+<li><strong>人的能力并没有变强，至少没有在同级数下变强。</strong></li>
+<li><strong>人类一定会物尽其用</strong><br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>因为人的能力并没有“跟上”机器，所以才会出现各种模式、方法、工具等等来补足人的不足，以最大地透支机器性能。就像我前几天在闪存无聊时突然想到的一句： <strong>架构是对客观不足的妥协，规范是对主观不足的妥协</strong>。<br>&lt;P&gt;当我们需要机器做的事情多了起来，我们就没办法在一个芯片上解决所有事情，所以才会有冯诺依曼模型、计算机架构，没办法用一台机器解决，所以才要互联网、分布式、云计算。&lt;/P&gt;<br>&lt;P&gt;同样，随着计算机的发展，<strong>要做的事情多了，就出现了软件的概念</strong>。当“开发”正式化，我们需求的软件就变得：<strong>功能繁杂、管理统一、多入口。</strong>&lt;/P&gt;<br>&lt;P&gt;<strong>真正变化的不是客观本质，而是需求</strong>。就像这里说的“软件入口”在客观上我们还是只有一个，原理上始终都只有一个启动程序、一个启动代码片段。但<strong>“软件的入口”，已经从指代Main函数变成了指代起始UI，用户已经从指代专业人士变成了指代一般消费者，先有软件的需求，才有软件的定义，而需求是在变化的。</strong>&lt;/P&gt;<br>一个软件需要比当时多几个数量级的代码：</li>
+</ul>
+<ul>
+<li>客观上我们没办法做一个能显示所有代码的显示器</li>
+<li>主观上我们没办法在超快速滚动中看清所有代码</li>
+</ul>
+<p><strong>所以我们需要添加索引、用多个文件组织代码。</strong><br>&lt;P&gt;机器的发展和软件的需求扩大和细化，我们开始出现了用户界面（User Interface）的概念和最适合用于界面的语言——标记语言（Markup Language）。当然，ML不是为UI而生的，它只是十分适合UI，所以才和UI坠入爱河。&lt;/P&gt;<br>&lt;P&gt;<strong>因为有了更高UI的需求，所以代码才正式被分化为描述做什么（业务逻辑）和有什么（UI）的两部分，因为我们开发时没办法在两种思维方式下同时工作，开发时的人脑是单线程的。</strong>我们所看到的同时进行UI和逻辑开发只不过是我们学会了在两种模式下快速切换，看起来像同时进行，而不是真正的同时进行。同样的情况也发生在不同的代码片段的开发中。&lt;/P&gt;<br>分化的情况除了UI，还发生在方方面面，比如数据操作、UI的对象和样式分离</p>
+<p>#事务，以及界面、数据、事件、业务<br>&lt;P&gt;在之前说到过了，<strong>当需求变得庞大，解决方案也会变得庞大；当解决方案变得庞大，就会出现细分；当出现细分，就会出现按哪种方式管理的问题。</strong>&lt;/P&gt;<br>&lt;P&gt;<strong>软件从处理一件事务发展到了要处理许多事务</strong>，各事务间有包含、顺序、主次等等的关系，变得越来越复杂。因为数据与逻辑庞大了，所以数据与逻辑就分离了，然后事件和业务分离了。&lt;/P&gt;<br><strong>它们的关系已经在我们还理得清之前持续发展而变得更加难理得清</strong>，但在一个时间点上，它们UI的领域大致分化成这些原子：</p>
+<ul>
+<li>界面</li>
+<li>数据</li>
+<li>事件</li>
+<li>业务</li>
+</ul>
+<p>你要细化的话会有更多繁杂的细节，但相信这么写的话争议性比较小。<br>&lt;P&gt;<strong>当一个问题出现一次的时候它是一个问题，当一个问题出现了无数次的时候它会成为历史，当一个问题将会出现无数次的时候，它将需要一个明确的定义和解决方案。</strong>&lt;/P&gt;<br>&lt;P&gt;其中，<strong>数据的更新和界面的更新这一特殊事件的问题被放大了无数倍，因为它出现了无数次。</strong>&lt;/P&gt;<br>&lt;P&gt;在ASP还在奋斗的时候WebForm突然到来，正如WebForm还在奋斗的时候MVC突然到来。当然，<strong>我这里讲的MVC还是最原始的MVC，因为MVC在我们还在争论的时候已经发展了许多不同分支了。</strong>&lt;/P&gt;<br>&lt;P&gt;有一点相信大家同意的就是，<strong>我们今天讨论争论的MVC、MVP、MVVM、Code Behind等等都源自于职能分化和规划的思想与目的，MVC不是它们的开始，但是一个很好的开始。</strong>&lt;/P&gt;<br>&lt;P&gt;相信MVC的模型大家很熟悉，也很容易找到&lt;/P&gt;<br>&lt;P&gt;界面被分到了View，数据分到了载体Model上由Model“携带”，业务集中在Controller中，而推动业务的事件由用户与View交互，通过View向Controller发动。&lt;/P&gt;<br>&lt;P&gt;当然，实现由很多种，每种细节上都有不同，所以我才只讲也只能讲大致的MVC。<strong>MVC的其中一个缺点便是没有明确的定义，所以不同的实现（比如Struts和<a href="http://ASP.NET" target="_blank" rel="noopener">http://ASP.NET</a> MVC）细节上都是不一样的。</strong>&lt;/P&gt;<br>&lt;P&gt;我们需要知道的是，<strong>MVC并不是像上面所说的一些事情那样是一种“必然的”结果，它是一系列必然结果问题中的一种解决方案，而且是不完美的解决方案</strong>。我们顺着推理去到一个地方很容易犯的一个错误就是认为路只有这一条而忽视其他可能性（估计这也是导致很多争斗的原因）。另外，我们在讨论一件事物不完美的时候是有一个情境的，所以请不要像“我说它色彩单一，然后你把它涂成彩色后证明我是错的”。&lt;/P&gt;<br>&lt;P&gt;MVC的一般流程是这样的：<strong>View（界面）触发事件–》Controller（业务）处理了业务，然后触发了数据更新–》不知道谁更新了Model的数据–》Model（带着数据）回到了View–》View更新数据</strong><br>这里也不多再陈述MVC的原理、实践等等，因为这就太长篇大论了。&lt;/P&gt;</p>
+<p>#Model-View-Presenter和一些衍生<br>&lt;P&gt;像我们之前推理的，<strong>分化是一种需求的必然结果，但却没有个一个确定的结果，比如Code Behind和Code Block的问题等等。</strong>&lt;/P&gt;<br>&lt;P&gt;MVC顺着需求把UI相关的工作分化成了三份，这点经过实践证明无可厚非。<strong>但是它们的三角关系却被一些人认为带来了一些问题，或者应该说他们有“更好的”解决方案。</strong>&lt;/P&gt;<br>&lt;P&gt;在只有Code Behind和Code Block的那个时候维护是很直接的，不是在同一段代码内解决就是在同一个关联的事件上解决。三角关系的问题就是维护问题。在MVC，当你有变化的时候你需要同时维护三个对象和三个交互，这显然让事情复杂化了。&lt;/P&gt;<br>&lt;P&gt;我们之前说到，随着摩尔定律，软件的需求不断地变化和变得庞大。<strong>随着需求变得庞大的时候，需求变化也变得频繁，这是一个出现了无数次以后也将会出现无数的无数次的一个问题，所以它需要一个解决方案，哪怕它不一定能被解决。</strong>&lt;/P&gt;</p>
+<p>&lt;P&gt;对MVC的改进的思想却是一样的：<strong>切断的View和Model的联系，让View只和Presenter（原Controller）交互，减少在需求变化中需要维护的对象的数量。</strong>&lt;/P&gt;<br>这种方式很符合我们的期待，因为我们倾向于：</p>
+<ul>
+<li><strong>用更低的成本解决问题</strong></li>
+<li><strong>用更容易理解的方式解决问题</strong></li>
+</ul>
+<p>&lt;P&gt;许多时候并不是一种模式不好，而是因为人没办法执行，比如不容易理解，我们就会选择容易理解的方式。<strong>计算机依赖摩尔定律用数量的增长来解决问题，而人是用方式的改变来解决问题的</strong>。同样因为客观原因我们不善于维护多个对象和多个对象之间的关系，所以我们改变了，或者说简化了这种方式。&lt;/P&gt;<br>&lt;P&gt;<strong>MVP定义了Presenter和View之间的接口，让一些可以根据已有的接口协议去各自分别独立开发，以此去解决界面需求变化频繁的问题</strong>。上面两图都有接口，不过接口的实现和使用细节不一样，不过思想上是一致的。&lt;/P&gt;<br>&lt;P&gt;在这里要提到的是，事实上，需求变化最频繁的并不一定是最接近用户的界面，但基本可以确定的是，最接近用户的界面是因为需求变化而需要最频繁更改的。当然，如果View如果是API而不是UI，那就另说了。&lt;/P&gt;<br>&lt;P&gt;还有一些用来“解决”MVC这项缺点的比如有：<a href="http://ASP.NET" target="_blank" rel="noopener">http://ASP.NET</a> MVC的ViewBag，Cocoa的delegate。它们都为了简化数据更新的问题而存在，包括MVVM。&lt;/P&gt;</p>
+<p>#Model-View-ViewModel<br>先直接看看Model-View-ViewModel（MVVM）的图：<br>&lt;P&gt;从图上看是比MVP简单了，更不用说MVC了。个人不认为MVVM是从MVP进化而来，我只觉得这是在MVP之后出现的一种“更好的”UI模式解决方案，但是用MVP来与之对比比较容易说明问题。&lt;/P&gt;<br>&lt;P&gt;<strong>ViewModel大致上就是MVP的Presenter和MVC的Controller了，而View和ViewModel间没有了MVP的界面接口，而是直接交互，用数据“绑定”的形式让数据更新的事件不需要开发人员手动去编写特殊用例，而是自动地双向同步。数据绑定你可以认为是Observer模式或者是Publish/Subscribe模式，原理都是为了用一种统一的集中的方式实现频繁需要被实现的数据更新问题。</strong>&lt;/P&gt;<br>&lt;P&gt;<strong>比起MVP，MVVM不仅简化了业务与界面的依赖关系，还优化了数据频繁更新的解决方案，甚至可以说提供了一种有效的解决模式。</strong>&lt;/P&gt;<br>至此，我们能理解为什么许多人认为MVVM是最好的一种模式，没有之一。但事实上，<strong>MVVM也是依赖于我们至今所讲的“特有的情境”。</strong>&lt;P&gt;<br>&lt;P&gt;当然，最优雅的也是第一个能作代表的实践就是Windows Presentation Foundation（WPF）了。&lt;/P&gt;</p>
+<p>#Web<br>&lt;P&gt;之上，我们在模式演变的推论基本上都还是基于桌面软件的，<strong>但是过去十年却是互联网的时代</strong>。实际上<strong>大部分让大家争议的并不是在桌面领域最合适的是那个，而是在Web领域的模式问题，也就是在B/S场景下的问题。</strong>&lt;/P&gt;<br>&lt;P&gt;当软件离开单机，去到网络的时候，因为场景变了，所以原有的解决方案也变了，不过需求依然是不变的。<strong>我们依然要解决的问题是用户交互与数据更新的问题，还有维护等等的问题。</strong>&lt;/P&gt;<br>&lt;P&gt;当场景变到Web的时候，<strong>我们发现MVVM用来做服务端是极其不适用的，至少现在是不适用的</strong>。而MVP你提都不用提。为什么呢？因为：</p>
+<ul>
+<li><strong>网络资源成本过高</strong></li>
+<li><strong>开发成本过高</strong><br>&lt;/P&gt;</li>
+</ul>
+<p>&lt;P&gt;问大家一个问题，当一个网页的数据更新后，你希望更新用户看到的数据，你会怎么做？&lt;/P&gt;<br>一般情况下，你会：</p>
+<pre><code>window.location.reload();
+</code></pre><p>就算你不这么做，用户也会：</p>
+<pre><code>F5
+</code></pre><p>&lt;P&gt;就像之前说的，我们会选择更直接的方式解决问题。直接刷新页面的原因是因为这样更直接，更容易解决数据更新的问题。&lt;/P&gt;<br>&lt;P&gt;很多时候<strong>你不会愿意为了一个数据更新写一个AJAX，更别说这个AJAX要带来Loading、事件顺序处理、网络问题、异常处理等等，这就是开发成本过高。</strong>&lt;/P&gt;<br>&lt;P&gt;另一个网络成本过高就更容易解释了，虽然宽带是基本包月的，但也不带这么用的，何况还有移动用户。更主要的原因是，<strong>在本地软件，更新数据是一个引用问题，而在网络应用上，这是一个传输问题</strong>。传输成本远高于引用成本，引用之上顶多是在本地内存中再进行一次内存拷贝。&lt;/P&gt;<br>&lt;P&gt;这个时候，<strong>我们会更倾向于用MVC模式，因为在Web层面，我们更倾向于一次性更新数据。</strong>&lt;/P&gt;</p>
+<p>#Web的MVVM</p>
+<p>&lt;P&gt;所有问题都不是问题，就算有问题也要解决问题。&lt;/P&gt;<br>&lt;P&gt;为什么这个标题下突然冒出这么一句话？我想说的是，<strong>需求依旧是不变的，是推动进步的原动力。</strong><br>还有我之前说过，当我们讨论或者争论一个问题的时候，问题的对象已经发生改变了，而且这次是在我们讨论这个问题之前已经发生改变了。&lt;/P&gt;<br>&lt;P&gt;<strong>网络资源成本不断下降</strong>，相信已经不需要多提及。摩尔定律和相近的一些原理正在发挥着它应用的作用，网络带宽越来越高、相应速度越来越快。&lt;/P&gt;<br>&lt;P&gt;<strong>如果传输因为相对成本下降而导致数据传输的成本低于开发人员拒绝客户的成本，那么它就会被实现而不是被拒绝。</strong>&lt;/P&gt;<br>&lt;P&gt;另外还有一点就是<strong>因为技术的进步，技术的资源不断被更大规模地压榨，需求也不断地增长，那么需求始终会增长超过相对不变的开发成本的。</strong>比如jQuery的出现解决了很多问题，我们现在更多地去使用AJAX，哪怕很大一部分依然是为了解决网络资源不足的问题；我们会用更多的样式代码而用了相对更少的图片；我们不再那么依赖Flash一类的矢量图解决方案而直接录制视频。&lt;/P&gt;<br>&lt;P&gt;至少上一节我们说到的两个导致大家选用MVC的问题都正在被解决，所以我们有理由相信未来Web不仅仅需要MVC，可能会需要MVVM或其他解决方案。至少我们能理解容易理解为什么前端会出现一些MVVM的框架，比如先驱knockout.js和AngularJs。&lt;/P&gt;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/04/转：web前端真的需要mvvm吗/" data-id="cjllnkoen002t2n3gloxo3eyq" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-谷歌页面性能优化神器PageSpeed Insights" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" class="article-date">
+  <time datetime="2014-07-03T06:42:00.000Z" itemprop="datePublished">2014-07-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/">谷歌页面性能优化神器PageSpeed Insights</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#简介<br> PageSpeed Insights 是google公司推出的网站性能工具，他可以分析页面载入的各个方面，包括资源、网络、DOM以及时间线等等信息。我们可以通过chrome的扩展程序去获取它，也可以通过在线网址来直接检测我们的网站。<br>    ps:在线检测貌似被墙了，goagent也检不鸟了。。</p>
+<p>&lt;h3&gt;在线检测网址&lt;/h3&gt;<br><a href="https://developers.google.com/speed/pagespeed/" target="_blank" rel="noopener">https://developers.google.com/speed/pagespeed/</a></p>
+<p>&lt;h3&gt;chrome扩展&lt;/h3&gt;<br><a href="https://chrome.google.com/webstore/detail/pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli/" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli/</a></p>
+<p>#功能实测</p>
+<p>下面先以自己的小站为例<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>第一步，打开chrome,按f12调出开发者面板，发现会多了一个PageSpeed选项卡。<br><img src="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/418851211.jpg" alt="hijimo.com"></p>
+<p>第二步，点击上面中的 分析按钮，chrome就会帮我们进行分析，很快我们就可以得到优化建议。如下图所示，超级简单方面。<br><img src="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/965267878.png" alt="QQ截图20140703143839.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" data-id="cjllnkoek002m2n3gckwj3u33" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-寂寞的网络收藏夹" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/02/寂寞的网络收藏夹/" class="article-date">
+  <time datetime="2014-07-02T03:59:00.000Z" itemprop="datePublished">2014-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/02/寂寞的网络收藏夹/">寂寞的网络收藏夹</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#美工类</p>
+<p>一天看一次: <a href="https://dribbble.com/" target="_blank" rel="noopener">https://dribbble.com/</a><br>一天看一次: <a href="https://www.behance.net/" target="_blank" rel="noopener">https://www.behance.net/</a><br>一天看一次:<a href="http://patterntap.com/" target="_blank" rel="noopener">http://patterntap.com/</a><br>一天看一次:<a href="http://unmatchedstyle.com/" target="_blank" rel="noopener">http://unmatchedstyle.com/</a><br>一天看一次:<a href="http://www.awwwards.com/" target="_blank" rel="noopener">http://www.awwwards.com/</a></p>
+<p>老外的一个免费下载psd的网站 <a href="http://www.criticue.com/" target="_blank" rel="noopener">http://www.criticue.com/</a><br>老外的一个免费下载psd的网站 <a href="http://freepsddownload.com/" target="_blank" rel="noopener">http://freepsddownload.com/</a><br>老外的一个收集html5网站设计的网站 <a href="http://html5awesome.com/" target="_blank" rel="noopener">http://html5awesome.com/</a><br>老外的一个收集html5设计的网站 <a href="http://www.1stwebdesigner.com/category/design/" target="_blank" rel="noopener">http://www.1stwebdesigner.com/category/design/</a><br>2014年100个免费HTML网页模板下载使用 <a href="http://www.1stwebdesigner.com/wordpress/free-html-website-templates/" target="_blank" rel="noopener">http://www.1stwebdesigner.com/wordpress/free-html-website-templates/</a><br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>12个设计精美的扁平化后台界面PSD免费下载 <a href="http://yusi123.com/2874.html" target="_blank" rel="noopener">http://yusi123.com/2874.html</a><br>40个构建良好用户界面所需的人性化解决方案   <a href="http://yusi123.com/2626.html" target="_blank" rel="noopener">http://yusi123.com/2626.html</a> <a href="http://goodui.org/" target="_blank" rel="noopener">http://goodui.org/</a><br>12个简洁漂亮的纯CSS3进度条特效动画代码 <a href="http://viduthalai1947.github.io/loaderskit/" target="_blank" rel="noopener">http://viduthalai1947.github.io/loaderskit/</a><br>30个令你惊喜的视差滚动（Parallax Scrolling）效果网站 <a href="http://www.webdesignersblog.net/inspiration/30-mind-blowing-parallax-scrolling-effect-websites/" target="_blank" rel="noopener">http://www.webdesignersblog.net/inspiration/30-mind-blowing-parallax-scrolling-effect-websites/</a><br>[CSS3教程]50个精彩至极的css3动画效果 <a href="http://www.1stwebdesigner.com/css/50-awesome-css3-animations/" target="_blank" rel="noopener">http://www.1stwebdesigner.com/css/50-awesome-css3-animations/</a><br>2014年流行的25个非常精美的UI设计PSD素材免费下载 <a href="http://yusi123.com/2377.html" target="_blank" rel="noopener">http://yusi123.com/2377.html</a><br>分享10套对设计灵感有用的图形用户界面的平面设计 <a href="http://yusi123.com/672.html" target="_blank" rel="noopener">http://yusi123.com/672.html</a><br>50个优秀的web配色界面分享 <a href="http://www.daqianduan.com/4743.html" target="_blank" rel="noopener">http://www.daqianduan.com/4743.html</a></p>
+<p>#设计文章类</p>
+<p>40个构建良好用户界面所需的人性化解决方案 <a href="http://yusi123.com/2626.html" target="_blank" rel="noopener">http://yusi123.com/2626.html</a><br>HTML5+CSS3的响应式网页设计：自动适应屏幕宽度 <a href="http://yusi123.com/2539.html" target="_blank" rel="noopener">http://yusi123.com/2539.html</a><br>一个非常有用的HTML5+CSS3响应式图片案例 <a href="http://www.w3cfuns.com/article-1289-1.html" target="_blank" rel="noopener">http://www.w3cfuns.com/article-1289-1.html</a><br>小伙伴们都会惊呆的10个超炫的HTML5+CSS3效果作品 <a href="http://yusi123.com/2408.html" target="_blank" rel="noopener">http://yusi123.com/2408.html</a><br>七个CSS3代码自动生成工具让你提升前端开发速度 <a href="http://yusi123.com/1305.html" target="_blank" rel="noopener">http://yusi123.com/1305.html</a></p>
+<p>中文网页重设与排版：<a href="http://typo.sofi.sh/" target="_blank" rel="noopener">http://typo.sofi.sh/</a></p>
+<p>#框架类<br>2014 年 15 款最棒的 HTML&amp;CSS 框架 <a href="http://www.oschina.net/news/47858/top-15-html-css-framework" target="_blank" rel="noopener">http://www.oschina.net/news/47858/top-15-html-css-framework</a></p>
+<p>一个超炫的图片灯箱：<a href="http://wowslider.com/" target="_blank" rel="noopener">http://wowslider.com/</a></p>
+<p>30个非常精美的jQuery Lightbox图片效果插件 <a href="http://yusi123.com/129.html" target="_blank" rel="noopener">http://yusi123.com/129.html</a></p>
+<p>JS前端：<a href="http://foundation.zurb.com/index.html" target="_blank" rel="noopener">http://foundation.zurb.com/index.html</a><br>JS前端：<a href="http://getbootstrap.com/" target="_blank" rel="noopener">http://getbootstrap.com/</a><br>JS前端：<a href="http://purecss.io/" target="_blank" rel="noopener">http://purecss.io/</a><br>JS前端：<a href="http://www.polymer-project.org/" target="_blank" rel="noopener">http://www.polymer-project.org/</a></p>
+<p>#操作系统类<br>15 款 Windows 的数据恢复工具 <a href="http://www.oschina.net/translate/15-data-recovery-tools-for-windows" target="_blank" rel="noopener">http://www.oschina.net/translate/15-data-recovery-tools-for-windows</a></p>
+<p>#测试类<br>如何模拟超过 5 万的并发用户 <a href="http://www.oschina.net/translate/how-run-load-test-50k-concurrent-users" target="_blank" rel="noopener">http://www.oschina.net/translate/how-run-load-test-50k-concurrent-users</a><br>盘点前 10 名的免费跨浏览器测试工具 <a href="http://www.oschina.net/news/53246/free-cross-browser-testing-tools" target="_blank" rel="noopener">http://www.oschina.net/news/53246/free-cross-browser-testing-tools</a><br>10个免费的在线测试网页性能工具 <a href="http://yusi123.com/717.html" target="_blank" rel="noopener">http://yusi123.com/717.html</a></p>
+<p>#图标<br><a href="http://themify.me/themify-icons" target="_blank" rel="noopener">http://themify.me/themify-icons</a>   官网很好玩<br><a href="http://icomoon.io/" target="_blank" rel="noopener">http://icomoon.io/</a> 这家伙收费， 不过可以下载jpg<br><a href="http://www.flaticon.com/authors/freepik" target="_blank" rel="noopener">http://www.flaticon.com/authors/freepik</a> 很多的图标</p>
+<p>#图片类资源<br>    &lt;h3&gt;这里提供一些图片，漂亮的，或者是命换来的，免费去下载吧&lt;/h3&gt;<br><a href="http://picjumbo.com/" target="_blank" rel="noopener">http://picjumbo.com/</a><br><a href="http://www.gratisography.com/" target="_blank" rel="noopener">http://www.gratisography.com/</a><br><a href="http://superfamous.com/" target="_blank" rel="noopener">http://superfamous.com/</a><br><a href="http://unsplash.com/" target="_blank" rel="noopener">http://unsplash.com/</a><br><a href="http://www.imcreator.com/free" target="_blank" rel="noopener">http://www.imcreator.com/free</a></p>
+<p>#创意网站<br><a href="http://japan.diverse.jp/" target="_blank" rel="noopener">http://japan.diverse.jp/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/02/寂寞的网络收藏夹/" data-id="cjllnkoeg002f2n3gjk0rbhep" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ios视频播放的一些研究" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/02/ios视频播放的一些研究/" class="article-date">
+  <time datetime="2014-07-02T02:46:00.000Z" itemprop="datePublished">2014-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/02/ios视频播放的一些研究/">ios视频播放的一些研究</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#概述<br>最近项目需要用到视频播放，就花了一点点时间去研究了一下，在这里分享一下小成果。<br>&lt;h2&gt;思路&lt;/h2&gt;</p>
+<ul>
+<li>通过html5的vedio标签去播放，省事、方便、瘦身、兼顾了anroid平台、同时还顺带支持了直播，缺点是格式只支持ogg、MP4(264)、WebM。</li>
+<li>通过加载本地播放器去解析视频，灵活的定制界面与功能，格式什么的根本不话下，还能挑战一下性能与流量。缺点是前面说的你都得自己去实现。</li>
+</ul>
+<p>&lt;h2&gt;技术实现&lt;/h2&gt;<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>&lt;h2&gt;html标签方式&lt;/h2&gt;<br>   画一个浏览器控件，加载一个uri地址,再去撒泡尿，你的视频播放器就这么做好了。<br> 关于vedio标签：<a href="http://www.w3.org/2010/05/video/mediaevents.html" target="_blank" rel="noopener">http://www.w3.org/2010/05/video/mediaevents.html</a><br>&lt;h2&gt;加载本地视频播放器&lt;/h2&gt;</p>
+<p>&lt;h4&gt;系统自带播放器&lt;/h4&gt;</p>
+<p>第一个当然是想到系统自带的播放器了，可惜格式支持比起网页方式也是可耐。(mp4、m4v格式)</p>
+<p>&lt;h4&gt;开源播放器&lt;/h4&gt;<br>github上有很多优秀的视频播放器，如viki之类的，可惜找了十多个都是只支持mp4的。</p>
+<p>&lt;h4&gt;vlc播放器&lt;/h4&gt;<br>老牌的跨平台开源播放器，一直广受好评，耐何ios不大给力，总结如下。</p>
+<ol>
+<li><p>2.2版开始仅支持ios6.1及以后版本。</p>
+</li>
+<li><p>视频格式支持不错，在线播放rmvb、AVI等都支持。</p>
+</li>
+<li><p>播放性能要求略高，touch4各种卡、马赛克，不过与视频大小无关。</p>
+</li>
+<li><p>ipad air 播放无压力，我没有其他测试设备了。</p>
+</li>
+<li><p>他的开发库有600多M,打包后有12M</p>
+</li>
+<li>官方出品的 vlc for ios app 同样存在3、4问题</li>
+</ol>
+<p>#总结<br>最后，我们的项目还是使用了web方式，一是考虑到android方面。二是对比一下，web方式还是比较有优势的。<br>性能方面、使用习惯方面（如某些视频播放app在home键之后依然会有声间）、流量方面苹果都已经帮我们做了优化。<br>若vlc在以后能够给力的话，也是不错的一个选择。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjllnkod100052n3gwuqb638c" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-仿QQwifi传书" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/02/仿QQwifi传书/" class="article-date">
+  <time datetime="2014-07-02T01:55:00.000Z" itemprop="datePublished">2014-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/02/仿QQwifi传书/">仿QQwifi传书</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#概述<br>前两天在弄ios的视频播放的时候，需要播放本地影片，又刚好以前作的http下载文件，在下载大文件时有一些bug.<br>于是这个demo就出来了。</p>
+<p>#DEMO效果<br>![wififile.jpg][1]<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>![sharebox1.png][2]</p>
+<p>#思路</p>
+<ol>
+<li>ios本地架设微型ftp服务器，通过ftp传送文件</li>
+<li>ios本地架设微型http服务器，通过http文件上传搞定</li>
+</ol>
+<p>最后考虑到 一些设备(我知道的有PC和某系统的)不支持或者禁止了ftp协议，而且,ftp协议在windows和mac os 下又有不同的实现，我就采用了第二种方案。最重要的是，ftp我们无法对界面进行定制，http方式的话就嘿嘿哈嘿了。</p>
+<p>#技术拆分</p>
+<ol>
+<li>一张负责上传的html页面</li>
+<li>负责处理html请求的ios后台处理程序，主要用于向浏览器发送界面和接收浏览器发送的文件<br>#具体实现<br>&lt;h3&gt;html部分&lt;/h3&gt;<br>好吧，以前我干过一段时间，考虑到种种之后直接扒了QQ阅读的改脚本</li>
+</ol>
+<p>&lt;h3&gt;ios服务端&lt;/h3&gt;<br> 后台端采用了 github上的开源项目cocoahttpserver，利用它可以很简单的就搭建起一个http服务器。剩下的我们只要处理 客户端发送到后台的请求，通过请求方式和参数来向前端发送消息或者接收文件 </p>
+<p>#DEMO文件说明</p>
+<ul>
+<li>MainViewController 程序主界面，只是简单的起了一个http服务器，并且画了一个漂亮的界面</li>
+<li>MyHTTPConnection   http后台处理程序，负责接收与发送http消息</li>
+<li>web 目录，html页面、脚本、CSS，呈现给客户端用户的html</li>
+</ul>
+<p>demo下载地址：<a href="http://pan.baidu.com/s/1jclyA" target="_blank" rel="noopener">http://pan.baidu.com/s/1jclyA</a><br>  [1]: <a href="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/2473936655.jpg" target="_blank" rel="noopener">http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/2473936655.jpg</a><br>  [2]: <a href="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/4241126358.png" target="_blank" rel="noopener">http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/07/4241126358.png</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/02/仿QQwifi传书/" data-id="cjllnkodn000z2n3gf7itxgg9" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Objective-C异常崩溃捕捉" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/01/Objective-C异常崩溃捕捉/" class="article-date">
+  <time datetime="2014-07-01T09:30:00.000Z" itemprop="datePublished">2014-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/01/Objective-C异常崩溃捕捉/">Objective-C异常崩溃捕捉</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#简述</p>
+<p>用于在 app异常崩溃时能够捕捉错误信息，并通过保存本地或邮箱或http保存。</p>
+<p>github:<a href="https://github.com/kaler/CrashKit" target="_blank" rel="noopener">https://github.com/kaler/CrashKit</a><br>参考文章：<a href="http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html" target="_blank" rel="noopener">http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html</a> ;<br> 参考文章B：<a href="http://www.cocoachina.com/newbie/tutorial/2012/0829/4672.html" target="_blank" rel="noopener">http://www.cocoachina.com/newbie/tutorial/2012/0829/4672.html</a> ;<br>demo:<a href="http://pan.baidu.com/s/1kTiau8n。" target="_blank" rel="noopener">http://pan.baidu.com/s/1kTiau8n。</a></p>
+<p>github上的这个组件很棒，就是最后更新时间为 3 year ago…..<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>所以为了让他可以正常运行花了我不少时间。</p>
+<p>同时，顺便我又添加了一个 保存在本地(设备沙盒)的功能。<br>            再顺便，又添加了一些新的崩溃信号，用于捕捉异常。</p>
+<p>在查看源代码的时候，我发现了一个很好玩的函数 :signal()。</p>
+<pre><code>百度百科：
+        sig是传递给它的唯一参数。执行了signal()调用后，进程只要接收到类型为sig的信号，不管其正在执行程序的哪一部分，就立即执行func()函数。当func()函数执行结束后，控制权返回进程被中断的那一点继续执行。
+
+sgnal(信号,function());   注意，是接受到信号之后，不论你在干什么都会跑去先执行 function(),等这个function执行完成后，再返回原来的断点继续执行原来的代码。
+signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再接收到 该信息，function()就不会再作出处理。
+</code></pre><p>小细节：为什么要设置signal函数？<br>    引用文章1：</p>
+<p>言归正传。开发iOS应用，解决Crash问题始终是一个难题。Crash分为两种，一种是由EXC_BAD_ACCESS引起的，原因是访问了不属于本进程的内存地址，有可能是访问已被释放的内存；另一种是未被捕获的Objective-C异常（NSException），导致程序向自身发送了SIGABRT信号而崩溃。其实对于未捕获的Objective-C异常，我们是有办法将它记录下来的，如果日志记录得当，能够解决绝大部分崩溃的问题。这里对于UI线程与后台线程分别说明。</p>
+<p>&lt;h3&gt;ios自带的&lt;/h3&gt; </p>
+<p>NSSetUncaughtExceptionHandler( handleRootException );<br>仅能捕捉后一种。 所以我们需要 signal 捕捉程序崩溃时的信息来捕捉第一种。<br>应该说，理论上仅仅只使用 signal 监视所有的异常信号的话就可以捕捉到所有的异常。 </p>
+<p>#下面是正题 </p>
+<p>&lt;h3&gt;一.使用方法&lt;/h3&gt;</p>
+<pre><code> 1. 将  CrashController.h,CrahController.m,CrashLogger.h,CrashLogger.m文件添加到工程里
+ 2.在appDelegate 里实例化代码如下
+
+
+  #ifdef DEBUG
+    CrashController *crash=[CrashController sharedInstance];//1.实例化异常捕
+    crash.delegate=self;//给异常捕捉设置事件委托，其实不加也没事=  - =主要是加了之后你可以在appdelegate里使用一个onCrash的事件方法，当程序崩溃的时候
+//2.设置捕捉到异常信息之后，对信息的处理方式，只能设置一种，多次设置会被覆盖。
+    //写到本地
+    [crash sendCrashReportsToLocalXmlFile];
+    //发送到邮箱
+   /* [crash sendCrashReportsToEmail:@&amp;#34;454872418@qq.com&amp;#34;
+     withViewController:self.window.rootViewController];
+    */
+    //发送到webservices 
+    /*
+     [crash sendCrashReportsToBugzScoutURL:@&amp;#34;https://smartfulstudios.fogbugz.com/api.asp&amp;#34;
+     withUser:@&amp;#34;.com&amp;#34;
+     password:@&amp;#34;&amp;#34;
+     forProject:@&amp;#34;Inbox&amp;#34;
+     withArea:@&amp;#34;Misc&amp;#34;];
+     */
+#endif 
+</code></pre><p>使用方法就这么简单，用到的就只有三句代码。 其实，应该只要两句就够了。。<br>小细节：这里用到了单例哦，是一个很典型的单例使用教程。<br>小细节2：上面的#ifdebug宏，是为这段代码只有在debug的时候才会生效，因 为我还没有想好让这段代码只在测试人员 测试时生效呢<br>还是对普通用户也生效。<br>&lt;h3&gt;二、实例测试&lt;/h3&gt;</p>
+<p>上面的代码已经在程序里设置好了异常捕捉模块，下面我来写一段错误代码来测试一下代码。</p>
+<pre><code>NSArray * ary=[NSArray arrayWithObjects:@&amp;#34;aadfadfadf&amp;#34;, nil];
+   DLog(@&amp;#34;%@&amp;#34;,[ary objectAtIndex:1]);
+</code></pre><p>注：这代码是写在一个viewcontroller里的一个button里的，在appdeledate里的错误是不能被捕捉到的<br> 定义了一个数组 ary, 然后去打印并不存在的  index 1。那么程序应该会返回一个 下标越界的 异常</p>
+<p>运行程序 ，让他出错，程序闪退了。<br>    这里我用的是直接把文件保存到 app沙盒里，所以需要itools 同步助手等工具，去查看 documents下面的文件。<br>        文件在logerrr文件夹下面 = - =。<br>    效果如下图所示。<br> <img src="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/06/545663326.png" alt="psb.png"><br> 该xml 一共保存了 call Stack 调用栈<br>signal 异常信号，详细查看苹果 signal.h类，<br>signal name 信息名称，为了方便查看设置的对应 isgnal异常信号的名称<br>Title 见 callStack 第6行<br>jmExName 异常名称<br>jmExReason 异常原因</p>
+<p>有 jmExName 和jmExReason 记录下来时优先看 这两个，但是这两个不是会100%会被记录下来的，<br>只有  NSSetUncaughtExceptionHandler( handleRootException ); 这一类的异常才能记录 jmExName 和jmExReason。</p>
+<p>&lt;h3&gt;三、结果&lt;/h3&gt;</p>
+<p>通过 jmExNme 和 jmExReason可以很轻易的看出。。。 下标超了。再看callstack里。。。 </p>
+<p> 第13行， 异常发生在 yltabsettingvewcontroller 类下面的 checkUpdate 方法里， 是不是很方便？</p>
+<p>小细节：如果测试邮件的话<br>                1.请连接网络<br>                2.在邮箱里设置帐号<br>                3.确认设备支寺发送邮件。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjllnkocw00012n3gqhpd8fzt" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; zurück</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">weiter &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

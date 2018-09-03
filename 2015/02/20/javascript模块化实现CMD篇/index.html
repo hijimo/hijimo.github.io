@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript模块化实现CMD篇 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;概述CMD(通用模块定义)规范是seajs在推广中产生的产物，比起AMD规范，CMD的源生中文简直是福音啊。seajs作为一个js模块加载器(也能加载css),其基本原理离不开拼script 异步加载 js模块(文件)。其主要目的是为了解决js命名冲突、文件依赖、版本管里，还有更重要的代码维护问题。最后便是javascript模块化的另一个愿景，模块共享，通">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript模块化实现CMD篇">
+<meta property="og:url" content="http://hijimo.github.io/2015/02/20/javascript模块化实现CMD篇/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;概述CMD(通用模块定义)规范是seajs在推广中产生的产物，比起AMD规范，CMD的源生中文简直是福音啊。seajs作为一个js模块加载器(也能加载css),其基本原理离不开拼script 异步加载 js模块(文件)。其主要目的是为了解决js命名冲突、文件依赖、版本管里，还有更重要的代码维护问题。最后便是javascript模块化的另一个愿景，模块共享，通">
+<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript模块化实现CMD篇">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;概述CMD(通用模块定义)规范是seajs在推广中产生的产物，比起AMD规范，CMD的源生中文简直是福音啊。seajs作为一个js模块加载器(也能加载css),其基本原理离不开拼script 异步加载 js模块(文件)。其主要目的是为了解决js命名冲突、文件依赖、版本管里，还有更重要的代码维护问题。最后便是javascript模块化的另一个愿景，模块共享，通">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript模块化实现CMD篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/20/javascript模块化实现CMD篇/" class="article-date">
+  <time datetime="2015-02-20T12:52:00.000Z" itemprop="datePublished">2015-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript模块化实现CMD篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="lt-–markdown–-gt-概述"><a href="#lt-–markdown–-gt-概述" class="headerlink" title="&lt;!–markdown–&gt;概述"></a>&lt;!–markdown–&gt;概述</h2><p>CMD(通用模块定义)规范是<a href="https://github.com/seajs/seajs" target="_blank" rel="noopener">seajs</a>在推广中产生的产物，比起AMD规范，CMD的源生中文简直是福音啊。seajs作为一个js模块加载器(也能加载css),其基本原理离不开拼script <strong>异步加载</strong> js模块(文件)。其主要目的是为了解决js命名冲突、文件依赖、版本管里，还有更重要的代码维护问题。最后便是javascript模块化的另一个愿景，模块共享，通过同一个标准，使得大家的代码可以通用。<br> &lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<h2 id="加载模块"><a href="#加载模块" class="headerlink" title="加载模块"></a>加载模块</h2><ol>
+<li><p>传统意加载方式，如：</p>
+<p> &lt;script type=&#34;text/javascript&#34; src=&#34;<a href="http://static.hijimo.com/js/jquery1.11.1.min.js&#34;&gt;&lt;/script" target="_blank" rel="noopener">http://static.hijimo.com/js/jquery1.11.1.min.js&#34;&gt;&lt;/script</a>&gt;<br> &lt;script type=&#34;text/javascript&#34; src=&#34;<a href="http://hijimo.com/usr/themes/yi/js/comm.js&#34;&gt;&lt;/script" target="_blank" rel="noopener">http://hijimo.com/usr/themes/yi/js/comm.js&#34;&gt;&lt;/script</a>&gt;</p>
+</li>
+<li><p>CMD加载方式</p>
+</li>
+</ol>
+<pre><code> &amp;lt;script src=&amp;#34;sea-debug.js&amp;#34; type=&amp;#34;text/javascript&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;
+ &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;
+     seajs.config({
+        base: &amp;#34;./js&amp;#34;,
+        alias: {
+             &amp;#39;jquery&amp;#39;:&amp;#39;lib/jquery1.11.1.min/jquery.js&amp;#39;,
+             &amp;#39;haha&amp;#39;:&amp;#39;app/haha&amp;#39;,
+             &amp;#39;hehe&amp;#39;:&amp;#39;app/hehe&amp;#39;
+            }
+        });
+        seajs.use([&amp;#39;haha&amp;#39;], function(haha){
+        //console.log(&amp;#39;哈了悠哈&amp;#39;);
+        alert(haha.obj);
+       });
+
+&amp;lt;/script&amp;gt;
+</code></pre><p>将seajs引用到页面后，通过简单的<a href="https://github.com/seajs/seajs/issues/262" target="_blank" rel="noopener">配置</a>后便可以使用seajs.use来动态异步加载模块，通过一个回调函数进行后续的操作。</p>
+<h2 id="定义模块"><a href="#定义模块" class="headerlink" title="定义模块"></a>定义模块</h2><p>在引用seajs之后，我们会得到一个define函数，这个好玩的define函数不仅仅可以帮我们定义一个模块，还可以帮我们定义一个对象？</p>
+<pre><code>define({ &amp;#34;foo&amp;#34;: &amp;#34;bar&amp;#34; });
+</code></pre><p>一个字符模板？</p>
+<pre><code>define(&amp;#39;I am a template. My name is {{name}}.&amp;#39;);
+</code></pre><p>又或者，一个正经的模块？</p>
+<pre><code>define(&amp;#39;moduleid&amp;#39;, [deps], function(require, exports, module) {
+
+  // 模块代码
+  return exports;//or reutrn {object};
+});
+</code></pre><p>值得注意的是，require这个参数有点小娇气，他必须书写为require,还不能被赋值，<a href="https://github.com/seajs/seajs/issues/242" target="_blank" rel="noopener">还有其他一些奇怪的要求</a>。<br>其中moduleid和deps(依赖列表)是可以被省略的，<a href="https://github.com/seajs/seajs/issues/242" target="_blank" rel="noopener">具体参照官方.</a><br>seajs通过返回exports对象来向外提供模块接口。也可以直接返回对象。</p>
+<p><strong>exports 仅仅是 module.exports 的一个引用。在 factory 内部给 exports 重新赋值时，并不会改变 module.exports 的值。因此给 exports 赋值是无效的，不能用来更改模块接口</strong></p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>在上面的列子中，我的comm.js依赖于jquery.js。在传统方式中，我们必须先引用jquery后再引用comm.js（这是废话..），在实际的情况中，常常会有依赖没有被引用而造成comm.js无法正常工作的情况，特别是维护他人的项目或使用他人的组件时。</p>
+<p>seajs(模块化)在定义模块时便将依赖引用，这样子使用者只需要知道 moduleid,并不需要管模块的依赖问题。   </p>
+<pre><code>define(function(require, exports, module){
+   require(&amp;#39;jquery&amp;#39;);    
+    $(&amp;#39;#console&amp;#39;).html(&amp;#39;哈11哈&amp;#39;);
+   return exports.obj = JSON.parse(&amp;#39;{&amp;#34;obj&amp;#34;: &amp;#34;123&amp;#34;}&amp;#39;);
+
+   });
+</code></pre><h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>在seajs的配置项中有一个preload配置项，需要注意的是，他的作用可能和预想的有些出入。直接上例子</p>
+<pre><code>seajs.config({
+      base: &amp;#34;./js&amp;#34;,
+      alias: {
+        &amp;#39;jquery&amp;#39;:&amp;#39;lib/jquery1.11.1.min/jquery.js&amp;#39;,
+        &amp;#39;haha&amp;#39;:&amp;#39;app/haha&amp;#39;,
+        &amp;#39;json&amp;#39;:&amp;#39;lib/json2.js&amp;#39;
+          },
+      preload: [
+           window.JSON ? &amp;#39;&amp;#39; : &amp;#39;json&amp;#39;
+      ]
+});
+seajs.use([&amp;#39;haha&amp;#39;, &amp;#39;jquery&amp;#39;], function(haha){
+            //console.log(&amp;#39;哈了悠哈&amp;#39;);
+            alert(haha.obj);
+});
+</code></pre><p>在之前的列子（依赖）中,在haha.js中我使用了JSON库。在ie中并不包含这个库，肯定是会出错的，但是我又不想在ff,chorme的环境下引用josn2.js。为了让IE6/7/8 支持 JSON的一些API，我们会引入json2.js来修补，而在这些古老的浏览器使用JSON API必然需要预先加载好才可以继续执行。 通过preload 配置中的空字符串会被忽略掉这一约定，我们不仅可以预加载，还可以按特征检测来智能加载的，让高级浏览量无需额外的请求。</p>
+<p><strong>值得注意的是</strong>，seajs 中并不是读取到有preload配置就立即加载的，只能是通过 seajs.use 这个入口来触发执行预加载, 如上示例 seajs 会在执行 haha模块前确保 预加载完 JSON, 其他方式都无法保证 JSON模块已经加载并执行好</p>
+<h2 id="加载非CMD标准的库"><a href="#加载非CMD标准的库" class="headerlink" title="加载非CMD标准的库"></a>加载非CMD标准的库</h2><p>  一般来说官方是不建议使用seajs去加载非cmd标准的模块的。在2.1.1之前，可以通过preload 和seajs.modify的方式来加载非标准库。代码如下</p>
+<pre><code>  seajs.config({
+    alias:{
+        &amp;#39;jquery&amp;#39;: &amp;#39;//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min&amp;#39;
+    },
+    preload:[&amp;#34;jquery&amp;#34;]
+})
+
+seajs.modify(&amp;#39;jquery&amp;#39;, function (require, exports, module) {
+     module.exports = jQuery;
+});
+</code></pre><p>如果非要引用的话</p>
+<ol>
+<li>使用传统方式script引入</li>
+<li>在原先类库外面包一层define,代码如下(我的jquery这些都在cdn上呀= - =)</li>
+</ol>
+<pre><code>define(function(require, exports, module){
+       return $;
+   });
+</code></pre><ol>
+<li>监听事件，将对象暴露到全局（为什么不用一呢）</li>
+</ol>
+<pre><code>seajs.on(&amp;#39;exec&amp;#39;, function(module) {
+         if (module.uri === seajs.resolve(&amp;#39;jquery&amp;#39;)) {
+            window.$ = window.jQuery = module.exports
+         }
+      })
+</code></pre><p><a href="http://demo.hijimo.com/CMD/index.html" target="_blank" rel="noopener">在线demo</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/20/javascript模块化实现CMD篇/" data-id="cjllnkodg000n2n3g3zoyz5fg" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/20/javascript模块化实现AMD篇 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          javascript模块化实现AMD篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/17/因Mime异常的JS脚本出错/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">因Mime异常的JS脚本出错</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

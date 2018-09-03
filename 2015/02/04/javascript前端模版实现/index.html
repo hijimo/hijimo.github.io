@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript前端模版实现 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;刚刚修复的小站，界面还未完工，现在发现markdown也跪了。真是悲剧,请大家将就着看吧 远程服务器方式即从服务端获取模版文本填充到客户端的做法，因为这种做法很容易造成xss漏洞，所以我们还需要花费大力气在前后端做处理，所以不是很推荐。但是，将大量无用的标签存在dom或内存中也是很糟糕的做法，如果你有大量的html标签要处理，不妨试试这种方式。 简单客户端模">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript前端模版实现">
+<meta property="og:url" content="http://hijimo.github.io/2015/02/04/javascript前端模版实现/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;刚刚修复的小站，界面还未完工，现在发现markdown也跪了。真是悲剧,请大家将就着看吧 远程服务器方式即从服务端获取模版文本填充到客户端的做法，因为这种做法很容易造成xss漏洞，所以我们还需要花费大力气在前后端做处理，所以不是很推荐。但是，将大量无用的标签存在dom或内存中也是很糟糕的做法，如果你有大量的html标签要处理，不妨试试这种方式。 简单客户端模">
+<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript前端模版实现">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;刚刚修复的小站，界面还未完工，现在发现markdown也跪了。真是悲剧,请大家将就着看吧 远程服务器方式即从服务端获取模版文本填充到客户端的做法，因为这种做法很容易造成xss漏洞，所以我们还需要花费大力气在前后端做处理，所以不是很推荐。但是，将大量无用的标签存在dom或内存中也是很糟糕的做法，如果你有大量的html标签要处理，不妨试试这种方式。 简单客户端模">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript前端模版实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/04/javascript前端模版实现/" class="article-date">
+  <time datetime="2015-02-04T12:37:00.000Z" itemprop="datePublished">2015-02-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript前端模版实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;刚刚修复的小站，界面还未完工，现在发现markdown也跪了。真是悲剧,请大家将就着看吧</p>
+<h2 id="远程服务器方式"><a href="#远程服务器方式" class="headerlink" title="远程服务器方式"></a>远程服务器方式</h2><p>即从服务端获取模版文本填充到客户端的做法，因为这种做法很容易造成xss漏洞，所以我们还需要花费大力气在前后端做处理，所以不是很推荐。但是，将大量无用的标签存在dom或内存中也是很糟糕的做法，如果你有大量的html标签要处理，不妨试试这种方式。</p>
+<h2 id="简单客户端模版"><a href="#简单客户端模版" class="headerlink" title="简单客户端模版"></a>简单客户端模版</h2><p>1.注释流<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>  注释文本和其他html标记或文本一样是会被记录到dom树里，可以被javascript获取，以下是简单示例。</p>
+<pre><code>    &amp;lt;input type=&amp;#39;button&amp;#39; id=&amp;#39;btn_ent&amp;#39; value=&amp;#39;我按&amp;#39; /&amp;gt;
+
+    &amp;lt;div id=&amp;#39;container&amp;#39;&amp;gt;
+        &amp;lt;!--&amp;lt;ul&amp;gt;
+                &amp;lt;li&amp;gt;吃饭么今天&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;今天只有面唉&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;那怎么办&amp;lt;li&amp;gt;
+                &amp;lt;li&amp;gt;我们之间有一个人是食物，我不是&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;我也不是&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;你不是个鬼啊.快点给我变成食物&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;我不要，你去死吧&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;啊~~啊~~ 啊~~ 啊~~~ 啊~~~~&amp;lt;/li&amp;gt;
+        &amp;lt;ul&amp;gt;--&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+
+    document.getElementById(&amp;#39;btn_ent&amp;#39;).onclick=function(){
+
+        var container=document.getElementById(&amp;#39;container&amp;#39;),
+            script=document.getElementById(&amp;#39;template&amp;#39;);
+
+        /*
+         * 注释大法 
+         * 有些浏览器可以通过 container.firstNode.nodeValue直接取出注释= - = 
+         * 有些浏览器却不能 = - =
+         */    
+                container.insertAdjacentHTML(&amp;#39;beforeend&amp;#39;,getTemplate(container));
+
+    }
+&amp;lt;/script&amp;gt;
+</code></pre><p>2.自定义script标签流<br>       一般情况下我们的script标签默认是text/javascript类型的，但是同时我们是可以自定义type=&#39;jm-tempalte&#39;,来返回一段文本，通过这个特性我们可以更简单的获取到我们的模版。以下是简单示例。</p>
+<pre><code>    &amp;lt;div id=&amp;#39;container&amp;#39;&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+
+&amp;lt;script type=&amp;#39;text/jm-template&amp;#39; id=&amp;#39;template&amp;#39;&amp;gt;
+    &amp;lt;ul&amp;gt;
+        &amp;lt;li&amp;gt;吃饭么今天&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;今天只有面唉&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;那怎么办&amp;lt;li&amp;gt;
+        &amp;lt;li&amp;gt;我们之间有一个人是食物，我不是&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;我也不是&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;你不是个鬼啊.快点给我变成食物&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;我不要，你去死吧&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;啊~~啊~~ 啊~~ 啊~~~ 啊~~~~&amp;lt;/li&amp;gt;
+    &amp;lt;ul&amp;gt;
+&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+
+    document.getElementById(&amp;#39;btn_ent&amp;#39;).onclick=function(){
+
+        var container=document.getElementById(&amp;#39;container&amp;#39;),
+            script=document.getElementById(&amp;#39;template&amp;#39;);
+
+        /*
+         * script 模版大法
+         * script里取出来的文本前面总是会多一个空格，所以要记得去掉
+         */
+                                    container.insertAdjacentHTML(&amp;#39;beforeend&amp;#39;,script.text.replace(/^s*/,&amp;#39;&amp;#39;));
+
+    }
+
+&amp;lt;/script&amp;gt;
+</code></pre><h2 id="复杂客户端模版"><a href="#复杂客户端模版" class="headerlink" title="复杂客户端模版"></a>复杂客户端模版</h2><p>复杂客户端模版一般使用Js类库实现，比如handlebars,比如backbone，又比如underscore。</p>
+<p>最后，根据传统，放上完整demo<a href="http://pan.baidu.com/s/10I7MI" target="_blank" rel="noopener">[点我吧]</a>。<br>在线demo稍后上线.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/04/javascript前端模版实现/" data-id="cjllnkod7000c2n3gexj4r059" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/07/javascript模块化编程（ 上）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          javascript模块化编程（ 上）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/03/javascript中的asi机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">javascript中的asi机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

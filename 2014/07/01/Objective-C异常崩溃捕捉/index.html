@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Objective-C异常崩溃捕捉 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#简述 用于在 app异常崩溃时能够捕捉错误信息，并通过保存本地或邮箱或http保存。 github:https://github.com/kaler/CrashKit参考文章：http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html ; 参考文章B：http://www.cocoachina">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C异常崩溃捕捉">
+<meta property="og:url" content="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#简述 用于在 app异常崩溃时能够捕捉错误信息，并通过保存本地或邮箱或http保存。 github:https://github.com/kaler/CrashKit参考文章：http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html ; 参考文章B：http://www.cocoachina">
+<meta property="og:image" content="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/06/545663326.png">
+<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C异常崩溃捕捉">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#简述 用于在 app异常崩溃时能够捕捉错误信息，并通过保存本地或邮箱或http保存。 github:https://github.com/kaler/CrashKit参考文章：http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html ; 参考文章B：http://www.cocoachina">
+<meta name="twitter:image" content="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/06/545663326.png">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Objective-C异常崩溃捕捉" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/01/Objective-C异常崩溃捕捉/" class="article-date">
+  <time datetime="2014-07-01T09:30:00.000Z" itemprop="datePublished">2014-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Objective-C异常崩溃捕捉
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#简述</p>
+<p>用于在 app异常崩溃时能够捕捉错误信息，并通过保存本地或邮箱或http保存。</p>
+<p>github:<a href="https://github.com/kaler/CrashKit" target="_blank" rel="noopener">https://github.com/kaler/CrashKit</a><br>参考文章：<a href="http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html" target="_blank" rel="noopener">http://www.cnblogs.com/alario/archive/2012/03/27/2419710.html</a> ;<br> 参考文章B：<a href="http://www.cocoachina.com/newbie/tutorial/2012/0829/4672.html" target="_blank" rel="noopener">http://www.cocoachina.com/newbie/tutorial/2012/0829/4672.html</a> ;<br>demo:<a href="http://pan.baidu.com/s/1kTiau8n。" target="_blank" rel="noopener">http://pan.baidu.com/s/1kTiau8n。</a></p>
+<p>github上的这个组件很棒，就是最后更新时间为 3 year ago…..<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>所以为了让他可以正常运行花了我不少时间。</p>
+<p>同时，顺便我又添加了一个 保存在本地(设备沙盒)的功能。<br>            再顺便，又添加了一些新的崩溃信号，用于捕捉异常。</p>
+<p>在查看源代码的时候，我发现了一个很好玩的函数 :signal()。</p>
+<pre><code>百度百科：
+        sig是传递给它的唯一参数。执行了signal()调用后，进程只要接收到类型为sig的信号，不管其正在执行程序的哪一部分，就立即执行func()函数。当func()函数执行结束后，控制权返回进程被中断的那一点继续执行。
+
+sgnal(信号,function());   注意，是接受到信号之后，不论你在干什么都会跑去先执行 function(),等这个function执行完成后，再返回原来的断点继续执行原来的代码。
+signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再接收到 该信息，function()就不会再作出处理。
+</code></pre><p>小细节：为什么要设置signal函数？<br>    引用文章1：</p>
+<p>言归正传。开发iOS应用，解决Crash问题始终是一个难题。Crash分为两种，一种是由EXC_BAD_ACCESS引起的，原因是访问了不属于本进程的内存地址，有可能是访问已被释放的内存；另一种是未被捕获的Objective-C异常（NSException），导致程序向自身发送了SIGABRT信号而崩溃。其实对于未捕获的Objective-C异常，我们是有办法将它记录下来的，如果日志记录得当，能够解决绝大部分崩溃的问题。这里对于UI线程与后台线程分别说明。</p>
+<p>&lt;h3&gt;ios自带的&lt;/h3&gt; </p>
+<p>NSSetUncaughtExceptionHandler( handleRootException );<br>仅能捕捉后一种。 所以我们需要 signal 捕捉程序崩溃时的信息来捕捉第一种。<br>应该说，理论上仅仅只使用 signal 监视所有的异常信号的话就可以捕捉到所有的异常。 </p>
+<p>#下面是正题 </p>
+<p>&lt;h3&gt;一.使用方法&lt;/h3&gt;</p>
+<pre><code> 1. 将  CrashController.h,CrahController.m,CrashLogger.h,CrashLogger.m文件添加到工程里
+ 2.在appDelegate 里实例化代码如下
+
+
+  #ifdef DEBUG
+    CrashController *crash=[CrashController sharedInstance];//1.实例化异常捕
+    crash.delegate=self;//给异常捕捉设置事件委托，其实不加也没事=  - =主要是加了之后你可以在appdelegate里使用一个onCrash的事件方法，当程序崩溃的时候
+//2.设置捕捉到异常信息之后，对信息的处理方式，只能设置一种，多次设置会被覆盖。
+    //写到本地
+    [crash sendCrashReportsToLocalXmlFile];
+    //发送到邮箱
+   /* [crash sendCrashReportsToEmail:@&amp;#34;454872418@qq.com&amp;#34;
+     withViewController:self.window.rootViewController];
+    */
+    //发送到webservices 
+    /*
+     [crash sendCrashReportsToBugzScoutURL:@&amp;#34;https://smartfulstudios.fogbugz.com/api.asp&amp;#34;
+     withUser:@&amp;#34;.com&amp;#34;
+     password:@&amp;#34;&amp;#34;
+     forProject:@&amp;#34;Inbox&amp;#34;
+     withArea:@&amp;#34;Misc&amp;#34;];
+     */
+#endif 
+</code></pre><p>使用方法就这么简单，用到的就只有三句代码。 其实，应该只要两句就够了。。<br>小细节：这里用到了单例哦，是一个很典型的单例使用教程。<br>小细节2：上面的#ifdebug宏，是为这段代码只有在debug的时候才会生效，因 为我还没有想好让这段代码只在测试人员 测试时生效呢<br>还是对普通用户也生效。<br>&lt;h3&gt;二、实例测试&lt;/h3&gt;</p>
+<p>上面的代码已经在程序里设置好了异常捕捉模块，下面我来写一段错误代码来测试一下代码。</p>
+<pre><code>NSArray * ary=[NSArray arrayWithObjects:@&amp;#34;aadfadfadf&amp;#34;, nil];
+   DLog(@&amp;#34;%@&amp;#34;,[ary objectAtIndex:1]);
+</code></pre><p>注：这代码是写在一个viewcontroller里的一个button里的，在appdeledate里的错误是不能被捕捉到的<br> 定义了一个数组 ary, 然后去打印并不存在的  index 1。那么程序应该会返回一个 下标越界的 异常</p>
+<p>运行程序 ，让他出错，程序闪退了。<br>    这里我用的是直接把文件保存到 app沙盒里，所以需要itools 同步助手等工具，去查看 documents下面的文件。<br>        文件在logerrr文件夹下面 = - =。<br>    效果如下图所示。<br> <img src="http://hijimoimage.oss-cn-hangzhou.aliyuncs.com/usr/uploads/2014/06/545663326.png" alt="psb.png"><br> 该xml 一共保存了 call Stack 调用栈<br>signal 异常信号，详细查看苹果 signal.h类，<br>signal name 信息名称，为了方便查看设置的对应 isgnal异常信号的名称<br>Title 见 callStack 第6行<br>jmExName 异常名称<br>jmExReason 异常原因</p>
+<p>有 jmExName 和jmExReason 记录下来时优先看 这两个，但是这两个不是会100%会被记录下来的，<br>只有  NSSetUncaughtExceptionHandler( handleRootException ); 这一类的异常才能记录 jmExName 和jmExReason。</p>
+<p>&lt;h3&gt;三、结果&lt;/h3&gt;</p>
+<p>通过 jmExNme 和 jmExReason可以很轻易的看出。。。 下标超了。再看callstack里。。。 </p>
+<p> 第13行， 异常发生在 yltabsettingvewcontroller 类下面的 checkUpdate 方法里， 是不是很方便？</p>
+<p>小细节：如果测试邮件的话<br>                1.请连接网络<br>                2.在邮箱里设置帐号<br>                3.确认设备支寺发送邮件。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjllnkocw00012n3gqhpd8fzt" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/07/02/仿QQwifi传书/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          仿QQwifi传书
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/07/01/通过分析github代码库总结出来的工程师代码书写习惯/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">通过分析github代码库总结出来的工程师代码书写习惯</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

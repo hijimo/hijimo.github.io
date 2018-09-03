@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ios视频播放的一些研究 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#概述最近项目需要用到视频播放，就花了一点点时间去研究了一下，在这里分享一下小成果。&amp;lt;h2&amp;gt;思路&amp;lt;/h2&amp;gt;  通过html5的vedio标签去播放，省事、方便、瘦身、兼顾了anroid平台、同时还顺带支持了直播，缺点是格式只支持ogg、MP4(264)、WebM。 通过加载本地播放器去解析视频，灵活的定制界面与功能，格式什么的根本不话">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios视频播放的一些研究">
+<meta property="og:url" content="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#概述最近项目需要用到视频播放，就花了一点点时间去研究了一下，在这里分享一下小成果。&amp;lt;h2&amp;gt;思路&amp;lt;/h2&amp;gt;  通过html5的vedio标签去播放，省事、方便、瘦身、兼顾了anroid平台、同时还顺带支持了直播，缺点是格式只支持ogg、MP4(264)、WebM。 通过加载本地播放器去解析视频，灵活的定制界面与功能，格式什么的根本不话">
+<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ios视频播放的一些研究">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#概述最近项目需要用到视频播放，就花了一点点时间去研究了一下，在这里分享一下小成果。&amp;lt;h2&amp;gt;思路&amp;lt;/h2&amp;gt;  通过html5的vedio标签去播放，省事、方便、瘦身、兼顾了anroid平台、同时还顺带支持了直播，缺点是格式只支持ogg、MP4(264)、WebM。 通过加载本地播放器去解析视频，灵活的定制界面与功能，格式什么的根本不话">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ios视频播放的一些研究" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/02/ios视频播放的一些研究/" class="article-date">
+  <time datetime="2014-07-02T02:46:00.000Z" itemprop="datePublished">2014-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ios视频播放的一些研究
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#概述<br>最近项目需要用到视频播放，就花了一点点时间去研究了一下，在这里分享一下小成果。<br>&lt;h2&gt;思路&lt;/h2&gt;</p>
+<ul>
+<li>通过html5的vedio标签去播放，省事、方便、瘦身、兼顾了anroid平台、同时还顺带支持了直播，缺点是格式只支持ogg、MP4(264)、WebM。</li>
+<li>通过加载本地播放器去解析视频，灵活的定制界面与功能，格式什么的根本不话下，还能挑战一下性能与流量。缺点是前面说的你都得自己去实现。</li>
+</ul>
+<p>&lt;h2&gt;技术实现&lt;/h2&gt;<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>&lt;h2&gt;html标签方式&lt;/h2&gt;<br>   画一个浏览器控件，加载一个uri地址,再去撒泡尿，你的视频播放器就这么做好了。<br> 关于vedio标签：<a href="http://www.w3.org/2010/05/video/mediaevents.html" target="_blank" rel="noopener">http://www.w3.org/2010/05/video/mediaevents.html</a><br>&lt;h2&gt;加载本地视频播放器&lt;/h2&gt;</p>
+<p>&lt;h4&gt;系统自带播放器&lt;/h4&gt;</p>
+<p>第一个当然是想到系统自带的播放器了，可惜格式支持比起网页方式也是可耐。(mp4、m4v格式)</p>
+<p>&lt;h4&gt;开源播放器&lt;/h4&gt;<br>github上有很多优秀的视频播放器，如viki之类的，可惜找了十多个都是只支持mp4的。</p>
+<p>&lt;h4&gt;vlc播放器&lt;/h4&gt;<br>老牌的跨平台开源播放器，一直广受好评，耐何ios不大给力，总结如下。</p>
+<ol>
+<li><p>2.2版开始仅支持ios6.1及以后版本。</p>
+</li>
+<li><p>视频格式支持不错，在线播放rmvb、AVI等都支持。</p>
+</li>
+<li><p>播放性能要求略高，touch4各种卡、马赛克，不过与视频大小无关。</p>
+</li>
+<li><p>ipad air 播放无压力，我没有其他测试设备了。</p>
+</li>
+<li><p>他的开发库有600多M,打包后有12M</p>
+</li>
+<li>官方出品的 vlc for ios app 同样存在3、4问题</li>
+</ol>
+<p>#总结<br>最后，我们的项目还是使用了web方式，一是考虑到android方面。二是对比一下，web方式还是比较有优势的。<br>性能方面、使用习惯方面（如某些视频播放app在home键之后依然会有声间）、流量方面苹果都已经帮我们做了优化。<br>若vlc在以后能够给力的话，也是不错的一个选择。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjllnkod100052n3gwuqb638c" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/07/02/寂寞的网络收藏夹/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          寂寞的网络收藏夹
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/07/02/仿QQwifi传书/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">仿QQwifi传书</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

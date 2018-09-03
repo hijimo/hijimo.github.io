@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript模块化编程（ 上） | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;ps:写这篇文章的时候，我的大脑已经是处于加班了一个多月的情况下。文章写得很乱，会不定时修改，也有直接删除的可能 #什么是javascript模块化    引用一下阮一峰前辈的一句话：理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。    广义上而言。.css的重复利用，.js文件的组件封装都可以算是前段的模块化实现。早在201">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript模块化编程（ 上）">
+<meta property="og:url" content="http://hijimo.github.io/2015/02/07/javascript模块化编程（ 上）/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;ps:写这篇文章的时候，我的大脑已经是处于加班了一个多月的情况下。文章写得很乱，会不定时修改，也有直接删除的可能 #什么是javascript模块化    引用一下阮一峰前辈的一句话：理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。    广义上而言。.css的重复利用，.js文件的组件封装都可以算是前段的模块化实现。早在201">
+<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript模块化编程（ 上）">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;ps:写这篇文章的时候，我的大脑已经是处于加班了一个多月的情况下。文章写得很乱，会不定时修改，也有直接删除的可能 #什么是javascript模块化    引用一下阮一峰前辈的一句话：理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。    广义上而言。.css的重复利用，.js文件的组件封装都可以算是前段的模块化实现。早在201">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript模块化编程（ 上）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/07/javascript模块化编程（ 上）/" class="article-date">
+  <time datetime="2015-02-07T13:39:00.000Z" itemprop="datePublished">2015-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript模块化编程（ 上）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;ps:写这篇文章的时候，我的大脑已经是处于加班了一个多月的情况下。文章写得很乱，会不定时修改，也有直接删除的可能</p>
+<p>#什么是javascript模块化</p>
+<p>   引用一下阮一峰前辈的一句话：理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。<br>    广义上而言。.css的重复利用，.js文件的组件封装都可以算是前段的模块化实现。<br>早在2012初的时候（我用的时候），extjs的前端mvc框架就是很先进的javascript模块化加载了。<br>同样的还有YUI的add  和namespace等。所以，javascript其实离我们并不远，更不陌生。</p>
+<p>#为什么需要模块化编程</p>
+<p> &lt;del&gt;十年前，网页还只是简单的承载着一些多媒体信息，甚至于我们观看视频还要安装各种各样的视频播放插件(如 windows player、realplayer等等)。当时的网页页面并不复杂，甚至很多页面都没有出现javascript语句。现在绝对会被杀千刀的一些代码写法在当时确非常流行，举个栗子</p>
+<pre><code>&amp;lt;input type=&amp;#39;button&amp;#39; onclick=&amp;#34;handler()&amp;#34; /&amp;gt;
+</code></pre><p>更有甚至</p>
+<pre><code>&amp;lt;input type=&amp;#39;button&amp;#39; onclick=&amp;#39;function(){log(&amp;#39;hahahahah&amp;#39;);}&amp;#39; /&amp;gt;
+</code></pre><p>&lt;del&gt;随着我们的硬件发展越来越好，加上各种现代浏览器助力，我们的网页已经早已不满足只是简单的呈现信息。b/s应用早已侵吞了c/s应用的半壁江山。随之而来的便是团队协作，代码越来越发杂，逻辑越来越发杂，代码维护越来麻烦。那么和其他语言一样，模块化是必然。</p>
+<pre><code>看这里就好。网页越来越复杂，越来越像桌面程序，需要一个团队分工协作、进度管理、单元测试等等......开发者不得不使用软件工程的方法，管理网页的业务逻辑。
+</code></pre><p>#AMD规范和CMD规范</p>
+<p>要想要随意的使用别的代码，有一个前提便是，大家都用一样的规范或标准去写代码。<a href="https://github.com/seajs/seajs/issues/242" target="_blank" rel="noopener">CMD规范</a>和<a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank" rel="noopener">AMD规范</a> 。两者最大的区别就是AMD是异步加载的，而CMD是同步加载的。CMD比起AMD规范要早不少，主要用于服务端。<br>    CMD是一个很好的规范。但是，它并不适用于客户端。原因如下：<br>    1.javascript是单线程语言<br>    2.由于一，在加载时浏览器会假死<br>    3.网络无法控制，若需要10s加载，参照2</p>
+<p>#模块化的弊端</p>
+<pre><code>1.模块化的前提是规范，为了符合规范，程序员需要更改编程习惯
+2.老项目想要模块化需要成本
+3.最重要的，模块化难以避免的会造成文件碎片化，造成请求数剧增。
+</code></pre><p>在AMD规范里，在请求模块的时候会同步加载模块所需的类库，这进一步加剧了碎片，增加请求数量。如果不解决这个问题，一个页面3位数的请求数是一件很恐怖的事情。<br>百度fis对此提出的解决方案是将所有依赖打包以减少请求数。同时，依赖和模块分开打包，可以很好的利用文件缓存。但是，每次发布都要打包实在太麻烦，于是，他们就正大光明的给自己的fis打广告了 -0 -</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/07/javascript模块化编程（ 上）/" data-id="cjllnkodi000q2n3gded0o3k0" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/12/关于ie下iframe内存泄露/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          关于ie下iframe内存泄露
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/04/javascript前端模版实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">javascript前端模版实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 17.5px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12.5px;">性能</a> <a href="/tags/渲染/" style="font-size: 15px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

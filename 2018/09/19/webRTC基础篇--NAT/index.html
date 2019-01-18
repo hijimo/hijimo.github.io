@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>webRTC基础--NAT | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+<meta name="keywords" content="webRTC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webRTC基础--NAT">
+<meta property="og:url" content="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+<meta property="og:image" content="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png">
+<meta property="og:updated_time" content="2019-01-18T07:02:07.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webRTC基础--NAT">
+<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+<meta name="twitter:image" content="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webRTC基础篇--NAT" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/19/webRTC基础篇--NAT/" class="article-date">
+  <time datetime="2018-09-19T12:12:00.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webRTC基础--NAT
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#EdgeInsets</p>
+<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><p>20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。</p>
+<p>通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请求都通过NAT发送与接收，以达到一个内部网络只使用一个或少个ip地址就能与Internet通信的目的。图示如下<br><img src="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png" alt="概念图"></p>
+<h3 id="NAT的几个关键特点"><a href="#NAT的几个关键特点" class="headerlink" title="NAT的几个关键特点"></a>NAT的几个关键特点</h3><blockquote>
+<ol>
+<li>网络被分为私网和公网两个部分，NAT网关设置在私网到公网的路由出口位置，双向流量必须都要经过NAT网关；</li>
+<li>网络访问只能先由私网侧发起，公网无法主动访问私网主机； </li>
+<li>NAT网关在两个访问方向上完成两次地址的转换或翻译，出方向做源信息替换，入方向做目的信息替换； </li>
+<li>NAT网关的存在对通信双方是保持透明的； </li>
+<li>NAT网关为了实现双向翻译的功能，需要维护一张关联表，把会话的信息保存下来。</li>
+</ol>
+</blockquote>
+<h3 id="NAT端口映射方式"><a href="#NAT端口映射方式" class="headerlink" title="NAT端口映射方式"></a>NAT端口映射方式</h3><ol>
+<li><strong>全锥形NAT (Full Cone NAT)</strong><br><br>一旦内部主机端口对(iAddr:iPort)被NAT网关映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；任何一个外部主机发送到(eAddr:ePort)的报文将会被转换后发到(iAddr:iPort)。</li>
+<li><strong>受限锥型NAT（Address-Restricted Cone NAT）</strong><br><br>一旦内部主机端口对(iAddr:iPort)被映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；只有 (iAddr:iPort)向特定的外部主机hAddr发送过数据，主机hAddr从任意端口发送到(eAddr:ePort)的报文将会被转发到(iAddr:iPort)</li>
+<li><strong>端口受限型NAT（Port Restricted Cone NAT）</strong><br><br>一旦内部主机端口对(iAddr:iPort)被映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；只有(iAddr:iPort)向特定的外部主机端口对(hAddr:hPort)发送过数据，由 (hAddr:hPort)发送到(eAddr:ePort)的报文将会被转发到(iAddr:iPort)</li>
+<li><strong>对称型NAT（Symmetric NAT）</strong><br><br>NAT网关会把内部主机“地址端口对”和外部主机“地址端口对”完全相同的报文看作一个连接，在网关上创建一个公网“地址端口对”映射进行转换，只有收到报文的外部主机从对应的端口对发送回应的报文，才能被转换。即使内部主机使用之前用过的地址端口对去连接不同外部主机(或端口)时，NAT网关也会建立新的映射关系。</li>
+</ol>
+<p>现实中的很多NAT设备是将这些转换方式混合在一起工作的，而不单单使用一种，所以这些术语只适合描述一种工作方式，而不是一个设备</p>
+<h3 id="NAT的弊端"><a href="#NAT的弊端" class="headerlink" title="NAT的弊端"></a>NAT的弊端</h3><p>NAT最大的弊端正在于此——破坏了IP端到端通信的能力。公网上的主机A无法主动向躲在NAT之后的内部主机B发送请求。此外，NAT工作机制依赖于修改IP包头的信息，这会妨碍一些安全协议的工作。因为NAT篡改了IP地址、传输层端口号和校验和，这会导致认证协议彻底不能工作，因为认证目的就是要保证这些信息在传输过程中没有变化。对于一些隧道协议，NAT的存在也导致了额外的问题，因为隧道协议通常用外层地址标识隧道实体，穿过NAT的隧道会有IP复用关系，在另一端需要小心处理。</p>
+<h3 id="NAT穿越技术"><a href="#NAT穿越技术" class="headerlink" title="NAT穿越技术"></a>NAT穿越技术</h3><p>为了解决IP端到端应用在NAT环境下遇到的问题，网络协议的设计者们创造了各种武器来进行应对。但遗憾的是，这里每一种方法都不完美，还需要在内部主机、应用程序或者NAT网关上增加额外的处理。</p>
+<ol>
+<li><strong>应用层网关</strong><br><br>应用层网关(ALG)是解决NAT对应用层协议无感知的一个最常用方法，已经被NAT设备厂商广泛采用，成为NAT设备的一个必需功能。因为NAT不感知应用协议，所以有必要额外为每个应用协议定制协议分析功能，这样NAT网关就能理解并支持特定的协议。</li>
+<li><strong>探针技术STUN和TURN</strong><br><br>所谓探针技术，是通过在所有参与通信的实体上安装探测插件，以检测网络中是否存在NAT网关，并对不同NAT模型实施不同穿越方法的一种技术。STUN服务器被部署在公网上，用于接收来自通信实体的探测请求，服务器会记录收到请求的报文地址和端口，并填写到回送的响应报文中。</li>
+<li><strong>中间件技术</strong><br><br>这也是一种通过开发通用方法解决NAT穿越问题的努力。与前者不同之处是，NAT网关是这一解决方案的参与者。与ALG的不同在于，客户端会参与网关公网映射信息的维护，此时NAT网关只要理解客户端的请求并按照要求去分配转换表，不需要自己去分析客户端的应用层数据。其中UPnP就是这样一种方法。</li>
+<li><strong>中继代理技术</strong><br><br>准确说它不是NAT穿越技术，而是NAT旁路技术。简单说，就是在NAT网关所在的位置旁边放置一个应用服务器，这个服务器在内部网络和外部公网分别有自己的网络连接。客户端特定的应用产生网络请求时，将定向发送到应用代理服务器。应用代理服务器根据代理协议解析客户端的请求，再从服务器的公网侧发起一个新的请求，把客户端请求的内容中继到外部网络上，返回的相应反方向中继。这项技术和ALG有很大的相似性，它要求为每个应用类型部署中继代理业务，中间服务器要理解这些请求。</li>
+<li><strong>特定协议的自穿越技术</strong><br><br>在所有方法中最复杂也最可靠的就是自己解决自己的问题。比如IKE和IPsec技术，在设计时就考虑了到如何穿越NAT的问题。因为这个协议是一个自加密的协议并且具有报文防修改的鉴别能力，其他通用方法爱莫能助。因为实际应用的NAT网关基本都是NAPT方式，所有通过传输层协议承载的报文可以顺利通过NAT。IKE和IPsec采用的方案就是用UDP在报文外面再加一层封装，而内部的报文就不再受到影响。IKE中还专门增加了NAT网关是否存在的检查能力以及绕开NAT网关检测IKE协议的方法。</li>
+</ol>
+<h3 id="NAT-的实现方式"><a href="#NAT-的实现方式" class="headerlink" title="NAT 的实现方式"></a>NAT 的实现方式</h3><ol>
+<li><strong>静态一对一地址映射</strong><br><br>NAT把一个私网地址和一个公网地址做静态关联，在从内而外的方向，将源IP匹配的私网IP替换为公网IP，反方向则将目的IP匹配公网IP的报文替换为私网IP。网络层以上的部分不进行替换处理，只修正校验和</li>
+<li><strong>静态多对多地址映射</strong><br><br>这种方式与上一种类似，只是把一段私网地址映射到一段公网地址。工作机制与前述的方式没有差别，只是简化配置工作量。</li>
+<li><strong>动态端口映射</strong><br><br>这是最基本的工作方式，将一段内网地址动态翻译为一个或多个公网IP，同时对传输层端口或其他上层协议信息进行转换，以实现IP复用。对由内而外的报文，替换源地址和端口，反向报文替换目的地址和端口。仅以连接公网的接口IP作为NAT转换的公网地址时，这种配置最简化，又被称为EasyIP。当以一段公网IP地址作为NAT转换地址时，需要配置一个地址池，NAT会自动在地址池中选择使用公网IP。</li>
+<li><strong>动态地址映射(no-pat)</strong><br><br>这是介于静态多对多地址映射和动态端口映射方式之间的一种工作机制。当有一个私网向公网侧访问到达NAT网关时，NAT网关会检查这个私网IP是否已经有关联的公网IP映射。如果已经存在，则按照转换表直接替换IP，不修改上层协议。如果不存在关联表项，则在空闲的公网IP池中占用一个IP，并写入关联表中，以后按照这个关联关系进行地址转换。当这个私网主机发起的所有对外访问均关闭或超时后，回收公网IP。这种方式可以理解为一组内网主机抢占式地共享一个公网IP地址池。当公网IP地址池用完以后，新连接将无法建立。</li>
+<li><strong>静态端口映射</strong><br><br>通过静态配置，把一个固定的私网IP地址和端口关联到一个公网地址和端口上。这种方式等同于前面介绍过的全锥模式，但是不需要内网主机首先发出报文。这种方式适用于在NAT网关上把一个知名服务（如HTTP）映射到一个内部主机上，也称为port forwarding。</li>
+<li><strong>应用层网关(ALG)</strong><br><br>在所有NAT产品实现中，ALG是一个必需的功能组件。但在不同实现中，有些产品可以动态加载不同的ALG模块，有些产品可以提供ALG开关控制，有些则不提供任何用户接口。ALG解析上层应用协议的内容，并且根据需要修改IP和端口相关信息，创建和维护附加的关联表项。</li>
+<li><strong>NAT转换关联表</strong><br><br>无论哪一种NAT工作方式，都要用到地址转换关联表，在不同产品的实现中，这个关联表的存储结构和在IP转发中调用的方式有很大不同。关联表中会记录源IP、目的IP、连接协议类型、传输层源端口、目的端口，以及转换后的源IP、源端口，目的IP、目的端口信息，这里的源和目的都是对应于从内网到外网的访问方向。依据NAT具体工作方式，这些信息可能全部填充，也可能部分填充。例如只按照IP做静态映射的方式，就不需要填入任何端口相关信息；对于静态端口映射，则只填入源相关的内容，而目的端的信息为空。</li>
+</ol>
+<p>参考：<a href="http://www.52im.net/thread-50-1-1.html" target="_blank" rel="noopener">http://www.52im.net/thread-50-1-1.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjr1p6xqt000zk63gur7l0ift" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/03/webRTC基础篇-ice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          webRTC基础篇-ice
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/01/webRTC基础--音视频/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">webRTC基础--音视频</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--音视频</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/03/webRTC基础篇-ice/">webRTC基础篇-ice</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/webRTC基础篇--NAT/">webRTC基础--NAT</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

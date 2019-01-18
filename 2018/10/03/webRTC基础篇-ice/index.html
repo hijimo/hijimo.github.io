@@ -7,19 +7,19 @@
   
   <title>webRTC基础篇-ice | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机">
+  <meta name="description" content="ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候">
 <meta name="keywords" content="webRTC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webRTC基础篇-ice">
 <meta property="og:url" content="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机">
+<meta property="og:description" content="ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201607/20/181200un7bn8y15vb8jb7k.png">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201607/20/181137oikgjgej2oigvskj.png">
-<meta property="og:updated_time" content="2019-01-18T07:01:46.756Z">
+<meta property="og:updated_time" content="2019-01-18T07:10:45.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础篇-ice">
-<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机">
+<meta name="twitter:description" content="ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候">
 <meta name="twitter:image" content="http://www.52im.net/data/attachment/forum/201607/20/181200un7bn8y15vb8jb7k.png">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
@@ -94,7 +94,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="ICE"><a href="#ICE" class="headerlink" title="ICE"></a>ICE</h3><p>webRTC采用p2p的方式数据传输。由于<a href="">NAT</a>的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。</p>
 <h3 id="基本的ICE流程"><a href="#基本的ICE流程" class="headerlink" title="基本的ICE流程"></a>基本的ICE流程</h3><ol>
 <li>两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系；</li>
@@ -130,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjr1p6xrd001gk63guydsj03l" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjr1pgbdm001elk3gp1pfr2xt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>

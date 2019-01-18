@@ -88,7 +88,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="视频压缩"><a href="#视频压缩" class="headerlink" title="视频压缩"></a>视频压缩</h3><p>视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。</p>
 <h3 id="压缩原理"><a href="#压缩原理" class="headerlink" title="压缩原理"></a>压缩原理</h3><p>视频可以压缩，因为它有冗余。</p>
 <ol>
@@ -131,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjr1p6xqy0019k63g8lcknpnm" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjr1pgbdi0017lk3ggjplteru" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -170,7 +169,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="ICE"><a href="#ICE" class="headerlink" title="ICE"></a>ICE</h3><p>webRTC采用p2p的方式数据传输。由于<a href="">NAT</a>的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。</p>
 <h3 id="基本的ICE流程"><a href="#基本的ICE流程" class="headerlink" title="基本的ICE流程"></a>基本的ICE流程</h3><ol>
 <li>两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系；</li>
@@ -206,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjr1p6xrd001gk63guydsj03l" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjr1pgbdm001elk3gp1pfr2xt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -245,7 +243,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><p>20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。</p>
 <p>通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请求都通过NAT发送与接收，以达到一个内部网络只使用一个或少个ip地址就能与Internet通信的目的。图示如下<br><img src="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png" alt="概念图"></p>
 <h3 id="NAT的几个关键特点"><a href="#NAT的几个关键特点" class="headerlink" title="NAT的几个关键特点"></a>NAT的几个关键特点</h3><blockquote>
@@ -287,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjr1p6xqt000zk63gur7l0ift" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjr1pgbdj001blk3gklx1poth" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -326,7 +323,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets </p>
 <h3 id="视频基础"><a href="#视频基础" class="headerlink" title="视频基础"></a>视频基础</h3><p>我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。</p>
 <p>我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 <code>.mp4</code> 文件通常存放的就是<code>H.264</code>编码的视频流和 <code>AAC</code> 编码的音频流。通常，一个容器格式可以包含不同编码格式的音视频流；同样编码的音视频流也可以</p>
 <h3 id="VP8-9-与-H264-H265视频编码"><a href="#VP8-9-与-H264-H265视频编码" class="headerlink" title="VP8/9 与 H264/H265视频编码"></a>VP8/9 与 H264/H265视频编码</h3><p>VP8与 H264视频编码是目前webRTC支持的两种视频格式（VP9是VP8的最新标准，H265是H264的最新标准）。<br>VP8是google收购webRTC项目后获得的编码技术，也是google目前强推的编码格式。它常常会被拿来和H264来比较，公认的结果是，不论效率还是质量，VP8是略低于H264的。唯一的优势就是他开源、免费，但是可能存在潜艇专利问题；并且，google虽然开源了VP8，但是部分的相关文件和技术细节并没有公并，以致于Vp8还是一项死死握在google手中的技术。</p>
@@ -343,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjr1p6xqv0012k63gkeo77er0" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjr1pgbdh0014lk3gd44j8nfl" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -403,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjr1p6xry002ik63gcu2i6dca" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjr1pgbeb002mlk3goh9nxzpy" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -451,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjr1p6xru002bk63gdhjgyik9" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjr1pgbe8002flk3gz3ht624v" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -499,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjr1p6xrw002ek63g7tvgtgad" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjr1pgbe9002ilk3gfhum6lz0" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -554,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjr1p6xsa002qk63gb3zof7bp" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjr1pgbed002plk3ge4mx1lmf" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>
@@ -602,7 +598,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjr1p6xrs0028k63gb6y9hnu4" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjr1pgbe20025lk3gtd8i0gbc" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
@@ -659,7 +655,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjr1p6xrr0025k63ghfto9ieb" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjr1pgbe5002blk3gyf8c0lbu" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/帧/">帧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>

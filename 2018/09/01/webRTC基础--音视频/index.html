@@ -7,17 +7,17 @@
   
   <title>webRTC基础--音视频 | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets  视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H">
+  <meta name="description" content="视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H.264编码的视频流和 AAC 编码的音频流。通常，一个容器格式">
 <meta name="keywords" content="webRTC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webRTC基础--音视频">
 <meta property="og:url" content="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets  视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H">
-<meta property="og:updated_time" content="2019-01-18T07:00:33.080Z">
+<meta property="og:description" content="视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H.264编码的视频流和 AAC 编码的音频流。通常，一个容器格式">
+<meta property="og:updated_time" content="2019-01-18T07:10:27.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础--音视频">
-<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets  视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H">
+<meta name="twitter:description" content="视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H.264编码的视频流和 AAC 编码的音频流。通常，一个容器格式">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
   
@@ -91,7 +91,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets </p>
 <h3 id="视频基础"><a href="#视频基础" class="headerlink" title="视频基础"></a>视频基础</h3><p>我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。</p>
 <p>我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 <code>.mp4</code> 文件通常存放的就是<code>H.264</code>编码的视频流和 <code>AAC</code> 编码的音频流。通常，一个容器格式可以包含不同编码格式的音视频流；同样编码的音视频流也可以</p>
 <h3 id="VP8-9-与-H264-H265视频编码"><a href="#VP8-9-与-H264-H265视频编码" class="headerlink" title="VP8/9 与 H264/H265视频编码"></a>VP8/9 与 H264/H265视频编码</h3><p>VP8与 H264视频编码是目前webRTC支持的两种视频格式（VP9是VP8的最新标准，H265是H264的最新标准）。<br>VP8是google收购webRTC项目后获得的编码技术，也是google目前强推的编码格式。它常常会被拿来和H264来比较，公认的结果是，不论效率还是质量，VP8是略低于H264的。唯一的优势就是他开源、免费，但是可能存在潜艇专利问题；并且，google虽然开源了VP8，但是部分的相关文件和技术细节并没有公并，以致于Vp8还是一项死死握在google手中的技术。</p>
@@ -108,7 +107,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjr1p6xqv0012k63gkeo77er0" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjr1pgbdh0014lk3gd44j8nfl" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>

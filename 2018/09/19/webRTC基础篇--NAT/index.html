@@ -7,18 +7,18 @@
   
   <title>webRTC基础--NAT | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+  <meta name="description" content="NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请">
 <meta name="keywords" content="webRTC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webRTC基础--NAT">
 <meta property="og:url" content="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+<meta property="og:description" content="NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png">
-<meta property="og:updated_time" content="2019-01-18T07:02:07.489Z">
+<meta property="og:updated_time" content="2019-01-18T07:10:40.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础--NAT">
-<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP">
+<meta name="twitter:description" content="NAT20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。 通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请">
 <meta name="twitter:image" content="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
@@ -93,7 +93,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><p>20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。</p>
 <p>通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请求都通过NAT发送与接收，以达到一个内部网络只使用一个或少个ip地址就能与Internet通信的目的。图示如下<br><img src="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png" alt="概念图"></p>
 <h3 id="NAT的几个关键特点"><a href="#NAT的几个关键特点" class="headerlink" title="NAT的几个关键特点"></a>NAT的几个关键特点</h3><blockquote>
@@ -135,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjr1p6xqt000zk63gur7l0ift" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjr1pgbdj001blk3gklx1poth" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>

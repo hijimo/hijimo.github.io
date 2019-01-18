@@ -7,20 +7,20 @@
   
   <title>webRTC基础--音视频 | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets 视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：">
+  <meta name="description" content="视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：规律性的结构可由先验知识和背景知识得到  编解码的技术流程和原">
 <meta name="keywords" content="webRTC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webRTC基础--音视频">
 <meta property="og:url" content="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets 视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：">
+<meta property="og:description" content="视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：规律性的结构可由先验知识和背景知识得到  编解码的技术流程和原">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201604/16/131633dhhwn5aj72hw8hja.png">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201604/16/131639c5cxopo2d6ciqjj2.png">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201604/16/135013rkbbz9gago2n9nfb.png">
-<meta property="og:updated_time" content="2019-01-18T07:02:34.582Z">
+<meta property="og:updated_time" content="2019-01-18T07:10:36.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础--音视频">
-<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;#EdgeInsets 视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：">
+<meta name="twitter:description" content="视频压缩视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。 压缩原理视频可以压缩，因为它有冗余。  空间冗余：图像相邻像素之间有较强的相关性 时间冗余：视频序列的相邻图像之间内容相似 编码冗余：不同像素值出现的概率不同 视觉冗余：人的视觉系统对某些细节不敏感 知识冗余：规律性的结构可由先验知识和背景知识得到  编解码的技术流程和原">
 <meta name="twitter:image" content="http://www.52im.net/data/attachment/forum/201604/16/131633dhhwn5aj72hw8hja.png">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
@@ -95,7 +95,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#EdgeInsets</p>
 <h3 id="视频压缩"><a href="#视频压缩" class="headerlink" title="视频压缩"></a>视频压缩</h3><p>视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。</p>
 <h3 id="压缩原理"><a href="#压缩原理" class="headerlink" title="压缩原理"></a>压缩原理</h3><p>视频可以压缩，因为它有冗余。</p>
 <ol>
@@ -138,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjr1p6xqy0019k63g8lcknpnm" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjr1pgbdi0017lk3ggjplteru" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>

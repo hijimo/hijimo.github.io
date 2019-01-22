@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -60,6 +60,63 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-前端优化-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/前端优化-渲染优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:20.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/前端优化-渲染优化/">前端优化-渲染优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化其六-开发60帧每秒的app"><a href="#前端优化其六-开发60帧每秒的app" class="headerlink" title="前端优化其六-开发60帧每秒的app"></a>前端优化其六-开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
+<h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
+<li>浏览器向服务器发起get请求   get/http/1.1</li>
+<li>服务器做出响应并发送html</li>
+<li>浏览器提前解析dom（parse html）</li>
+<li>浏览器解析cssom (parse stylesheet)</li>
+<li>结合 dom + cssom生成render tree (Recalculate styles)</li>
+<li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
+<li>从矢量到光栅,把像素绘制到图层(paint)</li>
+<li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
+<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/前端优化-渲染优化/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjr7a5jca002bq03gmme68mu6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/帧/">帧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-前端优化-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -97,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-启动优化/" data-id="cjr1pgbe00021lk3gzfnybdci" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-启动优化/" data-id="cjr7a5jc70028q03gx1pn9j09" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li></ul>
@@ -145,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-图片优化/" data-id="cjr1pgbe40028lk3gdfx6u79p" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-图片优化/" data-id="cjr7a5jc10021q03g35pkei5m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压缩/">压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li></ul>
@@ -193,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-http缓存/" data-id="cjr1pgbdy001ylk3gwcgaxpdy" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-http缓存/" data-id="cjr7a5jc30025q03gmt98g28j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
@@ -250,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-渲染速度的优化/" data-id="cjr1pgbeg002tlk3g97fpddkv" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-渲染速度的优化/" data-id="cjr7a5jch002pq03ge4ljvxar" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cssom/">cssom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom/">dom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -309,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-记一张页面的加载/" data-id="cjr1pgben0030lk3gh6u4za9y" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-记一张页面的加载/" data-id="cjr7a5jcq0033q03g1t0o0mbz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li></ul>
@@ -366,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2016/06/23/关于雪碧图的自适应/" data-id="cjr1pgbdv001slk3gek3rvyfb" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2016/06/23/关于雪碧图的自适应/" data-id="cjr7a5jbw001vq03g4e0tx69s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -440,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/08/27/关于字蛛/" data-id="cjr1pgbdx001vlk3gzy7pv5ym" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2015/08/27/关于字蛛/" data-id="cjr7a5jbu001sq03gcabtprdi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -491,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/08/20/关于ie11下fontsize0与 rem/" data-id="cjr1pgbds001llk3g8fye3de3" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2015/08/20/关于ie11下fontsize0与 rem/" data-id="cjr7a5jbp001iq03g4dfmxycy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -636,106 +693,10 @@ url(http://img04.taobaocdn.com/tps/i4/T1947tXmJhXXcCfooh-210-320.png) 2x);/* Ret
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/03/19/[转]CSS 与 HTML5 响应式图片/" data-id="cjr1pgbcm0001lk3gbayd4qua" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2015/03/19/[转]CSS 与 HTML5 响应式图片/" data-id="cjr7a5jaj0004q03ghbpjqzy3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-javascript之错误篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/18/javascript之错误篇/" class="article-date">
-  <time datetime="2015-03-18T08:12:00.000Z" itemprop="datePublished">2015-03-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/18/javascript之错误篇/">javascript之错误篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="lt-–markdown–-gt-抛出你的错误"><a href="#lt-–markdown–-gt-抛出你的错误" class="headerlink" title="&lt;!–markdown–&gt;抛出你的错误"></a>&lt;!–markdown–&gt;抛出你的错误</h2><p>我们每天都书写着成千上万行的代码，每天都制造着各种千样的bug，或者是这样子，又或者是那样的。他们有些是可以预知的，往往更多又是不可预知的，唯一可以确定的是，它们不可避免，只要代码还存在。庆幸的是，像汽车拥有安全汽囊一样，我们可以在设计之初又或者在修改一段陈年代码时给代码加入错误处理机制。在错误发生的时候像安全汽囊一样“救客(zi)户(ji)一命”。<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
-<h2 id="如何抛出错误"><a href="#如何抛出错误" class="headerlink" title="如何抛出错误"></a>如何抛出错误</h2><p>javascript的错误消息以信息稀少、隐晦含糊而臭名昭著，再加上web端调试的复杂性，这使得在javascript中抛出错误要比在任何其他语言中做同样的事情都更有价值。javascript 为我们提供了 throw 操作符，将提供的一个对象抛出。</p>
-<pre><code>throw new Error(&amp;#34;T^T出错了&amp;#34;);
-//并不好的写好，一些浏览器仅会显示uncaught exception(IE,没错，我说得就是你)
-throw &amp;#34;T^T出错了&amp;#34;;
-throw new Date();
-throw 111
-</code></pre><h2 id="抛出错误的好处"><a href="#抛出错误的好处" class="headerlink" title="抛出错误的好处"></a>抛出错误的好处</h2><p>如上所述，由于web端调试的复杂性，我们经常需要花上两三天的时间才能定位一个错误发生的原因，再加上一些无理的浏览器的蛮横，往往前端狗们只能默默的把烧烤酱往自己身上抹。经常，我会觉得图片比文字更有说服力。</p>
-<p><img src="http://image.hijimo.com/demo/demo_throwerr_1.png" alt="请输入图片描述"></p>
-<p>刚好，合适的抛出错误帮我们完成了这个理想。</p>
-<h2 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h2><p>javascript一共为我们提供了七种错误类型。当不同的错误条件发生时，便会触发不同的错误类型，当然我们也可以手工的去创建。</p>
-<ul>
-<li><strong>Error</strong>  所有错误的基本类型。实际上javascript引擎从来不会抛出该类型的错误</li>
-<li><strong>EvalError</strong> 当eval()函数中的语句发生错误时抛出</li>
-<li><strong>RangeError</strong> 当一个数字超过它的边界时抛出 例   var ary = new Array(-20);</li>
-<li><strong>ReferenceError</strong> 当期望的对象不存在时抛出 例  alert(nil)//nil对象并没被定义</li>
-<li><strong>SyntaxError</strong> 当发生语法错误时抛出  例如   var str = adfadfadfl,.xo33;,,,</li>
-<li><strong>URIError</strong> 当encodeURI uncodeURI 等函数中的uri格式错误时抛出</li>
-<li><strong>TypeError</strong> 当发生类型错误时抛出  如 var str = 10 ;</li>
-</ul>
-<p>多样的错误类型能让我们更好的对错误进行定义与处理。</p>
-<pre><code>try{
-    Boom(&amp;#34;危险&amp;#34;);
-}
-catch (e) {
-    if (e instanceof TypeError) {
-        //TypeError get
-    }else if (e instanceof RangeError){
-        //RangeError
-    }
-    ...
-}
-</code></pre><h2 id="自定义错误类型"><a href="#自定义错误类型" class="headerlink" title="自定义错误类型"></a>自定义错误类型</h2><p>自定义错误类型是对系统已定义错误类型的一个补充，我们通过继承系统中的Error对象来扩充错误类型以更好的处理错误。例如：</p>
-<pre><code>function MyError(message) {
-    this.message = message;
-}
-MyError.prototype = new Error();
-throw new MyError(&amp;#34;T^T这个错误类型是怎么回事阿~怎么和别人不一样&amp;#34;);
-</code></pre><h2 id="try-和-catch"><a href="#try-和-catch" class="headerlink" title="try 和 catch"></a>try 和 catch</h2><p>和其他语言一样，我们通过try 和catch 来捕捉错误。当try 代码块和出现错误时，会立马跳转到catch 代码块中进行错误处理。</p>
-<pre><code>try {
-    throw new Error(&amp;#34;T^T出错了&amp;#34;);
-}
-catch (e) {
-    handle(e)
-}
-</code></pre><h2 id="何时抛出错误"><a href="#何时抛出错误" class="headerlink" title="何时抛出错误"></a>何时抛出错误</h2><p>我们抛出错误往往是为了更加清晰的获取错误信息或者在catch块中更好的进行错误救援措失。胡乱的抛出错误并不能解决以上问题，很可能还会让错误变得难以发现，还会在代码中浪费不必要的性能。关于如何抛出错误有一些很好的经验法则</p>
-<ul>
-<li>当修复了一个很难调试的错误，尝试增加一两个自定义错误。当再次发生错误 的时候，将更容易解决问题</li>
-<li>在编写代码时，思考一下：“我希望某些事情不会发生，如果发生，我的代码会一团糟”。这时，如果“某些事情”发生，抛出一个错误</li>
-<li>如果正在编写的代码别人也会使用。思考一下他们的使用方式，在特定的情况下抛出错误。</li>
-</ul>
-<p>我们应该牢记，我们的目的不是为了防止错误，而是在错误发生的时候能更加容易地调试。<br>一般情况下，我们会在堆栈最深层，如类库中 抛出错误，在逻辑代码中将他们捕获。</p>
-<p>ps:此篇内容为个人对 《javascript编码规范》 第十章的总结</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/03/18/javascript之错误篇/" data-id="cjr1pgbcy000alk3gwi73lyo8" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
 
     </footer>
   </div>
@@ -748,7 +709,7 @@ catch (e) {
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">weiter &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -757,7 +718,7 @@ catch (e) {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -786,9 +747,9 @@ catch (e) {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -796,7 +757,7 @@ catch (e) {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -817,7 +778,7 @@ catch (e) {
           </li>
         
           <li>
-            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

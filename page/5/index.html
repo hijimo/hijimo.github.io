@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -60,6 +60,57 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-analyze工具问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/01/analyze工具问题汇总/" class="article-date">
+  <time datetime="2014-07-01T09:24:00.000Z" itemprop="datePublished">2014-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/01/analyze工具问题汇总/">analyze工具问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#头等席：potential leak of an object<br>    潜在的泄漏对象.<br>            1.在某些情况下，发生内存汇漏。至于是什么情况下？analyze会告诉你并复现。</p>
+<p>#value stored to&#39;xxx&#39; is never read.<br>   数据值（变量名？）从没读过。<br>            1.定义了变量名，从未使用过<br>            2.变量在最后一次更改值之后，没有被使用过.如{int a=b=1;a=b+1;nslog(a);nslog(b);a=a+b;}<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>#value stored to &#39;xxx&#39; druing its initalization is never read </p>
+<pre><code>数据值（变量名？）从定义起从没读过.好像和上面的一样，一般出现在对象init时没有添加 autorelase.比如
+        NSArray *ary=[[NSArray alloc]init];
+                ary=我是另一个NSArray;
+这样子alloc开辟出来的内存空间就浪费了，就出错了。
+</code></pre><p>#the left operand of &#39;x&#39; is a garbage value<br>    操作符的左右是垃圾值？一般是操作符的一边可能存在nil或者空值。比如<br>                    char a[12];<br>                    if(a[1]==3)<br>    a[1]没有赋值，就是无意义比较的垃圾值.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/01/analyze工具问题汇总/" data-id="cjr7a5jal0005q03gkfjfws56" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-IOS 里的一些小玩意和细节" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -129,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/IOS 里的一些小玩意和细节/" data-id="cjr1pgbcf0000lk3gfntprl6j" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/IOS 里的一些小玩意和细节/" data-id="cjr7a5ja10000q03g2e7dsrcq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -145,7 +196,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
   </nav>
 
 </section>
@@ -154,7 +205,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -183,9 +234,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -193,7 +244,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -214,7 +265,7 @@
           </li>
         
           <li>
-            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

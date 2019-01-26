@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -60,104 +60,6 @@
 </header>
       <div class="outer">
         <section id="main">
-  
-    <article id="post-复习--web安全基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/25/复习--web安全基础/" class="article-date">
-  <time datetime="2019-01-25T13:05:17.179Z" itemprop="datePublished">2019-01-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h3><p>内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另外<strong> CSP也可以限制只使用HTTPS的内容</strong>。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">mdn上的CSP</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy__by_cnvoid" target="_blank" rel="noopener">CSP策略列表</a>。</p>
-<h5 id="通过mate方式使用CSP"><a href="#通过mate方式使用CSP" class="headerlink" title="通过mate方式使用CSP"></a>通过mate方式使用CSP</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"default-src 'self'; img-src https://*; child-src 'none';"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="通过-header头方式使用CSP"><a href="#通过-header头方式使用CSP" class="headerlink" title="通过 header头方式使用CSP"></a>通过 header头方式使用CSP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src https://onlinebanking.jumbobank.com</span><br></pre></td></tr></table></figure>
-<h5 id="CSP测试模式"><a href="#CSP测试模式" class="headerlink" title="CSP测试模式"></a>CSP测试模式</h5><p>CSP是个大杀器，贸然使用可能会导致页面不可用或者其他方式。使用测试模式只报告错误不阻止内容，收集受影响的页面不失是一个比较好的解决方案。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only" target="_blank" rel="noopener">详见</a></p>
-<h3 id="HPKP"><a href="#HPKP" class="headerlink" title="HPKP"></a>HPKP</h3><p>Http公钥锁定（HTTP Public Key Pinning），通过向header头添加标识 <code>Public-Key-Pins</code> 通知浏览器将公钥缓存在浏览器端一段时间。若期间内发生了中间人攻击，浏览器发现伪装的证书和本地缓存的证书不匹配，则发出警告，警示用户。</p>
-<p>需要注意的是该缓存是强缓存，缓存期间如果服务器更换了密钥，网站将无法正常访问。现有的解决方案是在配置  <code>Public-Key-Pins</code> 的时候 配置一个备用的公钥</p>
-<h5 id="启用HPKP"><a href="#启用HPKP" class="headerlink" title="启用HPKP"></a>启用HPKP</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Public-Key-Pins: pin-sha256=&quot;base64==&quot;; max-age=expireTime [; includeSubDomains][; report-uri=&quot;reportURI&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h3><p>HTTP严格安全传输(HTTP Strict Transport Security ), 通过向header头添加标识 <code>Strict-Transport-Security</code>通知浏览器在未来的一段时间内强制使用HTTPS访问服务器。需要注意的是，<strong>如果浏览器没有使用HTTPS访问过服务器或者缓存已过期，标识 <code>Strict-Transport-Security</code> 将会被忽略。</strong>这是因为攻击者可能会拦截HTTP连接并注入标头或将其删除。</p>
-<p>Google维护着HSTS预加载服务。通过遵循指南并成功提交您的域名，浏览器将永远不会使用不安全的连接连接到您的域。虽然该服务由Google托管，但所有浏览器都声明有意使用（或实际开始使用）预加载列表。但是，它不是HSTS规范的一部分，不应被视为官方规范。</p>
-<p>现在，你的服务器总是会以HTTPS访问了。</p>
-<h5 id="使用HSTS"><a href="#使用HSTS" class="headerlink" title="使用HSTS"></a>使用HSTS</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age=31536000; includeSubDomains</span><br></pre></td></tr></table></figure></p>
-<h3 id="Cookie-安全"><a href="#Cookie-安全" class="headerlink" title="Cookie 安全"></a>Cookie 安全</h3><p>一个HTTP cookie的（网络Cookie，浏览器cookie）是一小片数据的一个服务器发送到用户的网络浏览器。浏览器可以存储它并将其与下一个请求一起发送回同一服务器。通常情况下，它用于判断两个请求是否来自同一个浏览器 - 例如，保持用户登录。它记住无状态 HTTP协议的有状态信息。</p>
-<p>基于这个特性，Cookie可以说是攻击者们最惦记着的目标了。</p>
-<h5 id="HttpOnly"><a href="#HttpOnly" class="headerlink" title="HttpOnly"></a>HttpOnly</h5><p>给Header头加上 <code>HttpOnly</code> 标识，可以很好的防止跨站点脚本（XSS）攻击。某项 Cookie 添加了 <code>HttpOnly</code> 之后，Javascript 无法通过 Document.cookie 访问到它，它们只会被发送到服务器。<br>可以通过chrome dev tools 的Application选项卡下的Cookies 列表看到是否是HttpOnly</p>
-<h5 id="Secure"><a href="#Secure" class="headerlink" title="Secure"></a>Secure</h5><p>给Header头加上 <code>Secure</code> 标识，cookie仅会在使用了https协议的时候才会被发送回服务器。<br>可以通过chrome dev tools 的Application选项卡下的Cookies 列表看到是否是 Secure</p>
-<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly</span><br></pre></td></tr></table></figure>
-<h3 id="X-Content-Type-Options"><a href="#X-Content-Type-Options" class="headerlink" title="X-Content-Type-Options"></a>X-Content-Type-Options</h3><p>给Header头加上 <code>X-Content-Type-Options</code> 标识，可以阻止内容：</p>
-<ol>
-<li>请求的类型为 <code>style</code> 并且MIME类型不是 <code>text/css</code></li>
-<li>请求的类型为 <code>script</code> 并且MIME类型不是JavaScript MIME类型</li>
-</ol>
-<h3 id="X-Frame-Options"><a href="#X-Frame-Options" class="headerlink" title="X-Frame-Options"></a>X-Frame-Options</h3><p>给Header头加上 <code>X-Content-Type-Options</code> 标识，可以指示允许一个页面可否在 <embed>,<iframe> 或者 <object> 中展现。这可以有效的防止点击劫持 (clickjacking) 的攻击。</object></iframe></p>
-<p>X-Frame-Options 有三个值:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options" target="_blank" rel="noopener">详见</a></p>
-<ol>
-<li><code>DENY</code> 表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。</li>
-<li><code>SAMEORIGIN</code> 表示该页面可以在相同域名页面的 frame 中展示。</li>
-<li><code>ALLOW-FROM uri</code> 表示该页面可以在指定来源的 frame 中展示。</li>
-</ol>
-<h3 id="X-XSS-Protection-这是一个过时标识"><a href="#X-XSS-Protection-这是一个过时标识" class="headerlink" title="X-XSS-Protection(这是一个过时标识)"></a>X-XSS-Protection(这是一个过时标识)</h3><p>HTTP <code>X-XSS-Protection</code>  响应头是Internet Explorer，Chrome和Safari的一个功能，当检测到跨站脚本攻击 (XSS)时，浏览器将停止加载页面。当网站实施一个强大的<code>Content-Security-Policy</code>来禁用内联的JavaScript (‘unsafe-inline’)时, 他们仍然可以为尚不支持 CSP 的旧版浏览器的用户提供保护。</p>
-<p><code>X-XSS-Protection</code> 支持以下值：</p>
-<ol>
-<li><code>0</code> 禁止XSS过滤。</li>
-<li><code>1</code> 启用XSS过滤（通常浏览器是默认的）。 如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）。</li>
-<li><code>1;mode=block</code> 启用XSS过滤。 如果检测到攻击，浏览器将不会清除页面，而是阻止页面加载。</li>
-<li><code>1; report=&lt;reporting-URI&gt;  (Chromium only</code> 启用XSS过滤。 如果检测到跨站脚本攻击，浏览器将清除页面并使用CSP report-uri指令的功能发送违规报告。</li>
-</ol>
-<h3 id="点击劫持攻击"><a href="#点击劫持攻击" class="headerlink" title="点击劫持攻击"></a>点击劫持攻击</h3><p>点击劫持是一种恶意技术，它诱使用户点击与用户感知的内容不同的内容，从而可能泄露机密信息或允许其他人控制其计算机同时点击看似无害的对象。</p>
-<p>举个例子，小王点击了某盗版影视网站的播放按钮，实际上却是偷偷的给淘宝购物车下了单。</p>
-<h3 id="CSRF-XSRF-跨站请求伪造攻击"><a href="#CSRF-XSRF-跨站请求伪造攻击" class="headerlink" title="CSRF/XSRF 跨站请求伪造攻击"></a>CSRF/XSRF 跨站请求伪造攻击</h3><p>跨站请求伪造(Cross-site_request_forgery)是一种欺骗受害者提交恶意请求的攻击。它继承了受害者的身份和特权，代表受害者履行不受欢迎的职能。对于大多数站点，浏览器请求自动包括与站点关联的任何凭据。</p>
-<p>CSRF攻击的基本原理是：</p>
-<ol>
-<li>你登录了某网站，如bilibili.</li>
-<li>在你访问恶意网站时，恶意网站针对性的向bilibili发起请求，比如关注我（bilibili已作了csrf防御）。</li>
-<li>此时，虽然恶意网站看不到bilibili的cookie，但是cookie会被附加到请求Header头里。就成功欺骗了服务器用你的登录身份关注了我</li>
-<li>你看到之篇文章的时候，你的bilibili已经被偷偷的登出了。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;https://account.bilibili.com/login?act=exit&quot;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="https://account.bilibili.com/login?act=exit" alt="bililoginout"></p>
-<ol>
-<li>或者偷偷修改了一些信息。（bilibili作了csrf防御，所以以下行为不会生效。）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"badboy"</span> <span class="attr">display</span>=<span class="string">"none"</span> <span class="attr">src</span>=<span class="string">"https://janusdemo.3mm.me/bilibili_iframe.html"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">		&lt;form method=&quot;POST&quot; id =&quot;bilibili&quot; name=&quot;transfer&quot;　action=&quot;https://api.bilibili.com/x/member/web/update&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;uname&quot; value=&quot;你们&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;usersign&quot; value=&quot;偷偷的来&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;sex&quot; value=&quot;保密&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;birthday&quot; value=&quot;1900-1-1&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;csrf&quot; value=&quot;024e772a01f7931072dd671808e2ff52&quot;&gt;</span><br><span class="line">	　&lt;/form&gt;</span><br><span class="line">		&lt;script&gt;</span><br><span class="line">			document.forms.bilibili.submit()</span><br><span class="line">		&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="如何防御CSRF"><a href="#如何防御CSRF" class="headerlink" title="如何防御CSRF"></a>如何防御CSRF</h5><ol>
-<li>上OPT或者验证码，由于csrf攻击者拿不到验证码，发起的请求会被拒绝，但是用户体验极差。</li>
-<li>使用随机令牌，用户登录时向用户推送一个csrf随机码，这个码随着用户登录过期而过期，在每一次请求的时候偷偷带上这个码。每个请求服务器都会验证 个码，验证失败拒绝请求。由于csrf无法读取用户cookie，所以这个方式是目前主流的防csrf攻击的方案</li>
-<li>refer识别, 限制白名单之外的来源。</li>
-</ol>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击Cross-site scripting是一种安全漏洞，攻击者可以利用这种漏洞在网站上注入恶意的客户端代码。<br>简单来说就是攻击者利用各种方式向你的网站注入非法脚本，以达到网站不可用、盗取信息、广告注入等目的。<br><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS" target="_blank" rel="noopener">详见</a>)</p>
-<h5 id="常见的攻击方式"><a href="#常见的攻击方式" class="headerlink" title="常见的攻击方式"></a>常见的攻击方式</h5><ol>
-<li>网络运营商向非https网站注入脚本，往往大多都是广告 ，常常也会预期外的对网站造成破坏，使得网站不可用。</li>
-<li>攻击者利用网站内部漏洞，比如src、href、Event、form表单等提交非法脚本完成攻击。</li>
-</ol>
-<h5 id="防御方式"><a href="#防御方式" class="headerlink" title="防御方式"></a>防御方式</h5><ol>
-<li>升级HTTPS，HTTPS可以有效的防止数据被修改</li>
-<li>使用 HttpOnly、CSP和上述其他安全机制。</li>
-<li>后端对前台提交的数据进行清理，比如<a href="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" target="_blank" rel="noopener">库</a></li>
-<li>前端对不受信任的数据进行html、JavaScript、css转义</li>
-<li>不要在 css、script、html中插入不受信任的数据。</li>
-<li>对URL进行转义</li>
-<li>不要使用外链。或者安全白名单之外的域名。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrd311tx002y8g3gx4dy8264" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
   
     <article id="post-webRTC基础篇--视频编解码基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -202,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrd311t200158g3gvoqcxedk" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrd335b00018923gdtqw5n8h" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -256,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrd311tc001q8g3gxbsxgmeq" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrd335b2001c923gys95np36" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -312,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrd311t5001b8g3gsjvsnc1a" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrd335az0015923gaucxs78z" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -362,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrd311sy000v8g3gyczlg8qp" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrd335ax0011923grpds6jvt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -411,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrd311td001t8g3ggp4gg99v" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrd335b5001f923gg0f2f7rv" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -461,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrd311tt002r8g3gjdmsj3wa" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrd335bs002l923gr6xyenfg" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -509,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrd311tk00268g3gzhfy7krl" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrd335bq002h923gnaushzxs" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -557,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrd311tr002n8g3gbj9g2xkm" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrd335bu002o923gkygvxeqs" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -612,10 +514,58 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrd311tq002k8g3gd1kcde19" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrd335bx002v923griwb9rao" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/前端优化-开始性能优化/" class="article-date">
+  <time datetime="2018-03-22T10:29:56.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/前端优化-开始性能优化/">前端优化-开始性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="开始性能优化吧"><a href="#开始性能优化吧" class="headerlink" title="开始性能优化吧"></a>开始性能优化吧</h2><p>现在我们已经明白性能的重要性，也明白了浏览器大概的渲染过程，是时间拿起我们的工具来优化我们的应用了。</p>
+<h3 id="chrome-devTools"><a href="#chrome-devTools" class="headerlink" title="chrome devTools"></a>chrome devTools</h3><p>chrome devTools 是google 推出的 chrome 浏览器上的开发工具，它非常流行。你可以使用快捷键 mac(Cmd+alt+j)、windows(ctrl+shift+i 或 f12) 打开它。它可能长这样<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180322110002.png" alt="chrome 全貌"><br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/前端优化-开始性能优化/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjrd335bn002a923gx0rog7l1" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 
     </footer>
   </div>
@@ -628,7 +578,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">次へ &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
   </nav>
 
 </section>
@@ -637,7 +587,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">カテゴリ</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -647,7 +597,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグ</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
     </div>
@@ -657,7 +607,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
@@ -666,9 +616,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">アーカイブ</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -676,13 +626,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">最近の投稿</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/01/25/复习--web安全基础/">(no title)</a>
-          </li>
         
           <li>
             <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
@@ -698,6 +644,10 @@
         
           <li>
             <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

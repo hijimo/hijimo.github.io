@@ -5,18 +5,19 @@
   
 
   
-  <title>hijimo</title>
+  <title>复习--web安全基础 | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
+<meta name="keywords" content="前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hijimo">
-<meta property="og:url" content="http://hijimo.github.io/2019/01/25/复习--web安全基础/index.html">
+<meta property="og:title" content="复习--web安全基础">
+<meta property="og:url" content="http://hijimo.github.io/2014/07/02/复习--web安全基础/index.html">
 <meta property="og:site_name" content="hijimo">
 <meta property="og:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
 <meta property="og:image" content="https://account.bilibili.com/login?act=exit">
-<meta property="og:updated_time" content="2019-01-26T06:15:23.288Z">
+<meta property="og:updated_time" content="2019-01-26T06:19:13.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hijimo">
+<meta name="twitter:title" content="复习--web安全基础">
 <meta name="twitter:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
 <meta name="twitter:image" content="https://account.bilibili.com/login?act=exit">
   
@@ -54,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -67,20 +68,34 @@
       <div class="outer">
         <section id="main"><article id="post-复习--web安全基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/01/25/复习--web安全基础/" class="article-date">
-  <time datetime="2019-01-25T13:05:17.179Z" itemprop="datePublished">2019-01-25</time>
+    <a href="/2014/07/02/复习--web安全基础/" class="article-date">
+  <time datetime="2014-07-02T01:55:00.000Z" itemprop="datePublished">2014-07-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      复习--web安全基础
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h3><p>内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另外<strong> CSP也可以限制只使用HTTPS的内容</strong>。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">mdn上的CSP</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy__by_cnvoid" target="_blank" rel="noopener">CSP策略列表</a>。</p>
 <h5 id="通过mate方式使用CSP"><a href="#通过mate方式使用CSP" class="headerlink" title="通过mate方式使用CSP"></a>通过mate方式使用CSP</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"default-src 'self'; img-src https://*; child-src 'none';"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h5 id="通过-header头方式使用CSP"><a href="#通过-header头方式使用CSP" class="headerlink" title="通过 header头方式使用CSP"></a>通过 header头方式使用CSP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src https://onlinebanking.jumbobank.com</span><br></pre></td></tr></table></figure>
-<h5 id="CSP测试模式"><a href="#CSP测试模式" class="headerlink" title="CSP测试模式"></a>CSP测试模式</h5><p>CSP是个大杀器，贸然使用可能会导致页面不可用或者其他方式。使用测试模式只报告错误不阻止内容，收集受影响的页面不失是一个比较好的解决方案。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only" target="_blank" rel="noopener">详见</a></p>
+<h5 id="CSP测试模式"><a href="#CSP测试模式" class="headerlink" title="CSP测试模式"></a>CSP测试模式</h5><p>CSP是个大杀器，贸然使用可能会导致页面不可用或者其他问题。使用测试模式只报告错误不阻止内容，收集受影响的页面不失是一个比较好的解决方案。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only" target="_blank" rel="noopener">详见</a></p>
 <h3 id="HPKP"><a href="#HPKP" class="headerlink" title="HPKP"></a>HPKP</h3><p>Http公钥锁定（HTTP Public Key Pinning），通过向header头添加标识 <code>Public-Key-Pins</code> 通知浏览器将公钥缓存在浏览器端一段时间。若期间内发生了中间人攻击，浏览器发现伪装的证书和本地缓存的证书不匹配，则发出警告，警示用户。</p>
 <p>需要注意的是该缓存是强缓存，缓存期间如果服务器更换了密钥，网站将无法正常访问。现有的解决方案是在配置  <code>Public-Key-Pins</code> 的时候 配置一个备用的公钥</p>
 <h5 id="启用HPKP"><a href="#启用HPKP" class="headerlink" title="启用HPKP"></a>启用HPKP</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Public-Key-Pins: pin-sha256=&quot;base64==&quot;; max-age=expireTime [; includeSubDomains][; report-uri=&quot;reportURI&quot;]</span><br></pre></td></tr></table></figure></p>
@@ -153,19 +168,30 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrd311tx002y8g3gx4dy8264" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/复习--web安全基础/" data-id="cjrd335c6003d923gwdw5r3q5" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
+    <a href="/2014/07/02/ios视频播放的一些研究/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          ios视频播放的一些研究
+        
+      </div>
+    </a>
   
-    <a href="/2018/10/21/webRTC基础篇--视频编解码基础/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">webRTC基础--视频编解码</div>
+  
+    <a href="/2014/07/02/仿QQwifi传书/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">仿QQwifi传书</div>
     </a>
   
 </nav>
@@ -179,7 +205,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">カテゴリ</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -189,7 +215,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグ</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
     </div>
@@ -199,7 +225,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
@@ -208,9 +234,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">アーカイブ</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -218,13 +244,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">最近の投稿</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/01/25/复习--web安全基础/">(no title)</a>
-          </li>
         
           <li>
             <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
@@ -240,6 +262,10 @@
         
           <li>
             <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

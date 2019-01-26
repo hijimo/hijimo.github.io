@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -60,6 +60,69 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-javascript中的asi机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/03/javascript中的asi机制/" class="article-date">
+  <time datetime="2015-02-03T06:51:00.000Z" itemprop="datePublished">2015-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/03/javascript中的asi机制/">javascript中的asi机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;庆祝自己小站复活，先写个文章压压惊。<br>在此感谢木工(<a href="http://loftor.com/" target="_blank" rel="noopener">木木工程师</a>)的技术支持。</p>
+<p>什么是Automatic semicolon insertion机制呢。中文一般翻译成自动插入分号，简称asi机制。功能呢，也很简单，就是智能的判断语句是否插入分号，示例如下</p>
+<pre><code>function(){
+    reutrn  &amp;#39;hehe&amp;#39;
+}
+</code></pre><p>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>由于有asi机制的存在，以上代码是合法而合理的。大概javascript的设计师是为了帮助一些粗心的小猴子温馨的加个分号。但是呢，也会发生一些神奇的事情。比如如下示例</p>
+<pre><code>function(){
+        return
+        {
+            today:&amp;#39;才周二&amp;#39;
+        }
+    }
+</code></pre><p> 或许，我们希望返回一个对象,但是由于asi机制的存在，这段代码并不能返回我们想要的结果。正确示例应如下</p>
+<pre><code>function(){
+      return{
+          today:&amp;#39;不是周五&amp;#39;
+      }
+  }
+</code></pre><p>像方括号、逗号、大括号、小括号等这些常用符号并不会被自动加上分号而被断句。<br>asi机制的规则花样繁多，去记住他们的所有规则有点不大现实，所以大部分情况下我们还是老老实实的在句末加上分号吧。同时，留个小心情，避免发生如上bug。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/03/javascript中的asi机制/" data-id="cjrcubbjk000af83gvewklg1y" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-转：web前端真的需要mvvm吗" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -132,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/04/转：web前端真的需要mvvm吗/" data-id="cjr7a5jd0003hq03g6ptghu9k" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/04/转：web前端真的需要mvvm吗/" data-id="cjrcubbl8003qf83gkfawadrn" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -181,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" data-id="cjr7a5jcs0036q03gd3h3n5rh" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" data-id="cjrcubbl7003mf83g1le5xjig" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -240,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/寂寞的网络收藏夹/" data-id="cjr7a5jcw003dq03gpjd6xppj" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/寂寞的网络收藏夹/" data-id="cjrcubbl10038f83guerp7cr4" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -307,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjr7a5jam0006q03gt2izy0od" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjrcubbjh0006f83gtwzwnroa" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -372,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/仿QQwifi传书/" data-id="cjr7a5jbr001lq03g59q92hg9" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/仿QQwifi传书/" data-id="cjrcubbk3001ef83gu7tjwcb5" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -466,7 +529,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjr7a5jaa0001q03gtgtbbqqv" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjrcubbj50000f83grc3va0zt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -511,7 +574,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/通过分析github代码库总结出来的工程师代码书写习惯/" data-id="cjr7a5jd3003kq03goq6hu9tf" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/通过分析github代码库总结出来的工程师代码书写习惯/" data-id="cjrcubbl6003jf83gnd5wh2qs" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -561,7 +624,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/the-swift-programming-language  中文版在线阅读/" data-id="cjr7a5jbg000yq03gmi4ugcdb" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/the-swift-programming-language  中文版在线阅读/" data-id="cjrcubbk00014f83gyaonk07n" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -647,55 +710,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/我正在使用的ios库系列之Mantle /" data-id="cjr7a5jcu003aq03gjtsgpu4x" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mac os x 存储空间释放" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/01/mac os x 存储空间释放/" class="article-date">
-  <time datetime="2014-07-01T09:25:00.000Z" itemprop="datePublished">2014-07-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/01/mac os x 存储空间释放/">mac os x 存储空间释放</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&lt;!–markdown–&gt;#1 1.OnyX<br>    小白软件，去网上下载下来之后选择cleanning,选择清理一些系统垃圾</p>
-<p>#1 2.Xcode缓存<br>    这才是真大头，两个月左右就能累积10个G左右的缓存。。。。<br>    进入文件夹 /Users/jm/Library/Developer/Xcode<br>    清除DerivedData和Snapshots里的文件</p>
-<p>#1 3.iphone simulater 缓存</p>
-<pre><code>进入文件夹 /Users/jm/Library/Application Support/iPhone Simulator
-逐个删除 applications下面的文件夹
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/mac os x 存储空间释放/" data-id="cjr7a5jbc000vq03g4i53nads" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/我正在使用的ios库系列之Mantle /" data-id="cjrcubbl4003ff83gfnfws670" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -711,7 +726,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; zurück</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">weiter &raquo;</a>
   </nav>
 
 </section>
@@ -720,7 +735,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -749,9 +764,9 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -759,9 +774,13 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/01/25/复习--web安全基础/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--音视频</a>
@@ -777,10 +796,6 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
         
           <li>
             <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

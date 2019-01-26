@@ -5,19 +5,14 @@
   
 
   
-  <title>关于ie下iframe内存泄露 | hijimo</title>
+  <title>Archiv: 2019/1 | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!–markdown–&amp;gt;契机近日，手头上负责的一个项目被报告在IE下会产生严重的内存泄露，在对某一复杂表单进行若干次操作后(大约十次左右)IE进程的内存占用就达到了600M之多，恐怖之极。 过程由于泄露页面表单中使用了extjs，第一时间怀疑是否是extjs代码内存没有及时释放。但是这个设想很快就被我否定了，因为我发现在发生泄露后不管我怎么跳转页面、重登，甚至关闭ie，进程还是占用">
-<meta name="keywords" content="前端">
-<meta property="og:type" content="article">
-<meta property="og:title" content="关于ie下iframe内存泄露">
-<meta property="og:url" content="http://hijimo.github.io/2015/02/12/关于ie下iframe内存泄露/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="hijimo">
+<meta property="og:url" content="http://hijimo.github.io/archives/2019/01/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="&amp;lt;!–markdown–&amp;gt;契机近日，手头上负责的一个项目被报告在IE下会产生严重的内存泄露，在对某一复杂表单进行若干次操作后(大约十次左右)IE进程的内存占用就达到了600M之多，恐怖之极。 过程由于泄露页面表单中使用了extjs，第一时间怀疑是否是extjs代码内存没有及时释放。但是这个设想很快就被我否定了，因为我发现在发生泄露后不管我怎么跳转页面、重登，甚至关闭ie，进程还是占用">
-<meta property="og:updated_time" content="2018-09-03T02:06:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于ie下iframe内存泄露">
-<meta name="twitter:description" content="&amp;lt;!–markdown–&amp;gt;契机近日，手头上负责的一个项目被报告在IE下会产生严重的内存泄露，在对某一复杂表单进行若干次操作后(大约十次左右)IE进程的内存占用就达到了600M之多，恐怖之极。 过程由于泄露页面表单中使用了extjs，第一时间怀疑是否是extjs代码内存没有及时释放。但是这个设想很快就被我否定了，因为我发现在发生泄露后不管我怎么跳转页面、重登，甚至关闭ie，进程还是占用">
+<meta name="twitter:title" content="hijimo">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
   
@@ -64,91 +59,34 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-关于ie下iframe内存泄露" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/02/12/关于ie下iframe内存泄露/" class="article-date">
-  <time datetime="2015-02-12T06:15:00.000Z" itemprop="datePublished">2015-02-12</time>
+        <section id="main">
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/01/25/复习--web安全基础/" class="archive-article-date">
+  <time datetime="2019-01-25T13:05:17.179Z" itemprop="datePublished">Jan 25</time>
 </a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
+      
+    </header>
   </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      关于ie下iframe内存泄露
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="lt-–markdown–-gt-契机"><a href="#lt-–markdown–-gt-契机" class="headerlink" title="&lt;!–markdown–&gt;契机"></a>&lt;!–markdown–&gt;契机</h2><p>近日，手头上负责的一个项目被报告在IE下会产生严重的内存泄露，在对某一复杂表单进行若干次操作后(大约十次左右)IE进程的内存占用就达到了600M之多，恐怖之极。</p>
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>由于泄露页面表单中使用了extjs，第一时间怀疑是否是extjs代码内存没有及时释放。但是这个设想很快就被我否定了，因为我发现在发生泄露后不管我怎么跳转页面、重登，甚至关闭ie，进程还是占用着内存。</p>
-<p>基于IE的CollectGarbage机制，我们知道，当对象不在他当前上下文的时候，即会失效。<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>本着70%的问题别人都是已经碰到过的原则，我找到了神奇海螺。最后我发现，&lt;font color=&#39;red&#39;&gt;IE并没有办法正确的释放iframe所占用的内存&lt;/font&gt;，一旦碰到这种iframe里藏着个怪兽的情况下。内存泄露将会非常严重。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>手工释放iframe的内存。</p>
-<pre><code>iframe_child=obj.getElementsByTagName(&amp;#39;iframe&amp;#39;)[0];
-    //清空iframe 减轻ie下内存泄露
-    if(iframe_child){
-        iframe_child.src=&amp;#39;about:blank&amp;#39;;
-        iframe_child.contentWindow.document.write(&amp;#39;&amp;#39;);
-        iframe_child.contentWindow.document.clear();
-        iframe_child.contentWindow.document.close();
-        iframe_child.removeNode(true);
-    }
-    setTimeout(function(){
-
-        obj.wintitle.removeNode(true) ;
-        obj.removeNode(true) ;
-        obj = null;
-
-
-    },200);
-    if(CollectGarbage){//IE强制回收内存
-    CollectGarbage();
-    }
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/02/12/关于ie下iframe内存泄露/" data-id="cjrcubbk8001of83gztdp8gz3" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/02/17/因Mime异常的JS脚本出错/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          因Mime异常的JS脚本出错
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/02/07/javascript模块化编程（ 上）/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">javascript模块化编程（ 上）</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         

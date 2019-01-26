@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="hijimo">
 <meta property="og:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
 <meta property="og:image" content="https://account.bilibili.com/login?act=exit">
-<meta property="og:updated_time" content="2019-01-26T06:19:13.364Z">
+<meta property="og:updated_time" content="2019-01-26T06:21:54.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="复习--web安全基础">
 <meta name="twitter:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
@@ -57,7 +57,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -100,7 +100,7 @@
 <p>需要注意的是该缓存是强缓存，缓存期间如果服务器更换了密钥，网站将无法正常访问。现有的解决方案是在配置  <code>Public-Key-Pins</code> 的时候 配置一个备用的公钥</p>
 <h5 id="启用HPKP"><a href="#启用HPKP" class="headerlink" title="启用HPKP"></a>启用HPKP</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Public-Key-Pins: pin-sha256=&quot;base64==&quot;; max-age=expireTime [; includeSubDomains][; report-uri=&quot;reportURI&quot;]</span><br></pre></td></tr></table></figure></p>
 <h3 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h3><p>HTTP严格安全传输(HTTP Strict Transport Security ), 通过向header头添加标识 <code>Strict-Transport-Security</code>通知浏览器在未来的一段时间内强制使用HTTPS访问服务器。需要注意的是，<strong>如果浏览器没有使用HTTPS访问过服务器或者缓存已过期，标识 <code>Strict-Transport-Security</code> 将会被忽略。</strong>这是因为攻击者可能会拦截HTTP连接并注入标头或将其删除。</p>
-<p>Google维护着HSTS预加载服务。通过遵循指南并成功提交您的域名，浏览器将永远不会使用不安全的连接连接到您的域。虽然该服务由Google托管，但所有浏览器都声明有意使用（或实际开始使用）预加载列表。但是，它不是HSTS规范的一部分，不应被视为官方规范。</p>
+<p>Google维护着一个<a href="https://hstspreload.appspot.com/" target="_blank" rel="noopener">HSTS预加载服务</a>。通过遵循指南并成功提交您的域名，浏览器将永远不会使用不安全的连接连接到您的域。虽然该服务由Google托管，但所有浏览器都声明有意使用（或实际开始使用）预加载列表。但是，它不是HSTS规范的一部分，不应被视为官方规范。</p>
 <p>现在，你的服务器总是会以HTTPS访问了。</p>
 <h5 id="使用HSTS"><a href="#使用HSTS" class="headerlink" title="使用HSTS"></a>使用HSTS</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age=31536000; includeSubDomains</span><br></pre></td></tr></table></figure></p>
 <h3 id="Cookie-安全"><a href="#Cookie-安全" class="headerlink" title="Cookie 安全"></a>Cookie 安全</h3><p>一个HTTP cookie的（网络Cookie，浏览器cookie）是一小片数据的一个服务器发送到用户的网络浏览器。浏览器可以存储它并将其与下一个请求一起发送回同一服务器。通常情况下，它用于判断两个请求是否来自同一个浏览器 - 例如，保持用户登录。它记住无状态 HTTP协议的有状态信息。</p>
@@ -168,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/复习--web安全基础/" data-id="cjrd335c6003d923gwdw5r3q5" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/复习--web安全基础/" data-id="cjrd386nm003a9o3g2ibd26lm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -180,7 +180,7 @@
 <nav id="article-nav">
   
     <a href="/2014/07/02/ios视频播放的一些研究/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           ios视频播放的一些研究
@@ -190,7 +190,7 @@
   
   
     <a href="/2014/07/02/仿QQwifi传书/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">仿QQwifi传书</div>
     </a>
   
@@ -205,7 +205,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -234,7 +234,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
@@ -244,7 +244,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         

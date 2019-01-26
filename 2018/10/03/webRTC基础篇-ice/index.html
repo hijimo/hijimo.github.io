@@ -16,7 +16,7 @@
 <meta property="og:description" content="ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201607/20/181200un7bn8y15vb8jb7k.png">
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201607/20/181137oikgjgej2oigvskj.png">
-<meta property="og:updated_time" content="2019-01-18T07:10:45.826Z">
+<meta property="og:updated_time" content="2019-01-26T02:34:57.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础篇-ice">
 <meta name="twitter:description" content="ICEwebRTC采用p2p的方式数据传输。由于NAT的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。 基本的ICE流程 两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系； 两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候">
@@ -100,12 +100,12 @@
 <li>两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候选）；</li>
 <li>两个浏览器执行连接检查（ICE冲孔），确保P2P可以连接；</li>
 <li>建立连接后，RTC媒体会话和媒体交换就可以实现了。</li>
-<li>假如在一个高度限制的NAT或防火墙，这种直接的路径将无法建立，只能到达TURN服务器。结果是媒体通过TURN服务器分程传递。</li>
-</ol>
-<h3 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h3><p>STUN服务器是设立于公网的一台服务器，建立P2P的双方都可以直接访问到这台服务器。位于NAT网关后面的客户端A和B都可以与一台已知的集中服务器建立连接，并通过这台集中服务器了解对方的信息并中转各自的信息。</p>
-<blockquote>
+<li>假如在一个高度限制的NAT或防火墙，这种直接的路径将无法建立，只能到达TURN服务器。结果是媒体通过TURN服务器分程传递。<a id="more"></a>
+<h3 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h3>STUN服务器是设立于公网的一台服务器，建立P2P的双方都可以直接访问到这台服务器。位于NAT网关后面的客户端A和B都可以与一台已知的集中服务器建立连接，并通过这台集中服务器了解对方的信息并中转各自的信息。<blockquote>
 <p>注：STUN需要打开本地0~65535所有的udp端口，而TURN则可以选择一个udp端口段作为接收数据的端口。</p>
 </blockquote>
+</li>
+</ol>
 <p>基本流程如下：</p>
 <ol>
 <li>A最初不知道如何向客户端B发起连接，于是A向集中服务器发送消息，请求集中服务器帮助建立与客户端B的UDP连接。</li>
@@ -129,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcv2r1w001ein3gnqjoeoil" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcvauys001gjb3gbg20t15q" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>

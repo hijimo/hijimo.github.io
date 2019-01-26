@@ -61,6 +61,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript中的asi机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/03/javascript中的asi机制/" class="article-date">
+  <time datetime="2015-02-03T06:51:00.000Z" itemprop="datePublished">2015-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/03/javascript中的asi机制/">javascript中的asi机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;庆祝自己小站复活，先写个文章压压惊。<br>在此感谢木工(<a href="http://loftor.com/" target="_blank" rel="noopener">木木工程师</a>)的技术支持。</p>
+<p>什么是Automatic semicolon insertion机制呢。中文一般翻译成自动插入分号，简称asi机制。功能呢，也很简单，就是智能的判断语句是否插入分号，示例如下</p>
+<pre><code>function(){
+    reutrn  &amp;#39;hehe&amp;#39;
+}
+</code></pre><p>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>由于有asi机制的存在，以上代码是合法而合理的。大概javascript的设计师是为了帮助一些粗心的小猴子温馨的加个分号。但是呢，也会发生一些神奇的事情。比如如下示例</p>
+<pre><code>function(){
+        return
+        {
+            today:&amp;#39;才周二&amp;#39;
+        }
+    }
+</code></pre><p> 或许，我们希望返回一个对象,但是由于asi机制的存在，这段代码并不能返回我们想要的结果。正确示例应如下</p>
+<pre><code>function(){
+      return{
+          today:&amp;#39;不是周五&amp;#39;
+      }
+  }
+</code></pre><p>像方括号、逗号、大括号、小括号等这些常用符号并不会被自动加上分号而被断句。<br>asi机制的规则花样繁多，去记住他们的所有规则有点不大现实，所以大部分情况下我们还是老老实实的在句末加上分号吧。同时，留个小心情，避免发生如上bug。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2015/02/03/javascript中的asi机制/" data-id="cjrd3bkt4000cal3gorocswi6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-转：web前端真的需要mvvm吗" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/07/04/转：web前端真的需要mvvm吗/" class="article-date">
@@ -132,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/04/转：web前端真的需要mvvm吗/" data-id="cjrd3a9i6003qa83ggymrnur8" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/04/转：web前端真的需要mvvm吗/" data-id="cjrd3bkvc003wal3gsf7gea6b" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -181,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" data-id="cjrd3a9i5003na83g8sp9you9" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/03/谷歌页面性能优化神器PageSpeed Insights/" data-id="cjrd3bkv9003pal3guofwgbop" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -240,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/寂寞的网络收藏夹/" data-id="cjrd3a9i3003ja83g0rue3npw" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/寂寞的网络收藏夹/" data-id="cjrd3bkv6003ial3g0hsozqer" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -307,121 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjrd3a9g50006a83gn7vojaxy" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-复习--web安全基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/02/复习--web安全基础/" class="article-date">
-  <time datetime="2014-07-02T01:55:00.000Z" itemprop="datePublished">2014-07-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/02/复习--web安全基础/">复习--web安全基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h3><p>内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另外<strong> CSP也可以限制只使用HTTPS的内容</strong>。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">mdn上的CSP</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy__by_cnvoid" target="_blank" rel="noopener">CSP策略列表</a>。</p>
-<h5 id="通过mate方式使用CSP"><a href="#通过mate方式使用CSP" class="headerlink" title="通过mate方式使用CSP"></a>通过mate方式使用CSP</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"default-src 'self'; img-src https://*; child-src 'none';"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="通过-header头方式使用CSP"><a href="#通过-header头方式使用CSP" class="headerlink" title="通过 header头方式使用CSP"></a>通过 header头方式使用CSP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src https://onlinebanking.jumbobank.com</span><br></pre></td></tr></table></figure>
-<h5 id="CSP测试模式"><a href="#CSP测试模式" class="headerlink" title="CSP测试模式"></a>CSP测试模式</h5><p>CSP是个大杀器，贸然使用可能会导致页面不可用或者其他问题。使用测试模式只报告错误不阻止内容，收集受影响的页面不失是一个比较好的解决方案。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only" target="_blank" rel="noopener">详见</a></p>
-<h3 id="HPKP"><a href="#HPKP" class="headerlink" title="HPKP"></a>HPKP</h3><p>Http公钥锁定（HTTP Public Key Pinning），通过向header头添加标识 <code>Public-Key-Pins</code> 通知浏览器将公钥缓存在浏览器端一段时间。若期间内发生了中间人攻击，浏览器发现伪装的证书和本地缓存的证书不匹配，则发出警告，警示用户。</p>
-<p>需要注意的是该缓存是强缓存，缓存期间如果服务器更换了密钥，网站将无法正常访问。现有的解决方案是在配置  <code>Public-Key-Pins</code> 的时候 配置一个备用的公钥</p>
-<h5 id="启用HPKP"><a href="#启用HPKP" class="headerlink" title="启用HPKP"></a>启用HPKP</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Public-Key-Pins: pin-sha256=&quot;base64==&quot;; max-age=expireTime [; includeSubDomains][; report-uri=&quot;reportURI&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h3><p>HTTP严格安全传输(HTTP Strict Transport Security ), 通过向header头添加标识 <code>Strict-Transport-Security</code>通知浏览器在未来的一段时间内强制使用HTTPS访问服务器。需要注意的是，<strong>如果浏览器没有使用HTTPS访问过服务器或者缓存已过期，标识 <code>Strict-Transport-Security</code> 将会被忽略。</strong>这是因为攻击者可能会拦截HTTP连接并注入标头或将其删除。</p>
-<p>Google维护着一个<a href="https://hstspreload.appspot.com/" target="_blank" rel="noopener">HSTS预加载服务</a>。通过遵循指南并成功提交您的域名，浏览器将永远不会使用不安全的连接连接到您的域。虽然该服务由Google托管，但所有浏览器都声明有意使用（或实际开始使用）预加载列表。但是，它不是HSTS规范的一部分，不应被视为官方规范。</p>
-<p>现在，你的服务器总是会以HTTPS访问了。</p>
-<h5 id="使用HSTS"><a href="#使用HSTS" class="headerlink" title="使用HSTS"></a>使用HSTS</h5><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">详见</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age=31536000; includeSubDomains</span><br></pre></td></tr></table></figure></p>
-<h3 id="Cookie-安全"><a href="#Cookie-安全" class="headerlink" title="Cookie 安全"></a>Cookie 安全</h3><p>一个HTTP cookie的（网络Cookie，浏览器cookie）是一小片数据的一个服务器发送到用户的网络浏览器。浏览器可以存储它并将其与下一个请求一起发送回同一服务器。通常情况下，它用于判断两个请求是否来自同一个浏览器 - 例如，保持用户登录。它记住无状态 HTTP协议的有状态信息。</p>
-<p>基于这个特性，Cookie可以说是攻击者们最惦记着的目标了。</p>
-<h5 id="HttpOnly"><a href="#HttpOnly" class="headerlink" title="HttpOnly"></a>HttpOnly</h5><p>给Header头加上 <code>HttpOnly</code> 标识，可以很好的防止跨站点脚本（XSS）攻击。某项 Cookie 添加了 <code>HttpOnly</code> 之后，Javascript 无法通过 Document.cookie 访问到它，它们只会被发送到服务器。<br>可以通过chrome dev tools 的Application选项卡下的Cookies 列表看到是否是HttpOnly</p>
-<h5 id="Secure"><a href="#Secure" class="headerlink" title="Secure"></a>Secure</h5><p>给Header头加上 <code>Secure</code> 标识，cookie仅会在使用了https协议的时候才会被发送回服务器。<br>可以通过chrome dev tools 的Application选项卡下的Cookies 列表看到是否是 Secure</p>
-<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly</span><br></pre></td></tr></table></figure>
-<h3 id="X-Content-Type-Options"><a href="#X-Content-Type-Options" class="headerlink" title="X-Content-Type-Options"></a>X-Content-Type-Options</h3><p>给Header头加上 <code>X-Content-Type-Options</code> 标识，可以阻止内容：</p>
-<ol>
-<li>请求的类型为 <code>style</code> 并且MIME类型不是 <code>text/css</code></li>
-<li>请求的类型为 <code>script</code> 并且MIME类型不是JavaScript MIME类型</li>
-</ol>
-<h3 id="X-Frame-Options"><a href="#X-Frame-Options" class="headerlink" title="X-Frame-Options"></a>X-Frame-Options</h3><p>给Header头加上 <code>X-Content-Type-Options</code> 标识，可以指示允许一个页面可否在 <embed>,<iframe> 或者 <object> 中展现。这可以有效的防止点击劫持 (clickjacking) 的攻击。</object></iframe></p>
-<p>X-Frame-Options 有三个值:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options" target="_blank" rel="noopener">详见</a></p>
-<ol>
-<li><code>DENY</code> 表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。</li>
-<li><code>SAMEORIGIN</code> 表示该页面可以在相同域名页面的 frame 中展示。</li>
-<li><code>ALLOW-FROM uri</code> 表示该页面可以在指定来源的 frame 中展示。</li>
-</ol>
-<h3 id="X-XSS-Protection-这是一个过时标识"><a href="#X-XSS-Protection-这是一个过时标识" class="headerlink" title="X-XSS-Protection(这是一个过时标识)"></a>X-XSS-Protection(这是一个过时标识)</h3><p>HTTP <code>X-XSS-Protection</code>  响应头是Internet Explorer，Chrome和Safari的一个功能，当检测到跨站脚本攻击 (XSS)时，浏览器将停止加载页面。当网站实施一个强大的<code>Content-Security-Policy</code>来禁用内联的JavaScript (‘unsafe-inline’)时, 他们仍然可以为尚不支持 CSP 的旧版浏览器的用户提供保护。</p>
-<p><code>X-XSS-Protection</code> 支持以下值：</p>
-<ol>
-<li><code>0</code> 禁止XSS过滤。</li>
-<li><code>1</code> 启用XSS过滤（通常浏览器是默认的）。 如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）。</li>
-<li><code>1;mode=block</code> 启用XSS过滤。 如果检测到攻击，浏览器将不会清除页面，而是阻止页面加载。</li>
-<li><code>1; report=&lt;reporting-URI&gt;  (Chromium only</code> 启用XSS过滤。 如果检测到跨站脚本攻击，浏览器将清除页面并使用CSP report-uri指令的功能发送违规报告。</li>
-</ol>
-<h3 id="点击劫持攻击"><a href="#点击劫持攻击" class="headerlink" title="点击劫持攻击"></a>点击劫持攻击</h3><p>点击劫持是一种恶意技术，它诱使用户点击与用户感知的内容不同的内容，从而可能泄露机密信息或允许其他人控制其计算机同时点击看似无害的对象。</p>
-<p>举个例子，小王点击了某盗版影视网站的播放按钮，实际上却是偷偷的给淘宝购物车下了单。</p>
-<h3 id="CSRF-XSRF-跨站请求伪造攻击"><a href="#CSRF-XSRF-跨站请求伪造攻击" class="headerlink" title="CSRF/XSRF 跨站请求伪造攻击"></a>CSRF/XSRF 跨站请求伪造攻击</h3><p>跨站请求伪造(Cross-site_request_forgery)是一种欺骗受害者提交恶意请求的攻击。它继承了受害者的身份和特权，代表受害者履行不受欢迎的职能。对于大多数站点，浏览器请求自动包括与站点关联的任何凭据。</p>
-<p>CSRF攻击的基本原理是：</p>
-<ol>
-<li>你登录了某网站，如bilibili.</li>
-<li>在你访问恶意网站时，恶意网站针对性的向bilibili发起请求，比如关注我（bilibili已作了csrf防御）。</li>
-<li>此时，虽然恶意网站看不到bilibili的cookie，但是cookie会被附加到请求Header头里。就成功欺骗了服务器用你的登录身份关注了我</li>
-<li>你看到之篇文章的时候，你的bilibili已经被偷偷的登出了。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;https://account.bilibili.com/login?act=exit&quot;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="https://account.bilibili.com/login?act=exit" alt="bililoginout"></p>
-<ol>
-<li>或者偷偷修改了一些信息。（bilibili作了csrf防御，所以以下行为不会生效。）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"badboy"</span> <span class="attr">display</span>=<span class="string">"none"</span> <span class="attr">src</span>=<span class="string">"https://janusdemo.3mm.me/bilibili_iframe.html"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">		&lt;form method=&quot;POST&quot; id =&quot;bilibili&quot; name=&quot;transfer&quot;　action=&quot;https://api.bilibili.com/x/member/web/update&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;uname&quot; value=&quot;你们&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;usersign&quot; value=&quot;偷偷的来&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;sex&quot; value=&quot;保密&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;birthday&quot; value=&quot;1900-1-1&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; name=&quot;csrf&quot; value=&quot;024e772a01f7931072dd671808e2ff52&quot;&gt;</span><br><span class="line">	　&lt;/form&gt;</span><br><span class="line">		&lt;script&gt;</span><br><span class="line">			document.forms.bilibili.submit()</span><br><span class="line">		&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="如何防御CSRF"><a href="#如何防御CSRF" class="headerlink" title="如何防御CSRF"></a>如何防御CSRF</h5><ol>
-<li>上OPT或者验证码，由于csrf攻击者拿不到验证码，发起的请求会被拒绝，但是用户体验极差。</li>
-<li>使用随机令牌，用户登录时向用户推送一个csrf随机码，这个码随着用户登录过期而过期，在每一次请求的时候偷偷带上这个码。每个请求服务器都会验证 个码，验证失败拒绝请求。由于csrf无法读取用户cookie，所以这个方式是目前主流的防csrf攻击的方案</li>
-<li>refer识别, 限制白名单之外的来源。</li>
-</ol>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击Cross-site scripting是一种安全漏洞，攻击者可以利用这种漏洞在网站上注入恶意的客户端代码。<br>简单来说就是攻击者利用各种方式向你的网站注入非法脚本，以达到网站不可用、盗取信息、广告注入等目的。<br><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS" target="_blank" rel="noopener">详见</a>)</p>
-<h5 id="常见的攻击方式"><a href="#常见的攻击方式" class="headerlink" title="常见的攻击方式"></a>常见的攻击方式</h5><ol>
-<li>网络运营商向非https网站注入脚本，往往大多都是广告 ，常常也会预期外的对网站造成破坏，使得网站不可用。</li>
-<li>攻击者利用网站内部漏洞，比如src、href、Event、form表单等提交非法脚本完成攻击。</li>
-</ol>
-<h5 id="防御方式"><a href="#防御方式" class="headerlink" title="防御方式"></a>防御方式</h5><ol>
-<li>升级HTTPS，HTTPS可以有效的防止数据被修改</li>
-<li>使用 HttpOnly、CSP和上述其他安全机制。</li>
-<li>后端对前台提交的数据进行清理，比如<a href="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" target="_blank" rel="noopener">库</a></li>
-<li>前端对不受信任的数据进行html、JavaScript、css转义</li>
-<li>不要在 css、script、html中插入不受信任的数据。</li>
-<li>对URL进行转义</li>
-<li>不要使用外链。或者安全白名单之外的域名。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/复习--web安全基础/" data-id="cjrd3a9hy003ca83gum696mfe" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/ios视频播放的一些研究/" data-id="cjrd3bkt2000aal3gg12pkqx0" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -486,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/02/仿QQwifi传书/" data-id="cjrd3a9gz001oa83ga8yhh6ei" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/02/仿QQwifi传书/" data-id="cjrd3bku4001tal3g0ui242dd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -580,7 +529,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjrd3a9fw0001a83g27k6i1ap" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/Objective-C异常崩溃捕捉/" data-id="cjrd3bksp0001al3gaiq8to9m" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -625,7 +574,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/通过分析github代码库总结出来的工程师代码书写习惯/" data-id="cjrd3a9i8003ua83gk0hpqep0" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/通过分析github代码库总结出来的工程师代码书写习惯/" data-id="cjrd3bkvb003tal3g4gr4wbju" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -675,7 +624,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/the-swift-programming-language  中文版在线阅读/" data-id="cjrd3a9gq0014a83gjt7pkbxs" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/the-swift-programming-language  中文版在线阅读/" data-id="cjrd3bkts0016al3gutyv8ive" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -687,9 +636,9 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
 
 
   
-    <article id="post-我正在使用的ios库系列之Mantle " class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mac os x 存储空间释放" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/07/01/我正在使用的ios库系列之Mantle /" class="article-date">
+    <a href="/2014/07/01/mac os x 存储空间释放/" class="article-date">
   <time datetime="2014-07-01T09:25:00.000Z" itemprop="datePublished">2014-07-01</time>
 </a>
     
@@ -705,7 +654,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/01/我正在使用的ios库系列之Mantle /">我正在使用的ios库系列之Mantle</a>
+      <a class="article-title" href="/2014/07/01/mac os x 存储空间释放/">mac os x 存储空间释放</a>
     </h1>
   
 
@@ -714,54 +663,16 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>&lt;!–markdown–&gt;#什么是Mantle<br>    Mantle是由于Github团队开发的，目的是去除Objective-C把JSON数据转为NSObject子类的所有样板代码。Mantle也能做数据转换，通过一种神奇的方式把JSON原始数据(strings, ints, floats)转换为复杂数据，比如NSDate, NSURL, 甚至是自定义类。</p>
-<p>#Github地址<br>    <a href="https://github.com/Mantle/Mantle" target="_blank" rel="noopener">https://github.com/Mantle/Mantle</a></p>
-<p>#令人（我）兴奋的功能</p>
-<pre><code>1.绑定JSON(dict,class)数据
-</code></pre><p>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;<br>        只要在model类里实现 JSONKeyPathsByPropertyKey.你就可以实现将model类里的属性与JSON或dict里的<strong>任意路径的节点</strong>绑定,如下代码</p>
-<pre><code>+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{
-             @&amp;#34;date&amp;#34;: @&amp;#34;dt&amp;#34;,
-             @&amp;#34;windSpeed&amp;#34;: @&amp;#34;wind.speed&amp;#34;,
-             };
-}
-</code></pre><p>   2.JSON数据的转换</p>
-<pre><code>想像一下，服务端返回给我们一串图片url,我们只需要实现一个公式，Mantle就会自动将url转换成uiimage.
-</code></pre><p>以后，我们使用 这个model类的时候就只要 model.image就可以得到一个uiimage图片，是不是很酷？实现代码如下</p>
-<p>方法名约定为 + (NSValueTransformer *)属性名JSONTransformer<br>然后调用MTLValueTransformer ,实现双向转换即可</p>
-<pre><code>  + (NSValueTransformer *)iconJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *value) {
-        return [UIimage initWithURl:value];
-    } reverseBlock:^(UIImage *img) {
-        return [uiimage geturl];
-    }];
-}
-</code></pre><p>或者，直接实现单向转换</p>
-<pre><code>+ (NSValueTransformer *)JSONTransformerForKey:(NSString *)key {
-    if ([key isEqualToString:@&amp;#34;createdAt&amp;#34;]) {
-        return [NSValueTransformer valueTransformerForName:XYDateValueTransformerName];
-    }
-
-    return nil;
-}
-</code></pre><p>3.classForParsingJSONDictionary<br>从json,dictionry解析出class?没用过。。。官方ＡＰＩ<br>If you are implementing a class cluster, implement this optional method to determine which subclass of your base class should be used when deserializing an object from JSON.<br>这是从json中确定哪个子类？</p>
-<pre><code>+ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    if (JSONDictionary[@&amp;#34;image_url&amp;#34;] != nil) {
-        return XYPictureMessage.class;
-    }
-
-    if (JSONDictionary[@&amp;#34;body&amp;#34;] != nil) {
-        return XYTextMessage.class;
-    }
-
-    NSAssert(NO, @&amp;#34;No matching class for the JSON dictionary &amp;#39;%@&amp;#39;.&amp;#34;, JSONDictionary);
-    return self;
-}
+<p>&lt;!–markdown–&gt;#1 1.OnyX<br>    小白软件，去网上下载下来之后选择cleanning,选择清理一些系统垃圾</p>
+<p>#1 2.Xcode缓存<br>    这才是真大头，两个月左右就能累积10个G左右的缓存。。。。<br>    进入文件夹 /Users/jm/Library/Developer/Xcode<br>    清除DerivedData和Snapshots里的文件</p>
+<p>#1 3.iphone simulater 缓存</p>
+<pre><code>进入文件夹 /Users/jm/Library/Application Support/iPhone Simulator
+逐个删除 applications下面的文件夹
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/我正在使用的ios库系列之Mantle /" data-id="cjrd3a9i0003ga83gs4ot3g33" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/mac os x 存储空间释放/" data-id="cjrd3bkto000zal3g09e0g2ln" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -817,7 +728,7 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -828,6 +739,10 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/01/25/复习--web安全基础/">复习--web安全基础</a>
+          </li>
         
           <li>
             <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
@@ -843,10 +758,6 @@ signal(信号, SIG_DFL); 这是取消  sgnal(信号,function()); 设置之后再
         
           <li>
             <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
           </li>
         
       </ul>

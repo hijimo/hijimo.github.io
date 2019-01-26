@@ -97,7 +97,58 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/mac os x 存储空间释放/" data-id="cjrczlu9b000rsz3gnzhcypgz" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/mac os x 存储空间释放/" data-id="cjrcznmb80018ty3gkfkz3ray" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-analyze工具问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/01/analyze工具问题汇总/" class="article-date">
+  <time datetime="2014-07-01T09:24:00.000Z" itemprop="datePublished">2014-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/01/analyze工具问题汇总/">analyze工具问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&lt;!–markdown–&gt;#头等席：potential leak of an object<br>    潜在的泄漏对象.<br>            1.在某些情况下，发生内存汇漏。至于是什么情况下？analyze会告诉你并复现。</p>
+<p>#value stored to&#39;xxx&#39; is never read.<br>   数据值（变量名？）从没读过。<br>            1.定义了变量名，从未使用过<br>            2.变量在最后一次更改值之后，没有被使用过.如{int a=b=1;a=b+1;nslog(a);nslog(b);a=a+b;}<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
+<p>#value stored to &#39;xxx&#39; druing its initalization is never read </p>
+<pre><code>数据值（变量名？）从定义起从没读过.好像和上面的一样，一般出现在对象init时没有添加 autorelase.比如
+        NSArray *ary=[[NSArray alloc]init];
+                ary=我是另一个NSArray;
+这样子alloc开辟出来的内存空间就浪费了，就出错了。
+</code></pre><p>#the left operand of &#39;x&#39; is a garbage value<br>    操作符的左右是垃圾值？一般是操作符的一边可能存在nil或者空值。比如<br>                    char a[12];<br>                    if(a[1]==3)<br>    a[1]没有赋值，就是无意义比较的垃圾值.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2014/07/01/analyze工具问题汇总/" data-id="cjrcznmaj0005ty3g1iewp0ym" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -177,58 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/IOS 里的一些小玩意和细节/" data-id="cjrczlu94000fsz3gtwnoa39u" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-analyze工具问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/01/analyze工具问题汇总/" class="article-date">
-  <time datetime="2014-07-01T09:24:00.000Z" itemprop="datePublished">2014-07-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/01/analyze工具问题汇总/">analyze工具问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&lt;!–markdown–&gt;#头等席：potential leak of an object<br>    潜在的泄漏对象.<br>            1.在某些情况下，发生内存汇漏。至于是什么情况下？analyze会告诉你并复现。</p>
-<p>#value stored to&#39;xxx&#39; is never read.<br>   数据值（变量名？）从没读过。<br>            1.定义了变量名，从未使用过<br>            2.变量在最后一次更改值之后，没有被使用过.如{int a=b=1;a=b+1;nslog(a);nslog(b);a=a+b;}<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
-<p>#value stored to &#39;xxx&#39; druing its initalization is never read </p>
-<pre><code>数据值（变量名？）从定义起从没读过.好像和上面的一样，一般出现在对象init时没有添加 autorelase.比如
-        NSArray *ary=[[NSArray alloc]init];
-                ary=我是另一个NSArray;
-这样子alloc开辟出来的内存空间就浪费了，就出错了。
-</code></pre><p>#the left operand of &#39;x&#39; is a garbage value<br>    操作符的左右是垃圾值？一般是操作符的一边可能存在nil或者空值。比如<br>                    char a[12];<br>                    if(a[1]==3)<br>    a[1]没有赋值，就是无意义比较的垃圾值.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2014/07/01/analyze工具问题汇总/" data-id="cjrczlu8v0004sz3gvub77x8h" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2014/07/01/IOS 里的一些小玩意和细节/" data-id="cjrcznmad0001ty3go15cw8j9" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>

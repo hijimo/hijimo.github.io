@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/index.html">
 <meta property="og:site_name" content="hijimo">
 <meta property="og:description" content="视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H.264编码的视频流和 AAC 编码的音频流。通常，一个容器格式">
-<meta property="og:updated_time" content="2019-01-18T07:10:27.719Z">
+<meta property="og:updated_time" content="2019-01-26T02:20:51.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webRTC基础--音视频">
 <meta name="twitter:description" content="视频基础我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。 我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 .mp4 文件通常存放的就是H.264编码的视频流和 AAC 编码的音频流。通常，一个容器格式">
@@ -55,7 +55,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -93,7 +93,7 @@
         <hr>
 <h3 id="视频基础"><a href="#视频基础" class="headerlink" title="视频基础"></a>视频基础</h3><p>我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。</p>
 <p>我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 <code>.mp4</code> 文件通常存放的就是<code>H.264</code>编码的视频流和 <code>AAC</code> 编码的音频流。通常，一个容器格式可以包含不同编码格式的音视频流；同样编码的音视频流也可以</p>
-<h3 id="VP8-9-与-H264-H265视频编码"><a href="#VP8-9-与-H264-H265视频编码" class="headerlink" title="VP8/9 与 H264/H265视频编码"></a>VP8/9 与 H264/H265视频编码</h3><p>VP8与 H264视频编码是目前webRTC支持的两种视频格式（VP9是VP8的最新标准，H265是H264的最新标准）。<br>VP8是google收购webRTC项目后获得的编码技术，也是google目前强推的编码格式。它常常会被拿来和H264来比较，公认的结果是，不论效率还是质量，VP8是略低于H264的。唯一的优势就是他开源、免费，但是可能存在潜艇专利问题；并且，google虽然开源了VP8，但是部分的相关文件和技术细节并没有公并，以致于Vp8还是一项死死握在google手中的技术。</p>
+<h3 id="VP8-9-与-H264-H265视频编码"><a href="#VP8-9-与-H264-H265视频编码" class="headerlink" title="VP8/9 与 H264/H265视频编码"></a>VP8/9 与 H264/H265视频编码</h3><p>VP8与 H264视频编码是目前webRTC支持的两种视频格式（VP9是VP8的最新标准，H265是H264的最新标准）。<a id="more"></a><br>VP8是google收购webRTC项目后获得的编码技术，也是google目前强推的编码格式。它常常会被拿来和H264来比较，公认的结果是，不论效率还是质量，VP8是略低于H264的。唯一的优势就是他开源、免费，但是可能存在潜艇专利问题；并且，google虽然开源了VP8，但是部分的相关文件和技术细节并没有公并，以致于Vp8还是一项死死握在google手中的技术。</p>
 <p>H264是目前最优秀的视频编码技术。比起VP8不仅拥有效率上的天然优势，还拥有广大硬件厂商的支持。许多硬件只有H264解码器，这表示它们不支持VP8。而且大多硬件厂商也不会浪费成本再安装一个VP8的硬解，这表示未来这些硬件厂家也只支持H264的格式。并且，H264还分有baseline、extended、main、high等多个等级去适应从低端到高端的硬件设备，这也是VP8没有的。</p>
 <h3 id="webRTC中的VP8与H264"><a href="#webRTC中的VP8与H264" class="headerlink" title="webRTC中的VP8与H264"></a>webRTC中的VP8与H264</h3><p>在webRTC的制定标准中，VP8和H264都应该是被强制支持的，但现实总有些出入。</p>
 <p>VP8作为google的自家技术，在webRTC中是默认的视频编码格式。目前几乎主流的现代浏览器都支持VP8,除了apple公司。</p>
@@ -107,7 +107,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcukixy0016gf3gszsgcvsy" class="article-share-link">Share</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcunqb00016gt3glcbgdi6p" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -119,7 +119,7 @@
 <nav id="article-nav">
   
     <a href="/2018/09/19/webRTC基础篇--NAT/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
           webRTC基础--NAT
@@ -129,7 +129,7 @@
   
   
     <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">【转】阮一峰：数字签名是什么？</div>
     </a>
   
@@ -144,7 +144,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -173,7 +173,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
@@ -183,7 +183,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
@@ -192,7 +192,7 @@
           </li>
         
           <li>
-            <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--音视频</a>
+            <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
           </li>
         
           <li>

@@ -16,7 +16,7 @@
 <meta property="og:description" content="前端优化-管道-合成并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。 分层浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响">
 <meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg">
 <meta property="og:image" content="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180330112138.png">
-<meta property="og:updated_time" content="2018-03-31T06:25:47.000Z">
+<meta property="og:updated_time" content="2019-01-26T02:41:39.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端优化-渲染优化四-管道-合成">
 <meta name="twitter:description" content="前端优化-管道-合成并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。 分层浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响">
@@ -96,7 +96,7 @@
         <h2 id="前端优化-管道-合成"><a href="#前端优化-管道-合成" class="headerlink" title="前端优化-管道-合成"></a>前端优化-管道-合成</h2><p>并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。</p>
 <h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响其他部分或者全部内容。如果你是设计师也不希望每一次修改都要重新绘制一次对吧。<br>举个例子：左侧滑出菜单是我们平时非常常见也非常实用的一个功能。如果只有一个层，那么菜单滑出的时候，影响了内容区域的布局，导致整个区域的layout、paint。往往我们会给菜单加上动画。现在，我们得到了一个1秒60帧的卡顿，只有高端设备才能流畅的完成这个行为。</p>
 <p>如果我们把菜单和内容分成两个层。左侧菜单滑出的时候，仅绘制菜单层，那么内容层便不受影响。仅仅这样我们便得到了很大的性能提升，内容层无需被layout、point了。</p>
-<p>分层真是太棒了。</p>
+<p>分层真是太棒了。<br><a id="more"></a></p>
 <h4 id="分层管理"><a href="#分层管理" class="headerlink" title="分层管理"></a>分层管理</h4><p>图层越多，管理图层和合成图层花费的时间就越多。我们每帧只有可怜的10ms左右的渲染时间。我们需要在降低渲染时间和图层管理时间之间做出权衡。</p>
 <p>大部分情况下，都应该让浏览器自动管理图层。有时候你可能会碰到一些复制的绘制，需要将某个（些）元素单独的放到一个图层里。或许我们应该先看看元素是否已经有了自己单独的图层。<br>打开 chrome devTools 工具，按下 Esc 键调出Rendering选项卡并勾选 rendering layers。如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg" alt="rendering"></p>
 <p>勾选 rendering layers 之后屏幕上会出现很多线条（如下图）。这些浅蓝色的线条表示每个图层抓分成的图块，做为开发者我们并没有办法控制这些。我们或者更关心一下橘黄色框框。这些橘黄色框框表示这些元素位于自己的图层上，它们拥有自己的图层。</p>
@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcvauzr002rjb3gzvldulf2" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcvdjdp002pk23gobmufk80" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>

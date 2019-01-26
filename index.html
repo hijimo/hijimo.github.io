@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -111,7 +111,7 @@
 </ol>
 <h3 id="点击劫持攻击"><a href="#点击劫持攻击" class="headerlink" title="点击劫持攻击"></a>点击劫持攻击</h3><p>点击劫持是一种恶意技术，它诱使用户点击与用户感知的内容不同的内容，从而可能泄露机密信息或允许其他人控制其计算机同时点击看似无害的对象。</p>
 <p>举个例子，小王点击了某盗版影视网站的播放按钮，实际上却是偷偷的给淘宝购物车下了单。</p>
-<h3 id="CSRF-XSRF-跨站请求伪造攻击"><a href="#CSRF-XSRF-跨站请求伪造攻击" class="headerlink" title="CSRF/XSRF 跨站请求伪造攻击"></a>CSRF/XSRF 跨站请求伪造攻击</h3><p>CSRF是一种欺骗受害者提交恶意请求的攻击。它继承了受害者的身份和特权，代表受害者履行不受欢迎的职能。对于大多数站点，浏览器请求自动包括与站点关联的任何凭据。</p>
+<h3 id="CSRF-XSRF-跨站请求伪造攻击"><a href="#CSRF-XSRF-跨站请求伪造攻击" class="headerlink" title="CSRF/XSRF 跨站请求伪造攻击"></a>CSRF/XSRF 跨站请求伪造攻击</h3><p>跨站请求伪造(Cross-site_request_forgery)是一种欺骗受害者提交恶意请求的攻击。它继承了受害者的身份和特权，代表受害者履行不受欢迎的职能。对于大多数站点，浏览器请求自动包括与站点关联的任何凭据。</p>
 <p>CSRF攻击的基本原理是：</p>
 <ol>
 <li>你登录了某网站，如bilibili.</li>
@@ -131,11 +131,25 @@
 <li>使用随机令牌，用户登录时向用户推送一个csrf随机码，这个码随着用户登录过期而过期，在每一次请求的时候偷偷带上这个码。每个请求服务器都会验证 个码，验证失败拒绝请求。由于csrf无法读取用户cookie，所以这个方式是目前主流的防csrf攻击的方案</li>
 <li>refer识别, 限制白名单之外的来源。</li>
 </ol>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击Cross-site scripting是一种安全漏洞，攻击者可以利用这种漏洞在网站上注入恶意的客户端代码。<br>简单来说就是攻击者利用各种方式向你的网站注入非法脚本，以达到网站不可用、盗取信息、广告注入等目的。<br><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS" target="_blank" rel="noopener">详见</a>)</p>
+<h5 id="常见的攻击方式"><a href="#常见的攻击方式" class="headerlink" title="常见的攻击方式"></a>常见的攻击方式</h5><ol>
+<li>网络运营商向非https网站注入脚本，往往大多都是广告 ，常常也会预期外的对网站造成破坏，使得网站不可用。</li>
+<li>攻击者利用网站内部漏洞，比如src、href、Event、form表单等提交非法脚本完成攻击。</li>
+</ol>
+<h5 id="防御方式"><a href="#防御方式" class="headerlink" title="防御方式"></a>防御方式</h5><ol>
+<li>升级HTTPS，HTTPS可以有效的防止数据被修改</li>
+<li>使用 HttpOnly、CSP和上述其他安全机制。</li>
+<li>后端对前台提交的数据进行清理，比如<a href="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" target="_blank" rel="noopener">库</a></li>
+<li>前端对不受信任的数据进行html、JavaScript、css转义</li>
+<li>不要在 css、script、html中插入不受信任的数据。</li>
+<li>对URL进行转义</li>
+<li>不要使用外链。或者安全白名单之外的域名。</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrd0dd8t00382l3gtacdbqdj" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2019/01/25/复习--web安全基础/" data-id="cjrd311tx002y8g3gx4dy8264" class="article-share-link">共有</a>
       
       
     </footer>
@@ -188,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrd0dd7u00192l3g56l8nz0j" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjrd311t200158g3gvoqcxedk" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -242,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrd0dd7x001g2l3gfxec8boe" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjrd311tc001q8g3gxbsxgmeq" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -298,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrd0dd7v001d2l3gswz6wy08" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjrd311t5001b8g3gsjvsnc1a" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -348,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrd0dd7t00162l3gb51jundi" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjrd311sy000v8g3gyczlg8qp" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
@@ -397,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrd0dd7y001j2l3g1gtj2rj8" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjrd311td001t8g3ggp4gg99v" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -447,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrd0dd8g002n2l3gg6tka9ai" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjrd311tt002r8g3gjdmsj3wa" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -495,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrd0dd8f002k2l3g7lzesjcs" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjrd311tk00268g3gzhfy7krl" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -543,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrd0dd8i002r2l3gbgpo1bp6" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjrd311tr002n8g3gbj9g2xkm" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
@@ -598,7 +612,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrd0dd8k002u2l3gceph3ir8" class="article-share-link">Compartir</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjrd311tq002k8g3gd1kcde19" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>
@@ -614,7 +628,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Siguiente &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">次へ &raquo;</a>
   </nav>
 
 </section>
@@ -623,7 +637,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categorías</h3>
+    <h3 class="widget-title">カテゴリ</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -633,7 +647,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
     </div>
@@ -643,7 +657,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nube de Tags</h3>
+    <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
       <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
@@ -652,7 +666,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archivos</h3>
+    <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
@@ -662,7 +676,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Posts recientes</h3>
+    <h3 class="widget-title">最近の投稿</h3>
     <div class="widget">
       <ul>
         
@@ -699,7 +713,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2019 山民<br>
-      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

@@ -7,17 +7,17 @@
   
   <title>webpack4.0之简易webpack实现 | hijimo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="完整代码 一个简单的webpack结果模版1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpac">
+  <meta name="description" content="完整代码 一个简单的webpack结果模版12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpack_">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack4.0之简易webpack实现">
 <meta property="og:url" content="http://hijimo.github.io/2019/03/01/webpack4.0-简易webpack实现/index.html">
 <meta property="og:site_name" content="hijimo">
-<meta property="og:description" content="完整代码 一个简单的webpack结果模版1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpac">
-<meta property="og:updated_time" content="2019-03-04T07:30:25.970Z">
+<meta property="og:description" content="完整代码 一个简单的webpack结果模版12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpack_">
+<meta property="og:updated_time" content="2019-03-04T07:33:55.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack4.0之简易webpack实现">
-<meta name="twitter:description" content="完整代码 一个简单的webpack结果模版1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpac">
+<meta name="twitter:description" content="完整代码 一个简单的webpack结果模版12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849(function(modules) &amp;#123;    var installedModules = &amp;#123;&amp;#125;;      function __webpack_">
   
     <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
   
@@ -53,9 +53,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -91,7 +91,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><a href="!https://github.com/hijimo/easywebpack/">完整代码</a></p>
-<h3 id="一个简单的webpack结果模版"><a href="#一个简单的webpack结果模版" class="headerlink" title="一个简单的webpack结果模版"></a>一个简单的webpack结果模版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">(function(modules) &#123;</span><br><span class="line">    var installedModules = &#123;&#125;;</span><br><span class="line">  </span><br><span class="line">    function __webpack_require__(moduleId) &#123;</span><br><span class="line">      if (installedModules[moduleId]) &#123;</span><br><span class="line">        return installedModules[moduleId].exports;</span><br><span class="line">      &#125;</span><br><span class="line">      var module = (installedModules[moduleId] = &#123;</span><br><span class="line">        i: moduleId,</span><br><span class="line">        l: false,</span><br><span class="line">        exports: &#123;&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &lt;!-- more --&gt;</span><br><span class="line">      modules[moduleId].call(</span><br><span class="line">        module.exports,</span><br><span class="line">        module,</span><br><span class="line">        module.exports,</span><br><span class="line">        __webpack_require__</span><br><span class="line">      );</span><br><span class="line">  </span><br><span class="line">      module.l = true;</span><br><span class="line">  </span><br><span class="line">      return module.exports;</span><br><span class="line">    &#125;</span><br><span class="line">    __webpack_require__.d = function(exports, name, getter) &#123;</span><br><span class="line">      if (!__webpack_require__.o(exports, name)) &#123;</span><br><span class="line">        Object.defineProperty(exports, name, &#123; enumerable: true, get: getter &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    __webpack_require__.r = function(exports) &#123;</span><br><span class="line">      if (typeof Symbol !== &quot;undefined&quot; &amp;&amp; Symbol.toStringTag) &#123;</span><br><span class="line">        Object.defineProperty(exports, Symbol.toStringTag, &#123; value: &quot;Module&quot; &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    __webpack_require__.o = function(object, property) &#123;</span><br><span class="line">      return Object.prototype.hasOwnProperty.call(object, property);</span><br><span class="line">    &#125;;</span><br><span class="line">    return __webpack_require__((__webpack_require__.s = &quot;&lt;%- entryId%&gt;&quot;));</span><br><span class="line">  &#125;)(&#123;</span><br><span class="line">    &lt;% for (let moduleName in modules) &#123;%&gt;</span><br><span class="line">    &quot;&lt;%- moduleName%&gt;&quot;: function(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line">      &quot;use strict&quot;;</span><br><span class="line">      eval(</span><br><span class="line">        `&lt;%-modules[moduleName]%&gt;`</span><br><span class="line">      );</span><br><span class="line">    &#125;,</span><br><span class="line">    &lt;% &#125;%&gt;</span><br><span class="line">  </span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="一个简单的webpack结果模版"><a href="#一个简单的webpack结果模版" class="headerlink" title="一个简单的webpack结果模版"></a>一个简单的webpack结果模版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">(function(modules) &#123;</span><br><span class="line">    var installedModules = &#123;&#125;;</span><br><span class="line">  </span><br><span class="line">    function __webpack_require__(moduleId) &#123;</span><br><span class="line">      if (installedModules[moduleId]) &#123;</span><br><span class="line">        return installedModules[moduleId].exports;</span><br><span class="line">      &#125;</span><br><span class="line">      var module = (installedModules[moduleId] = &#123;</span><br><span class="line">        i: moduleId,</span><br><span class="line">        l: false,</span><br><span class="line">        exports: &#123;&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      modules[moduleId].call(</span><br><span class="line">        module.exports,</span><br><span class="line">        module,</span><br><span class="line">        module.exports,</span><br><span class="line">        __webpack_require__</span><br><span class="line">      );</span><br><span class="line">  </span><br><span class="line">      module.l = true;</span><br><span class="line">  </span><br><span class="line">      return module.exports;</span><br><span class="line">    &#125;</span><br><span class="line">    __webpack_require__.d = function(exports, name, getter) &#123;</span><br><span class="line">      if (!__webpack_require__.o(exports, name)) &#123;</span><br><span class="line">        Object.defineProperty(exports, name, &#123; enumerable: true, get: getter &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    __webpack_require__.r = function(exports) &#123;</span><br><span class="line">      if (typeof Symbol !== &quot;undefined&quot; &amp;&amp; Symbol.toStringTag) &#123;</span><br><span class="line">        Object.defineProperty(exports, Symbol.toStringTag, &#123; value: &quot;Module&quot; &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    __webpack_require__.o = function(object, property) &#123;</span><br><span class="line">      return Object.prototype.hasOwnProperty.call(object, property);</span><br><span class="line">    &#125;;</span><br><span class="line">    return __webpack_require__((__webpack_require__.s = &quot;&lt;%- entryId%&gt;&quot;));</span><br><span class="line">  &#125;)(&#123;</span><br><span class="line">    &lt;% for (let moduleName in modules) &#123;%&gt;</span><br><span class="line">    &quot;&lt;%- moduleName%&gt;&quot;: function(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line">      &quot;use strict&quot;;</span><br><span class="line">      eval(</span><br><span class="line">        `&lt;%-modules[moduleName]%&gt;`</span><br><span class="line">      );</span><br><span class="line">    &#125;,</span><br><span class="line">    &lt;% &#125;%&gt;</span><br><span class="line">  </span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>简单来说， <code>webpack</code>主流程上就作了这么几件事情</p>
 <ol>
 <li>编译一个入口文件(代码文件)</li>
@@ -145,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2019/03/01/webpack4.0-简易webpack实现/" data-id="cjsu11crk0023q63g70nrupp6" class="article-share-link">共有</a>
+      <a data-url="http://hijimo.github.io/2019/03/01/webpack4.0-简易webpack实现/" data-id="cjsu13c88001qrd3gd9d8cy5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -157,7 +158,7 @@
 <nav id="article-nav">
   
     <a href="/2019/03/03/headers头和文件下载/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           headers头和文件下载
@@ -167,7 +168,7 @@
   
   
     <a href="/2019/02/25/webpack4.0-插件/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前の記事</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">webpack4.0之插件</div>
     </a>
   
@@ -182,7 +183,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">カテゴリ</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -192,7 +193,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグ</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
     </div>
@@ -202,7 +203,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
@@ -211,7 +212,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">アーカイブ</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
@@ -221,7 +222,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">最近の投稿</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         

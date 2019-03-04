@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>webpack4.0之loader | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="loader在默认情况下，webpack只支持.js的加载。如果要处理其他类型的文件模块，需要自行实现loader或者使用第三方实现。大体来讲， loader 可以说成是一个在 requeire 读取到内容之后执行的一个钩子函数。期间，webpack会把文件内容传给该函数，最后函数还需要将其返回，则否会报错。如下(真实例子看文末)：12345function loader(source) &amp;#12">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack4.0之loader">
+<meta property="og:url" content="http://hijimo.github.io/2019/02/22/webpack4.0--loader/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="loader在默认情况下，webpack只支持.js的加载。如果要处理其他类型的文件模块，需要自行实现loader或者使用第三方实现。大体来讲， loader 可以说成是一个在 requeire 读取到内容之后执行的一个钩子函数。期间，webpack会把文件内容传给该函数，最后函数还需要将其返回，则否会报错。如下(真实例子看文末)：12345function loader(source) &amp;#12">
+<meta property="og:updated_time" content="2019-03-04T07:28:27.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack4.0之loader">
+<meta name="twitter:description" content="loader在默认情况下，webpack只支持.js的加载。如果要处理其他类型的文件模块，需要自行实现loader或者使用第三方实现。大体来讲， loader 可以说成是一个在 requeire 读取到内容之后执行的一个钩子函数。期间，webpack会把文件内容传给该函数，最后函数还需要将其返回，则否会报错。如下(真实例子看文末)：12345function loader(source) &amp;#12">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webpack4.0--loader" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/22/webpack4.0--loader/" class="article-date">
+  <time datetime="2019-02-22T06:25:00.000Z" itemprop="datePublished">2019-02-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack4.0之loader
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h3><p>在默认情况下，webpack只支持<code>.js</code>的加载。如果要处理其他类型的文件模块，需要自行实现<code>loader</code>或者使用第三方实现。<br>大体来讲， <code>loader</code> 可以说成是一个在 <code>requeire</code> 读取到内容之后执行的一个钩子函数。期间，<code>webpack</code>会把文件内容传给该函数，最后函数还需要将其返回，则否会报错。如下(真实例子看文末)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function loader(source) &#123;</span><br><span class="line">	// to do</span><br><span class="line">	return source</span><br><span class="line">&#125;</span><br><span class="line">module.exports = loader</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="loader-的基本使用"><a href="#loader-的基本使用" class="headerlink" title="loader 的基本使用"></a>loader 的基本使用</h3><p>首先新建一个文件夹 <code>loaderdemo</code>. 进入该文件夹初始化,快速创建一个新的工作目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init - y</span><br></pre></td></tr></table></figure></p>
+<p>添加<code>webpack.config.js</code>，并构建基本骨架<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let path = require(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &quot;development&quot;,</span><br><span class="line">  entry: &quot;./src/index.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &quot;bundle.[hash:8].js&quot;,</span><br><span class="line">    path: path.resolve(__dirname, &quot;dist&quot;),</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">   </span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在开始添加一个简单的<code>loader</code>规则，比如说我们想把代码里的<code>es6</code>新语法转换成<code>es5</code>。只需要在<code>module</code>配置项下添加<code>rules</code>规则，这样子<code>webpack</code>在处理模块时如果命中了这项规则的正则表示式，那么就会使用<code>use</code>数据里的<code>loader</code>模块去处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">let path = require(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &quot;development&quot;,</span><br><span class="line">  entry: &quot;./src/index.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &quot;bundle.[hash:8].js&quot;,</span><br><span class="line">    path: path.resolve(__dirname, &quot;dist&quot;),</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">   	rules: [</span><br><span class="line">   		 &#123;</span><br><span class="line">	   		 test: /\.js$/,</span><br><span class="line">		        use: [</span><br><span class="line">		          &#123;</span><br><span class="line">		            loader: &quot;babel-loader&quot;,</span><br><span class="line">		            options: &#123;</span><br><span class="line">		              presets: [&quot;@babel/preset-env&quot;],</span><br><span class="line">		            &#125;</span><br><span class="line">		          &#125;</span><br><span class="line">		        ]</span><br><span class="line">	       &#125;</span><br><span class="line">   	]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有时候可能需要对一个文件使用多个<code>loader</code>来处理。比如<code>less</code>，需要转换成<code>css</code>代码，<code>css</code>又需要处理自身的文件依赖，最后还要将代码导出到<code>html</code>。这个过程一共需要使用3个<code>loader</code>，分别是 <code>[ &#39;style-loader&#39;,&#39;css-loader&#39;,&#39;less-loader&#39;]</code>，并且<strong>它们是有执行顺序要求的！<code>less-loader =&gt; css-loader =&gt; style-loader</code></strong>。loader的执行顺序是数组从后往前开始执行。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let path = require(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &quot;development&quot;,</span><br><span class="line">  entry: &quot;./src/index.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &quot;bundle.[hash:8].js&quot;,</span><br><span class="line">    path: path.resolve(__dirname, &quot;dist&quot;),</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">   	rules: [</span><br><span class="line">   		&#123;</span><br><span class="line">	        test: /\.css$/,</span><br><span class="line">	        use: [</span><br><span class="line">	           &quot;style-loader&quot;,</span><br><span class="line">	           &quot;css-loader&quot;,</span><br><span class="line">	          &quot;postcss-loader&quot;</span><br><span class="line">	        ]</span><br><span class="line">        &#125;</span><br><span class="line">   	]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用另一种写法，这种写法默认情况下也是从下向上的执行顺序执行。并且这种写法还支持使用<code>enforce</code>对<code>loader</code>进行一个分类来控制执行顺序，不同分类顺序 <code>pre &gt; normal &gt; inline &gt; post</code>,默认为 <code>normal</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">let path = require(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &quot;development&quot;,</span><br><span class="line">  entry: &quot;./src/index.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &quot;bundle.[hash:8].js&quot;,</span><br><span class="line">    path: path.resolve(__dirname, &quot;dist&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [&apos;style&apos;],</span><br><span class="line">        enforce: &quot;post&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [&quot;css-loader&quot;]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [&quot;less-loader&quot;],</span><br><span class="line">        enforce: &quot;pre&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自己实现一个loader"><a href="#自己实现一个loader" class="headerlink" title="自己实现一个loader"></a>自己实现一个loader</h3><p><code>loader</code> 本质是一个在 <code>requeire</code> 读取到内容之后执行的一个钩子函数，所以只需要在这个钩子函数里实现我们的功能就行了。拿我们最初的例子<code>babel-loader</code>为例，实现一个简化版的<code>babel-loader</code>。<br>首先分割一下任务， <code>babel-loader</code>做了什么事情：</p>
+<ol>
+<li>将<code>es6</code>代码转换成<code>es5</code>语法</li>
+<li>返回转换好的<code>es5</code>代码</li>
+</ol>
+<p>准备测试用代码 <code>index.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let a = () =&gt; &#123;</span><br><span class="line">    console.log(&apos;hello i,m a&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Lee&#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">        this.name = &apos;lee&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    info() &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let l = new Lee()</span><br><span class="line">l.info()</span><br></pre></td></tr></table></figure>
+<p>我们需要借助一些第三方库帮我们完成代码的转换,安装第三方库<code>@babel/core</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @babel/core -D</span><br></pre></td></tr></table></figure></p>
+<p><code>babel-loader</code>还有一些配置项，同样需要一个第三方库来帮我们读取配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add loader-utils -D</span><br></pre></td></tr></table></figure></p>
+<p>对于用户输入的配置，还需要做一个验证<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add schema-utils -D</span><br></pre></td></tr></table></figure></p>
+<p>准备工作完成就开始直接撸代码。首先配置 <code>webpack.config.js</code>, <code>resolveLoader</code>配置项告诉<code>webpack</code>应该去哪里找寻<code>loader</code>模块，它会依次去数组里的路径下找寻<code>loader</code>,这在调试时很有用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">let path = require(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &quot;development&quot;,</span><br><span class="line">  entry: &quot;./src/index.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &quot;bundle.[hash:8].js&quot;,</span><br><span class="line">    path: path.resolve(__dirname, &quot;dist&quot;),</span><br><span class="line">  &#125;,</span><br><span class="line">  resolveLoader: &#123;</span><br><span class="line">    modules: [&quot;node_modules&quot;, path.resolve(__dirname, &quot;src&quot;, &quot;loaders&quot;)]</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">   	rules: [</span><br><span class="line">   		 &#123;</span><br><span class="line">	   		 test: /\.js$/,</span><br><span class="line">		        use: [</span><br><span class="line">		          &#123;</span><br><span class="line">		            loader: &quot;babel-loader&quot;,</span><br><span class="line">		            options: &#123;</span><br><span class="line">		              presets: [&quot;@babel/preset-env&quot;],</span><br><span class="line">		            &#125;</span><br><span class="line">		          &#125;</span><br><span class="line">		        ]</span><br><span class="line">	       &#125;</span><br><span class="line">   	]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是 <code>babel-loader.js</code>的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">let babel = require(&apos;@babel/core&apos;)</span><br><span class="line">let loaderUtils = require(&apos;loader-utils&apos;)</span><br><span class="line">let validateOptions = require(&apos;schema-utils&apos;)</span><br><span class="line"></span><br><span class="line">function loader (source) &#123;</span><br><span class="line">    // 获取用户配置 &#123; presets: [&quot;@babel/preset-env&quot;]&#125;</span><br><span class="line">    let options = loaderUtils.getOptions(this)</span><br><span class="line">    //验证用户配置项是否正确</span><br><span class="line">    // 如果不正确validateOptions会抛出一个异常，结束loader和该模块后续的loader</span><br><span class="line">    let schema = &#123;</span><br><span class="line">        type: &apos;object&apos;,</span><br><span class="line">        properties: &#123;</span><br><span class="line">            presets: &#123;</span><br><span class="line">                type: &apos;Array&apos;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    validateOptions(schema, options, &apos;banner-loader&apos;)</span><br><span class="line">    </span><br><span class="line">    // 将该Loader设置成异步loader</span><br><span class="line">    // 异步Loader只能通过cb(err, source) 返回结果。</span><br><span class="line">    let cb = this.async()</span><br><span class="line">    // 将es6代码转换成es5代码</span><br><span class="line">    babel.transform(source, &#123;</span><br><span class="line">        ...options,</span><br><span class="line">        sourceMap: true,</span><br><span class="line">        filename: this.resourcePath.split(&apos;/&apos;).pop(),</span><br><span class="line">    &#125;, function(err, result) &#123;</span><br><span class="line">        // 转换完成的代码需要返回给下一个loader</span><br><span class="line">        // 或者调用者</span><br><span class="line">        cb(err, result.code, result.map)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = loader</span><br></pre></td></tr></table></figure>
+<p>最后在 终端中输入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx webpack</span><br></pre></td></tr></table></figure>
+<p>成功生成<code>dist</code>目录，成功生成文件并且将代码转换成了<code>es5</code>代码</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2019/02/22/webpack4.0--loader/" data-id="cjsu11crc001pq63go8ck6rnl" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/24/webpack4.0--tapable/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          webpack4.0之tapable
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/20/webpack4.0-基础使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">复习--webpack4.0基础使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/03/headers头和文件下载/">headers头和文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/01/webpack4.0-简易webpack实现/">webpack4.0之简易webpack实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/25/webpack4.0-插件/">webpack4.0之插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/24/webpack4.0--tapable/">webpack4.0之tapable</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/webpack4.0--loader/">webpack4.0之loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

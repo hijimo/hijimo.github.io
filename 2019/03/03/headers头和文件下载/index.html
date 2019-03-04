@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>headers头和文件下载 | hijimo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Content-DispositionContent-Disposition 息头指示回复的内容该以何种形式展示，是以内联的形式（即网页或者页面的一部分），还是以附件的形式下载并保存到本地。  Content-Disposition只会影响部分 href、和地址栏直接输入结果等，直接在img.src中使用并不会下载文件。   举个简单的例子。先准备两个图片wm.png、wm2.png, 并设置下载">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="headers头和文件下载">
+<meta property="og:url" content="http://hijimo.github.io/2019/03/03/headers头和文件下载/index.html">
+<meta property="og:site_name" content="hijimo">
+<meta property="og:description" content="Content-DispositionContent-Disposition 息头指示回复的内容该以何种形式展示，是以内联的形式（即网页或者页面的一部分），还是以附件的形式下载并保存到本地。  Content-Disposition只会影响部分 href、和地址栏直接输入结果等，直接在img.src中使用并不会下载文件。   举个简单的例子。先准备两个图片wm.png、wm2.png, 并设置下载">
+<meta property="og:updated_time" content="2019-03-04T07:30:17.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="headers头和文件下载">
+<meta name="twitter:description" content="Content-DispositionContent-Disposition 息头指示回复的内容该以何种形式展示，是以内联的形式（即网页或者页面的一部分），还是以附件的形式下载并保存到本地。  Content-Disposition只会影响部分 href、和地址栏直接输入结果等，直接在img.src中使用并不会下载文件。   举个简单的例子。先准备两个图片wm.png、wm2.png, 并设置下载">
+  
+    <link rel="alternate" href="/atom.xml" title="hijimo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hijimo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-headers头和文件下载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/03/headers头和文件下载/" class="article-date">
+  <time datetime="2019-03-03T06:25:00.000Z" itemprop="datePublished">2019-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      headers头和文件下载
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Content-Disposition"><a href="#Content-Disposition" class="headerlink" title="Content-Disposition"></a>Content-Disposition</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition" target="_blank" rel="noopener">Content-Disposition</a> 息头指示回复的内容该以何种形式展示，是以<strong>内联</strong>的形式（即网页或者页面的一部分），还是以<strong>附件</strong>的形式下载并保存到本地。</p>
+<blockquote>
+<p><code>Content-Disposition</code>只会影响部分 <code>href</code>、和地址栏直接输入结果等，直接在<code>img.src</code>中使用并不会下载文件。</p>
+</blockquote>
+<p> 举个简单的例子。先准备两个图片<code>wm.png</code>、<code>wm2.png</code>, 并设置下载与内联<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nodejs code</span><br><span class="line">setHeaders: function(res, path, stats) &#123;</span><br><span class="line">     if (path.includes(&quot;static/image/wm.png&quot;)) &#123;</span><br><span class="line">       res.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&apos;hanmeimei.png&apos;&quot;);</span><br><span class="line">     &#125; else if (path.includes(&quot;static/image/wm2.png&quot;)) &#123;</span><br><span class="line">       res.setHeader(&quot;Content-Disposition&quot;, &quot;inline&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p> 写一段简单的html代码去加载它们。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// html code</span><br><span class="line"> &lt;a href=&quot;static/image/wm.png&quot; target=&quot;_blank&quot;&gt;下载图片1&lt;/a&gt;</span><br><span class="line"> &lt;a href=&quot;static/image/wm2.png&quot; target=&quot;_blank&quot;&gt;</span><br><span class="line">   打开一个新的窗口，窗口里显示图片2&lt;/a&gt;</span><br><span class="line">&lt;h1&gt;图片1&lt;/h1&gt;</span><br><span class="line">&lt;img src=&quot;static/image/wm.png&quot; alt=&quot;&quot; /&gt;</span><br><span class="line">&lt;h2&gt;图片2&lt;/h2&gt;</span><br><span class="line">&lt;img src=&quot;static/image/wm2.png&quot; alt=&quot;&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p> 再测试一下脚 本。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">     // img ,会直接显示图片</span><br><span class="line">     let c = new Image();</span><br><span class="line">     c.src = &quot;static/image/wm.png&quot;;</span><br><span class="line">     document.body.appendChild(c);</span><br><span class="line"></span><br><span class="line">     // 下载文件wm.png</span><br><span class="line">     window.location.href = &quot;static/image/wm.png&quot;;</span><br><span class="line">     // 不会下载， 会内联显示</span><br><span class="line">     window.location.href = &quot;static/image/wm2.png&quot;;</span><br><span class="line">   &lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2019/03/03/headers头和文件下载/" data-id="cjsu11cqg0005q63g93lzkk49" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/01/webpack4.0-简易webpack实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">webpack4.0之简易webpack实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/03/headers头和文件下载/">headers头和文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/01/webpack4.0-简易webpack实现/">webpack4.0之简易webpack实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/25/webpack4.0-插件/">webpack4.0之插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/24/webpack4.0--tapable/">webpack4.0之tapable</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/webpack4.0--loader/">webpack4.0之loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 山民<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

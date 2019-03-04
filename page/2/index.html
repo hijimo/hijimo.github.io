@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hijimo.github.io"></form>
@@ -60,6 +60,471 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-webRTC基础篇--视频编解码基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/21/webRTC基础篇--视频编解码基础/" class="article-date">
+  <time datetime="2018-10-21T13:13:00.000Z" itemprop="datePublished">2018-10-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="视频压缩"><a href="#视频压缩" class="headerlink" title="视频压缩"></a>视频压缩</h3><p>视频编/解码其实就是一个视频压缩与解压缩的过程。原始数字视频数据量巨大，未经压缩不管是传输还是存储上都是不大现实的。</p>
+<h3 id="压缩原理"><a href="#压缩原理" class="headerlink" title="压缩原理"></a>压缩原理</h3><p>视频可以压缩，因为它有冗余。</p>
+<ol>
+<li>空间冗余：图像相邻像素之间有较强的相关性</li>
+<li>时间冗余：视频序列的相邻图像之间内容相似</li>
+<li>编码冗余：不同像素值出现的概率不同</li>
+<li>视觉冗余：人的视觉系统对某些细节不敏感</li>
+<li>知识冗余：规律性的结构可由先验知识和背景知识得到
+        
+          <p class="article-more-link">
+            <a href="/2018/10/21/webRTC基础篇--视频编解码基础/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/10/21/webRTC基础篇--视频编解码基础/" data-id="cjsu11cra001jq63g9nrrhyb2" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webRTC基础篇-ice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/03/webRTC基础篇-ice/" class="article-date">
+  <time datetime="2018-10-03T11:14:00.000Z" itemprop="datePublished">2018-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/03/webRTC基础篇-ice/">webRTC基础篇-ice</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="ICE"><a href="#ICE" class="headerlink" title="ICE"></a>ICE</h3><p>webRTC采用p2p的方式数据传输。由于<a href="">NAT</a>的存在破坏了IP端到端通信的能力，使得我们需要一些手段去找到隐藏在NAT和防火墙之后的浏览器(peer)，即NAT穿透。ICE是这样的传输协议之一。</p>
+<h3 id="基本的ICE流程"><a href="#基本的ICE流程" class="headerlink" title="基本的ICE流程"></a>基本的ICE流程</h3><ol>
+<li>两个浏览器通过自己的公网IP地址，使用STUN协议信息和STUN服务器建立联系；</li>
+<li>两个浏览器通过SDP提供/应答机制，使用呼叫控制信令消息交换它们已发现的公共IP地址（ICE候选）；</li>
+<li>两个浏览器执行连接检查（ICE冲孔），确保P2P可以连接；</li>
+<li>建立连接后，RTC媒体会话和媒体交换就可以实现了。</li>
+<li>假如在一个高度限制的NAT或防火墙，这种直接的路径将无法建立，只能到达TURN服务器。结果是媒体通过TURN服务器分程传递。
+        
+          <p class="article-more-link">
+            <a href="/2018/10/03/webRTC基础篇-ice/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/10/03/webRTC基础篇-ice/" data-id="cjsu11crb001mq63gl0xwsh07" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webRTC基础篇--NAT" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/19/webRTC基础篇--NAT/" class="article-date">
+  <time datetime="2018-09-19T12:12:00.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/19/webRTC基础篇--NAT/">webRTC基础--NAT</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><p>20多年前，Internet的基础协议Ipv4地址即将耗尽，而每天需要入网的设备成指数增长，数以亿计的设备上网问题需要解决。NAT(Network Address Translation) – 网络地址转换，一种几乎让ipv4起死回生的技术。</p>
+<p>通常NAT通署在网络的出口，通过替换IP报文头部信息，将内部网络IP地址转换成出口IP地址提供与公网联接的能力。简单的来说就是把一个内部网络所有的请求都通过NAT发送与接收，以达到一个内部网络只使用一个或少个ip地址就能与Internet通信的目的。图示如下<br><img src="http://www.52im.net/data/attachment/forum/201509/06/202518pip8a6h99c8xc6i6.png" alt="概念图"></p>
+<h3 id="NAT的几个关键特点"><a href="#NAT的几个关键特点" class="headerlink" title="NAT的几个关键特点"></a>NAT的几个关键特点</h3><blockquote>
+<ol>
+<li>网络被分为私网和公网两个部分，NAT网关设置在私网到公网的路由出口位置，双向流量必须都要经过NAT网关；</li>
+<li>网络访问只能先由私网侧发起，公网无法主动访问私网主机； </li>
+<li>NAT网关在两个访问方向上完成两次地址的转换或翻译，出方向做源信息替换，入方向做目的信息替换； </li>
+<li>NAT网关的存在对通信双方是保持透明的； </li>
+<li>NAT网关为了实现双向翻译的功能，需要维护一张关联表，把会话的信息保存下来。
+        
+          <p class="article-more-link">
+            <a href="/2018/09/19/webRTC基础篇--NAT/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/09/19/webRTC基础篇--NAT/" data-id="cjsu11cr9001fq63gs8kjx4wb" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webRTC基础--音视频" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/01/webRTC基础--音视频/" class="article-date">
+  <time datetime="2018-09-01T09:24:00.000Z" itemprop="datePublished">2018-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="视频基础"><a href="#视频基础" class="headerlink" title="视频基础"></a>视频基础</h3><p>我们平常笼统说的「视频格式」其实包含三个部分：视频编码、音频编码、容器格式。</p>
+<p>我常所说的.mkv、.mp4、.webm指的是视频文件的容器格式。字面上理解就是他是一个存放视频编码、音频编码的一个容器，再通过特定的方式和规律组织起来，最后呈现给我们一个正常的音画同步的视频播放效果。比如说最常见的 <code>.mp4</code> 文件通常存放的就是<code>H.264</code>编码的视频流和 <code>AAC</code> 编码的音频流。通常，一个容器格式可以包含不同编码格式的音视频流；同样编码的音视频流也可以</p>
+<h3 id="VP8-9-与-H264-H265视频编码"><a href="#VP8-9-与-H264-H265视频编码" class="headerlink" title="VP8/9 与 H264/H265视频编码"></a>VP8/9 与 H264/H265视频编码</h3><p>VP8与 H264视频编码是目前webRTC支持的两种视频格式（VP9是VP8的最新标准，H265是H264的最新标准）。
+        
+          <p class="article-more-link">
+            <a href="/2018/09/01/webRTC基础--音视频/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/09/01/webRTC基础--音视频/" data-id="cjsu11cr7001cq63gxp3d75ni" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webRTC/">webRTC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【转】阮一峰：数字签名是什么？" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/" class="article-date">
+  <time datetime="2018-05-01T05:25:00.000Z" itemprop="datePublished">2018-05-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/01/【转】阮一峰：数字签名是什么？/">【转】阮一峰：数字签名是什么？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="数字签名是什么？"><a href="#数字签名是什么？" class="headerlink" title="数字签名是什么？"></a>数字签名是什么？</h3><p>作者：David Youd<br>翻译：阮一峰<br>阮老师地址：<a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html</a><br>原文网址：<a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">http://www.youdzone.com/signature.html</a></p>
+<p>1.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080901.png" alt=""><br>鲍勃有两把钥匙，一把是公钥，另一把是私钥。<br>2.<br><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080902.png" alt=""><br>鲍勃把公钥送给他的朋友们—-帕蒂、道格、苏珊—-每人一把。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/01/【转】阮一峰：数字签名是什么？/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/05/01/【转】阮一峰：数字签名是什么？/" data-id="cjsu11crm0026q63gsqywg9fb" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-渲染优化四-管道-合成" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/" class="article-date">
+  <time datetime="2018-03-31T06:00:00.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化四-管道-合成/">前端优化-渲染优化四-管道-合成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前端优化-管道-合成"><a href="#前端优化-管道-合成" class="headerlink" title="前端优化-管道-合成"></a>前端优化-管道-合成</h2><p>并非所有的样式修改代价都是平等的。它们可能会触发布局或者绘制合成、可能只触发绘制与合成、也可能只触发合成。合成指的是合成层。</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>浏览器绘制是分层的，就像photoshop。 如果你接触过photoshop,应该会了解图层这个概念。设计一张psd设计稿往往会有很多图层。一来是方面分组管理。二来，如果把所有东西都绘制到一张图层上，那么后期修改就会非常痛苦。你修改一处地方可能会影响其他部分或者全部内容。如果你是设计师也不希望每一次修改都要重新绘制一次对吧。<br>举个例子：左侧滑出菜单是我们平时非常常见也非常实用的一个功能。如果只有一个层，那么菜单滑出的时候，影响了内容区域的布局，导致整个区域的layout、paint。往往我们会给菜单加上动画。现在，我们得到了一个1秒60帧的卡顿，只有高端设备才能流畅的完成这个行为。</p>
+<p>如果我们把菜单和内容分成两个层。左侧菜单滑出的时候，仅绘制菜单层，那么内容层便不受影响。仅仅这样我们便得到了很大的性能提升，内容层无需被layout、point了。</p>
+<p>分层真是太棒了。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化四-管道-合成/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化四-管道-合成/" data-id="cjsu11cs5003cq63g5y29dzhc" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-渲染优化三-管道-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化三-管道-css/" class="article-date">
+  <time datetime="2018-03-31T05:58:19.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化三-管道-css/">前端优化-渲染优化三-管道-css</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="web前端优化–管道–css"><a href="#web前端优化–管道–css" class="headerlink" title="web前端优化–管道–css"></a>web前端优化–管道–css</h2><p>平时我们碰到的问题常常是由javascript触发的，但是并不一定是javascript的问题。</p>
+<p>这是管道优化系列的css篇。管道的概念见 <a href="https://hijimo.github.io/2018/03/22/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a> ,这里详细的介绍了浏览器如何渲染一个帧。管道是帧渲染中的一部分。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化三-管道-css/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化三-管道-css/" data-id="cjsu11cs20035q63gzht7u179" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-渲染优化二-管道-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/" class="article-date">
+  <time datetime="2018-03-31T05:55:55.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/31/前端优化-渲染优化二-管道-javascript/">前端优化-渲染优化二-管道-javascript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="渲染优化二–管道–javascript"><a href="#渲染优化二–管道–javascript" class="headerlink" title="渲染优化二–管道–javascript"></a>渲染优化二–管道–javascript</h2><p>你写的javascript代码并非就是浏览器执行的代码，现在浏览器引擎会重新编译你写的代码从而使代码运行速度更快。这个过程是通过即时编译器(Just In Time)完成的,简称JIT。JIT会在javascript运行过程中一点一点的优化代码，这是一个复杂又庞大的系统。对于 开发者我们不可能知道jit实际会运行什么代码。</p>
+<h4 id="mrale-ph"><a href="#mrale-ph" class="headerlink" title="mrale.ph"></a>mrale.ph</h4><p>mrale.ph 是一个在线网站，你可以查看JIT编译前后的代码。mrale.ph自己提供了一些demo,当然你也可以上传自己的代码。(截图里样式出现了一些问题，可能是我ss的问题)。你可以点击IR、Srouce来切换javascript代码和jit编译后的代码。甚至还提供了graph图解。你不需要理解jit代码，这只是chrome和其他v8引擎理解你写的js代码。<strong>我们在写代码的时候应该避免微优化，即不该写出自认为会让浏览器稍微更快速的运行的代码。因为我们不可能知道浏览器会如何处理这些代码，所以没有必要猜测。我们应该通过其他方式提高性能，不是把精力浪费在微优化之上。</strong><br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/31/前端优化-渲染优化二-管道-javascript/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/31/前端优化-渲染优化二-管道-javascript/" data-id="cjsu11cs30038q63gl4gzful1" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前端优化-移动设备的性能分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/前端优化-移动设备的性能分析/" class="article-date">
+  <time datetime="2018-03-22T10:30:26.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/前端优化-移动设备的性能分析/">前端优化-移动设备的性能分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在移动设备上调试网页"><a href="#在移动设备上调试网页" class="headerlink" title="在移动设备上调试网页"></a>在移动设备上调试网页</h2><p>浏览器可以模拟相关设备的分辨率、像素比、网络、cpu情况等。在很多时候，我们还是会在某些设备上碰到一些性能、渲染或其他问题需要真机调试。</p>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>我们可能需要做一些准备</p>
+<ul>
+<li>一台安卓设备</li>
+<li>一根usb连接线</li>
+<li>在你的pc上安装chrome浏览器</li>
+<li>在你的安卓设备上安卓chrome浏览器</li>
+</ul>
+<h4 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h4><p>拿出我们的安卓设备，我们需要开启设备的开发者模式。进入设置–系统设置–关于手机，点击版本号7次开启开发者模式。不同的手机可能进入路径不同，请看设备说明书或者网络搜索。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/22/前端优化-移动设备的性能分析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-移动设备的性能分析/" data-id="cjsu11cs9003jq63gzc2yub5r" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动/">移动</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-前端优化-开始性能优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -97,509 +562,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjrd3bkul002kal3g1e2v8lsm" class="article-share-link">Teilen</a>
+      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-开始性能优化/" data-id="cjsu11crz002yq63gnaqv1saq" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-渲染优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/22/前端优化-渲染优化/" class="article-date">
-  <time datetime="2018-03-22T10:29:20.000Z" itemprop="datePublished">2018-03-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/前端优化-渲染优化/">前端优化-渲染优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前端优化其六-开发60帧每秒的app"><a href="#前端优化其六-开发60帧每秒的app" class="headerlink" title="前端优化其六-开发60帧每秒的app"></a>前端优化其六-开发60帧每秒的app</h2><p>浏览器如果花费很长的时间去绘制一帧的话，就会丢失另一帧。最糕的情况下，浏览器会直接卡死。</p>
-<h4 id="浏览器如何渲染帧"><a href="#浏览器如何渲染帧" class="headerlink" title="浏览器如何渲染帧"></a>浏览器如何渲染帧</h4><ol>
-<li>浏览器向服务器发起get请求   get/http/1.1</li>
-<li>服务器做出响应并发送html</li>
-<li>浏览器提前解析dom（parse html）</li>
-<li>浏览器解析cssom (parse stylesheet)</li>
-<li>结合 dom + cssom生成render tree (Recalculate styles)</li>
-<li>浏览器开始计算布局，即计算元素会占用多少空间、位置（layout），网络布局意味着某个元素可以影响其他元素，这对浏览器来说非常复杂。例如body的宽度会影响子项的宽度，一直向dom树的下方蔓延。</li>
-<li>从矢量到光栅,把像素绘制到图层(paint)</li>
-<li>浏览器需要把图像解码成内存，篇4说过，这很消耗内存和cpu(image decode)</li>
-<li>合成图层,浏览器会把内容绘制到一或多个图层上,图层太多或者太少都可能影响性能。或许你可以想像一下photoshop图层，他们很像。
-        
-          <p class="article-more-link">
-            <a href="/2018/03/22/前端优化-渲染优化/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/22/前端优化-渲染优化/" data-id="cjrd3bkuj002gal3g3ib12trs" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/帧/">帧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-启动优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/20/前端优化-启动优化/" class="article-date">
-  <time datetime="2018-03-20T09:19:18.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/前端优化-启动优化/">前端优化-启动优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前端优化-其五-javascript优化"><a href="#前端优化-其五-javascript优化" class="headerlink" title="前端优化-其五  javascript优化"></a>前端优化-其五  javascript优化</h2><p>随着现代web技术越来越成熟，浮现出了一批批优秀而又成熟的框架。驱动这些框架产生的原因是我们的web需要解决越来越复杂的需求。随之而来的便是越来越复杂的代码，越来越大的代码文件。</p>
-<h4 id="javascript-是最昂贵的资源"><a href="#javascript-是最昂贵的资源" class="headerlink" title="javascript 是最昂贵的资源"></a>javascript 是最昂贵的资源</h4><p>由于web的特殊性，我们总是习惯的将文件大小看得很敏感。也有优秀的技术把我们的代码文件压缩到很小：通过工具压缩后的代码，再结合gzip技术往往可以把代码文件压缩到原大小的十几分一。这当然很棒，我们节省了大量的带宽。<br>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/20/前端优化-启动优化/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-启动优化/" data-id="cjrd3bkug002aal3g9y20k17a" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-图片优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/20/前端优化-图片优化/" class="article-date">
-  <time datetime="2018-03-20T02:03:35.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/前端优化-图片优化/">前端优化-图片优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前端优化其四-图片"><a href="#前端优化其四-图片" class="headerlink" title="前端优化其四 图片"></a>前端优化其四 图片</h2><p>图片是网页重要的一部分，设计师在设计网页的时候也经常通过图片来使网页更加的炫丽。随着计算机相关技术的发展，用户对图片的质量要求也在不断的上升，这意味着我们要给用户提供更棒的图片、更大的内存占用、更多的绘制cpu消耗。如果是移动设备，这些往往还意味着电池寿命。在许多网站中，图片都占去了它们大部分的加载带宽，图片也是网页性能中很大的一部分负担。好像，有必要给图片做一下优化了。</p>
-<h4 id="压缩图像内容的大小"><a href="#压缩图像内容的大小" class="headerlink" title="压缩图像内容的大小"></a>压缩图像内容的大小</h4><p>和大部分资源一样，首先应该使用压缩工具减小资源文件的大小，往往这是性价比最高的方式。但是和文本资源不同，图像资源的压缩也意味着图像质量可能有所损失。那么，合理的压缩策略就很重要了，不过度压缩、不重复压缩，还需要根据不同的图像文件格式设置不同的压缩方式。<br>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/20/前端优化-图片优化/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-图片优化/" data-id="cjrd3bkui002dal3gh584iil5" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压缩/">压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-http缓存" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/20/前端优化-http缓存/" class="article-date">
-  <time datetime="2018-03-20T01:36:26.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/前端优化-http缓存/">前端优化-http缓存</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前端优化-其三-http-缓存"><a href="#前端优化-其三-http-缓存" class="headerlink" title="前端优化 其三 http 缓存"></a>前端优化 其三 http 缓存</h2><p>我们每一次打开网页，都需要获取比如js、css、图像、字体等各种资源。如果每一次都从网络上下载，显示并不是一个理智的选择。http 缓存提供了一种机制，浏览器首次加载<br>网页时，会将页面资源存储在 HTTP缓存中。当浏览器下次访问该页面时，它可以在缓存中查找以前获取的资源并从磁盘检索它们，这通常比从网络上下载资源要快。合理的利用http 缓存，可以使你的网站再次被访问时的渲染速度大大提高。</p>
-<h3 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a>cache-control</h3><p>cache-control  是http1.1 协议中定义在header头里用来告诉浏览器和服务器对缓存机制的支持情况，通过给他设置不同的值来定义缓存策略。<br>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/20/前端优化-http缓存/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/20/前端优化-http缓存/" data-id="cjrd3bkuc0023al3gxhj8q955" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-渲染速度的优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/17/前端优化-渲染速度的优化/" class="article-date">
-  <time datetime="2018-03-17T09:31:32.000Z" itemprop="datePublished">2018-03-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/前端优化-渲染速度的优化/">前端优化-渲染速度的优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="web前端优化–其二"><a href="#web前端优化–其二" class="headerlink" title="web前端优化–其二"></a>web前端优化–其二</h2><p>继接篇一，在页面上渲染内容有几个必要条件</p>
-<ul>
-<li>完成html页面的下载</li>
-<li>部分完成或者完整完成dom树的构建</li>
-<li>完整的构建cssom树</li>
-</ul>
-<p>如果我们想更快的让页面上显示内容，那么我们可能需要</p>
-<ul>
-<li>加快html页面的下载</li>
-<li>尽快的完成部分的dom树</li>
-<li>尽快的构建完成的cssom树
-        
-          <p class="article-more-link">
-            <a href="/2018/03/17/前端优化-渲染速度的优化/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-渲染速度的优化/" data-id="cjrd3bkut002yal3gb8ej15vo" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cssom/">cssom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom/">dom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渲染/">渲染</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-前端优化-记一张页面的加载" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/17/前端优化-记一张页面的加载/" class="article-date">
-  <time datetime="2018-03-17T09:03:57.000Z" itemprop="datePublished">2018-03-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端优化/">前端优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/前端优化-记一张页面的加载/">前端优化-记一张页面的加载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web前端优化–其一"><a href="#web前端优化–其一" class="headerlink" title="web前端优化–其一"></a>web前端优化–其一</h2><p>web前端是一门神奇的技术。我们编写html标记和css语言，屏幕上就会显示出漂亮的页面。<br>但浏览器到底是如何使用我们的 HTML、CSS 和 JavaScript 在屏幕上渲染像素的呢？</p>
-<h3 id="一张最简单的网页"><a href="#一张最简单的网页" class="headerlink" title="一张最简单的网页"></a>一张最简单的网页</h3><pre><code class="html"> <span class="meta">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">title</span>&gt;</span>hello word<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">body</span>&gt;</span>
-  hello word
-<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/17/前端优化-记一张页面的加载/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2018/03/17/前端优化-记一张页面的加载/" data-id="cjrd3bkux0035al3glb5k9cxv" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端优化/">前端优化</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于雪碧图的自适应" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/23/关于雪碧图的自适应/" class="article-date">
-  <time datetime="2016-06-23T09:24:00.000Z" itemprop="datePublished">2016-06-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/23/关于雪碧图的自适应/">关于雪碧图的自适应</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&lt;!–markdown–&gt;## 前言</p>
-<p>之前对雪碧图的自适应大小并没有太多的了解，一直停留在scale大法的地步。今天趁着另一个同学来问我，去好好了解了一下。<br>主要参考了 <a href="http://www.cnblogs.com/aaronjs/archive/2015/08/20/4744014.html。这位同学写得很好，简单明了清晰。" target="_blank" rel="noopener">http://www.cnblogs.com/aaronjs/archive/2015/08/20/4744014.html。这位同学写得很好，简单明了清晰。</a></p>
-<h2 id="情景"><a href="#情景" class="headerlink" title="情景"></a>情景</h2><p>当我们在使用 <em>rem</em> 做移动端布局的时候,在享受rem的方便的时候，往往也很头痛雪碧图的自适应问题。毕竟雪碧图无法像 <em>rem</em> 一样跟着屏幕一起变大变小。于是乎就有了像 <em>scale</em>、或者使用多套雪碧图来适配多种屏幕等等。这里讲另一种方法。通过<br><em>background-position</em> 和 <em>background-size</em> 的百分比属性。</p>
-<h2 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h2><ul>
-<li>通过 background-size 缩放雪碧图</li>
-<li>通过 background-position 百分比获取图片片段</li>
-</ul>
-<h2 id="小细节"><a href="#小细节" class="headerlink" title="小细节"></a>小细节</h2><ul>
-<li>background-size 的百分比是相对于元素本身的</li>
-<li>background-position 的百分比是相对于雪碧图的</li>
-<li>为了减少数字计算精度，尽量使雪碧图横竖排的个数可以让100整数， 如4、5。</li>
-</ul>
-<h2 id="完整Demo"><a href="#完整Demo" class="headerlink" title="完整Demo"></a>完整Demo</h2><p>&lt;p data-height=&#34;265&#34; data-theme-id=&#34;0&#34; data-slug-hash=&#34;PzbVRp&#34; data-default-tab=&#34;css,result&#34; data-user=&#34;hijimo&#34; data-embed-version=&#34;2&#34; class=&#34;codepen&#34;&gt;See the Pen &lt;a href=&#34;<a href="http://codepen.io/hijimo/pen/PzbVRp/&#34;&gt;PzbVRp&lt;/a" target="_blank" rel="noopener">http://codepen.io/hijimo/pen/PzbVRp/&#34;&gt;PzbVRp&lt;/a</a>&gt; by jimo (&lt;a href=&#34;<a href="http://codepen.io/hijimo&#34;&gt;@hijimo&lt;/a&gt;" target="_blank" rel="noopener">http://codepen.io/hijimo&#34;&gt;@hijimo&lt;/a&gt;</a>) on &lt;a href=&#34;<a href="http://codepen.io&#34;&gt;CodePen&lt;/a&gt;.&lt;/p" target="_blank" rel="noopener">http://codepen.io&#34;&gt;CodePen&lt;/a&gt;.&lt;/p</a>&gt;<br>&lt;script async src=&#34;//assets.codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;</p>
-<p>在线demo:<a href="http://demo.hijimo.com/sprite/index.html" target="_blank" rel="noopener">传送门</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2016/06/23/关于雪碧图的自适应/" data-id="cjrd3bkue0026al3grdgie796" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于字蛛" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/27/关于字蛛/" class="article-date">
-  <time datetime="2015-08-27T14:20:00.000Z" itemprop="datePublished">2015-08-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/27/关于字蛛/">关于字蛛</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="lt-–markdown–-gt-字蛛是什么"><a href="#lt-–markdown–-gt-字蛛是什么" class="headerlink" title="&lt;!–markdown–&gt;字蛛是什么"></a>&lt;!–markdown–&gt;字蛛是什么</h2><p>字蛛是腾讯前端小组推出的一个font-face工具，主要用于解决网站设计时的字体问题。简述与用例见<a href="http://font-spider.org/" target="_blank" rel="noopener">传送门</a></p>
-<h2 id="字蛛能干什么"><a href="#字蛛能干什么" class="headerlink" title="字蛛能干什么"></a>字蛛能干什么</h2><p>它提供了一些便利允许你在某些情况下，让你的设计师随心所欲的使用字体而没后顾之忧。并且，这些字体是可以被使用到网页中去的。<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
-<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>设计师给我们的设计图上的字体往往美丽动人，但并非所有的客户机都拥有这漂亮的字体。font-face 允许我们使用自定义的字体，在加载网页的时候向客户发送字体文件。但和英文字体不同，中文字体往往都是10M以上，这在天朝的的网络大概需要40秒的加载时间。</p>
-<p>字蛛作为一个工具，提供了一种便利：通过爬取网站内已使用的文本，将字体文件中不需要的字体通通删除后重新打包成eof,woff,ttf，svg等流行的web字体。新打包的字体文件由于只包含了很少的字体，所以可以得到令人满意的大小。</p>
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>官网上有很详细的使用说明。其实可以说是简单到了极致，只需要一句命令行语句就搞定了</p>
-<pre><code>font-spider /Users/jimo/Documents/website/demo.hijimo.com/fontspider/*.html
-</code></pre><h2 id="在线案例"><a href="#在线案例" class="headerlink" title="在线案例"></a>在线案例</h2><p>嗯，我写了一个小demo.使用了目前很火的思源字体。 <a href="http://demo.hijimo.com/fontspider/fontspider.html" target="_blank" rel="noopener">传送门</a></p>
-<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><p>字蛛使用了三个插件：</p>
-<ul>
-<li><a href="https://github.com/ecomfe/fontmin" target="_blank" rel="noopener">fontmin</a>：百度出品，用于字体转换与压缩</li>
-<li><a href="https://github.com/NV/CSSOM" target="_blank" rel="noopener">cssom</a> ：用于css解析</li>
-<li><a href="https://github.com/cheeriojs/cheerio" target="_blank" rel="noopener">cheerio</a> ：用于html解析</li>
-</ul>
-<h2 id="使用感受"><a href="#使用感受" class="headerlink" title="使用感受"></a>使用感受</h2><ul>
-<li>大小：</li>
-</ul>
-<ol>
-<li>700个不重复中文 150k</li>
-<li>458个不重复中文 86K</li>
-<li>242个不重复中文 45k</li>
-<li>100个不重复中文 21K</li>
-<li>20个不重复中文 9K</li>
-</ol>
-<ul>
-<li>兼容性: @font-face 标记在ie6就已开始支持在ie9已经完全支持。见<a href="http://caniuse.com/#search=font-face" target="_blank" rel="noopener">传送门</a></li>
-<li>关于源字体：字蛛官方有声明，必须要有ttf格式的字体</li>
-<li>关于ttf:并不是每一个ttf文件都允许被转换，首先该ttf字体充许这种转换。另有其他网友说有些偏门字体会出错，我没碰到过。</li>
-<li>关于用户体验：由于使用了外部字体。当第一次字体文件加载好的时候页面会闪一下，非常不友好。第二次或以后再访问由于cookie的存在并不会有这个问题。亦或者可以使用loading的页面事先加载好所需文件。</li>
-<li>关于使用场景：像企业官网、个人主页等使用少量不重复汉字的场景。博客或内容系统的标题、导航、菜单等非正文栏目。</li>
-<li>其他，睡醒了再补充</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/08/27/关于字蛛/" data-id="cjrd3bku90020al3gt48s9thq" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于ie11下fontsize0与 rem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/20/关于ie11下fontsize0与 rem/" class="article-date">
-  <time datetime="2015-08-20T14:50:00.000Z" itemprop="datePublished">2015-08-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/20/关于ie11下fontsize0与 rem/">关于ie11下fontsize0与 rem</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="lt-–markdown–-gt-前言一"><a href="#lt-–markdown–-gt-前言一" class="headerlink" title="&lt;!–markdown–&gt;前言一"></a>&lt;!–markdown–&gt;前言一</h2><p>好像很久很久没有写博客了…</p>
-<h2 id="前言二"><a href="#前言二" class="headerlink" title="前言二"></a>前言二</h2><p>今天七夕,老板不让加班…</p>
-<h2 id="前言三"><a href="#前言三" class="headerlink" title="前言三"></a>前言三</h2><p>最近在工作中使用到了rem，随之引发了一个奇怪的bug…</p>
-<h2 id="关于rem"><a href="#关于rem" class="headerlink" title="关于rem"></a>关于rem</h2><p>w3c对rem只有简短的一句概述：root em, a unit equal to the em size for the document root (usually html)。 使用根元素html的字体大小。它的出现，可以让我们更加快乐简单的去完成自适应布局顺带连字体大小都一起自适应了。<br>&lt;p&gt;&lt;!–more–&gt;&lt;/p&gt;</p>
-<h2 id="bug表现"><a href="#bug表现" class="headerlink" title="bug表现"></a>bug表现</h2><p>在ie11(还有微软新的旗鱼浏览器)下，部分使用了rem单位的元素仅能在预设的fontsize下工作，之后不管如何再更改html的大小，都不再起作用。最后花了半天的时间定位到原因为，失效的父容器中设置了font-size:0;</p>
-<p>&lt;p data-height=&#34;268&#34; data-theme-id=&#34;0&#34; data-slug-hash=&#34;ZGdKXP&#34; data-default-tab=&#34;result&#34; data-user=&#34;hijimo&#34; class=&#39;codepen&#39;&gt;See the Pen &lt;a href=&#39;<a href="http://codepen.io/hijimo/pen/ZGdKXP/&#39;&gt;ZGdKXP&lt;/a" target="_blank" rel="noopener">http://codepen.io/hijimo/pen/ZGdKXP/&#39;&gt;ZGdKXP&lt;/a</a>&gt; by jimo (&lt;a href=&#39;<a href="http://codepen.io/hijimo&#39;&gt;@hijimo&lt;/a&gt;" target="_blank" rel="noopener">http://codepen.io/hijimo&#39;&gt;@hijimo&lt;/a&gt;</a>) on &lt;a href=&#39;<a href="http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p" target="_blank" rel="noopener">http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p</a>&gt;<br>&lt;script async src=&#34;//assets.codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;<br>–bug呈现原因与解决方案</p>
-<p>最终解决方案，在父容器中取消了font-size:0的css样式。关于bug出现的原因，鉴于其他浏览器都能正常工作，结合国内外友人碰到的ie11下的fontsize 与 em rem 的bug来看。暂定于这是ie11的bug!（此结论仅由目前我所拥有的知识与信息所得出，随时拥有变更的可能性，且不具有任何借鉴意义！）</p>
-<p>w3c上对rem的描述.(<a href="https://docs.webplatform.org/wiki/css/units" target="_blank" rel="noopener">传送门1</a> <a href="https://docs.webplatform.org/wiki/tutorials/understanding-css-units" target="_blank" rel="noopener">传送门2</a>)。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hijimo.github.io/2015/08/20/关于ie11下fontsize0与 rem/" data-id="cjrd3bku3001qal3g4aaq7sy8" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
 
     </footer>
   </div>
@@ -612,7 +578,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">weiter &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 戻る</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">次へ &raquo;</a>
   </nav>
 
 </section>
@@ -621,7 +587,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">カテゴリ</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端优化/">前端优化</a></li></ul>
     </div>
@@ -631,7 +597,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cssom/">cssom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom/">dom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webRTC/">webRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析/">分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端优化/">前端优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压缩/">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/帧/">帧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渲染/">渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动/">移动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
     </div>
@@ -641,7 +607,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
       <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/cssom/" style="font-size: 10px;">cssom</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/webRTC/" style="font-size: 14px;">webRTC</a> <a href="/tags/分析/" style="font-size: 10px;">分析</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/前端优化/" style="font-size: 18px;">前端优化</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/帧/" style="font-size: 10px;">帧</a> <a href="/tags/性能/" style="font-size: 12px;">性能</a> <a href="/tags/渲染/" style="font-size: 16px;">渲染</a> <a href="/tags/移动/" style="font-size: 10px;">移动</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
@@ -650,9 +616,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
     </div>
   </div>
 
@@ -660,28 +626,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">最近の投稿</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2019/01/25/复习--web安全基础/">复习--web安全基础</a>
+            <a href="/2019/03/03/headers头和文件下载/">headers头和文件下载</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/webRTC基础篇--视频编解码基础/">webRTC基础--视频编解码</a>
+            <a href="/2019/03/01/webpack4.0-简易webpack实现/">webpack4.0之简易webpack实现</a>
           </li>
         
           <li>
-            <a href="/2018/10/03/webRTC基础篇-ice/">webRTC基础篇-ice</a>
+            <a href="/2019/02/25/webpack4.0-插件/">webpack4.0之插件</a>
           </li>
         
           <li>
-            <a href="/2018/09/19/webRTC基础篇--NAT/">webRTC基础--NAT</a>
+            <a href="/2019/02/24/webpack4.0--tapable/">webpack4.0之tapable</a>
           </li>
         
           <li>
-            <a href="/2018/09/01/webRTC基础--音视频/">webRTC基础--音视频</a>
+            <a href="/2019/02/22/webpack4.0--loader/">webpack4.0之loader</a>
           </li>
         
       </ul>
